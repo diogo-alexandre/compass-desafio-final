@@ -1,4 +1,5 @@
 import { App } from './App'
+import { Log } from './helpers/log.helper'
 import { env } from './utils/env.util'
 
 async function main (): Promise<void> {
@@ -6,7 +7,7 @@ async function main (): Promise<void> {
   const port = env('PORT') ?? 3000
 
   app.listen(port, () => {
-    console.log(`Server is running on port: ${port}`)
+    Log.info(`Server is running on port: ${port}`)
   })
 }
 
