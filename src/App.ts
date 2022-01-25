@@ -1,4 +1,5 @@
 import express, { Express } from 'express'
+import { Database } from './database'
 
 export class App {
   readonly express: Express
@@ -9,6 +10,9 @@ export class App {
 
   static async init (): Promise<Express> {
     const app = new App()
+
+    await Database.init()
+
     return app.express
   }
 
