@@ -1,0 +1,35 @@
+{
+  "name": "compass-desafio-final",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/src/server.js",
+  "scripts": {
+    "start:dev": "ts-node-dev --transpile-only src/server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diogo-alexandre/compass-desafio-final.git"
+  },
+  "keywords": [],
+  "author": "Diogo Alexandre <diogo.silva_bols@compasso.com.br>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/diogo-alexandre/compass-desafio-final/issues"
+  },
+  "homepage": "https://github.com/diogo-alexandre/compass-desafio-final#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.12",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "eslint": "^7.32.0",
+    "eslint-config-standard-with-typescript": "^21.0.1",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
