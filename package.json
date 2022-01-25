@@ -1,6 +1,6 @@
 {
   "name": "compass-desafio-final",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "",
   "main": "dist/src/server.js",
   "scripts": {
@@ -34,6 +34,7 @@
   "dependencies": {
     "dotenv": "^14.3.0",
     "express": "^4.17.2",
+    "joi": "^17.5.0",
     "mongoose": "^6.1.8"
   }
 }
