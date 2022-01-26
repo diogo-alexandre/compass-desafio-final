@@ -11,11 +11,11 @@ const CarSchema = new Schema({
     required: true
   },
   ano: {
-    type: Number,
+    type: String,
     required: true
   },
   quantidadePassageiros: {
-    type: Number,
+    type: String,
     required: true
   },
   acessorios: {
