@@ -1,7 +1,7 @@
 import express, { Express } from 'express'
 
 import { Database } from './database'
-import { v1 } from './routes/v1'
+import { Routes } from './routes'
 
 export class App {
   readonly express: Express
@@ -27,6 +27,6 @@ export class App {
   }
 
   routes (): void {
-    this.express.use('/api/v1', v1())
+    this.express.use('/api', Routes.handle())
   }
 }
