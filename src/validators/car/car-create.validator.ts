@@ -2,9 +2,10 @@ import Joi from 'joi'
 import { NextFunction, Request, Response } from 'express'
 
 import { ICar } from '../../models/car.model'
+import { Middleware } from '@decorators/express'
 
-export const CarCreateValidation = {
-  handle (req: Request, res: Response, next: NextFunction) {
+export class CarCreateValidation implements Middleware {
+  use (req: Request, res: Response, next: NextFunction): void {
     try {
       const schema: Joi.ObjectSchema<ICar> = Joi.object({
         modelo: Joi.string().required(),
