@@ -14,13 +14,11 @@ export class CarService implements ICarService {
   ) { }
 
   async create ({ modelo, cor, ano, acessorios, quantidadePassageiros }: ICar): Promise<ICar> {
-    const acessoriosEntries = Array.from(new Set<string>(acessorios.map(a => a.descricao)))
-
     return await this.carRepository.create({
       modelo,
       cor,
       ano,
-      acessorios: acessoriosEntries.map(descricao => ({ descricao })),
+      acessorios,
       quantidadePassageiros
     })
   }
