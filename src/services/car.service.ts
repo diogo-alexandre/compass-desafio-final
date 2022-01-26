@@ -25,7 +25,22 @@ export class CarService implements ICarService {
     })
   }
 
+  async findById (id: string): Promise<ICar> {
+    const car = await this.carRepository.findById(id)
+
+    if (car === null) {
+      throw new Error()
+    }
+
+    return car
+  }
+
   async findAll (query: Partial<ICar>, limit: number, offset: number): Promise<IPagination<ICar>> {
     return await this.carRepository.findAll(query, limit, offset)
+  }
+
+  async delete (id: string): Promise<ICar> {
+    const car = await this.findById(id)
+    return await this.carRepository.delete(car)
   }
 }

@@ -1,6 +1,6 @@
 import { Inject } from '@decorators/di'
 import { NextFunction, Request, Response } from 'express'
-import { Controller, Get, Post } from '@decorators/express'
+import { Controller, Delete, Get, Post } from '@decorators/express'
 
 import { ICar } from '../models/car.model'
 import { CarService } from '../services/car.service'
@@ -49,5 +49,10 @@ export class CarController {
     } catch (error) {
       next(error)
     }
+  }
+
+  @Delete('/:id')
+  async delete (req: Request, res: Response, next: NextFunction): Promise<void> {
+
   }
 }
