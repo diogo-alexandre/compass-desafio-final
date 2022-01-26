@@ -10,7 +10,7 @@ export class CarCreateValidation implements Middleware {
       const schema: Joi.ObjectSchema<ICar> = Joi.object({
         modelo: Joi.string().required(),
         cor: Joi.string().required(),
-        ano: Joi.number().max(new Date().getFullYear()).required(),
+        ano: Joi.number().max(new Date().getFullYear()).min(1950).required(),
         quantidadePassageiros: Joi.number().required(),
         acessorios: Joi.array().min(1).items(Joi.object({
           descricao: Joi.string().required()
