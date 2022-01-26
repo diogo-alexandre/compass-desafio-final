@@ -1,12 +1,13 @@
-import { Controller, Get, Post } from '@decorators/express'
+import { Inject } from '@decorators/di'
 import { NextFunction, Request, Response } from 'express'
+import { Controller, Get, Post } from '@decorators/express'
 
 import { ICar } from '../models/car.model'
+import { CarService } from '../services/car.service'
 import { HttpCode } from '../constant/http-code.contant'
 import { ICarService } from '../services/interfaces/car-service.interface'
 import { CarCreateValidation } from '../validators/car/car-create.validator'
-import { Inject } from '@decorators/di'
-import { CarService } from '../services/car.service'
+import { CarFindAllValidation } from '../validators/car/car-findall.validator'
 
 @Controller('/car')
 export class CarController {
@@ -29,7 +30,7 @@ export class CarController {
     }
   }
 
-  @Get('/')
+  @Get('/', [CarFindAllValidation])
   async findAll (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { limit, offset, ...query } = req.query
