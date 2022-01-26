@@ -40,7 +40,12 @@ export class CarService implements ICarService {
   }
 
   async delete (id: string): Promise<ICar> {
-    const car = await this.findById(id)
-    return await this.carRepository.delete(car)
+    const car = await this.carRepository.delete(id)
+
+    if (car === null) {
+      throw new Error()
+    }
+
+    return car
   }
 }

@@ -45,7 +45,7 @@ export class CarRepository implements ICarRepository {
     }
   }
 
-  async delete (car: ICar): Promise<ICar> {
-    return await Car.remove(car)
+  async delete (id: string): Promise<ICar | null> {
+    return await Car.findByIdAndDelete(id)
   }
 }

@@ -56,7 +56,6 @@ export class CarController {
   async delete (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { id } = req.params
-
       await this.carService.delete(id)
 
       res
