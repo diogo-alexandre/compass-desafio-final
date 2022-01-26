@@ -35,18 +35,11 @@ export class CarController {
   async findAll (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { limit, offset, ...query } = req.query
-      const { result, ...pagination } = await this.carService.findAll(
-        query,
-        Number(limit),
-        Number(offset)
-      )
+      const result = await this.carService.findAll(query)
 
       res
         .status(HttpCode.OK)
-        .json({
-          veiculos: result,
-          ...pagination
-        })
+        .json(result)
     } catch (error) {
       next(error)
     }

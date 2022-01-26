@@ -22,9 +22,7 @@ export class CarFindAllValidation implements Middleware {
           })
 
           return value
-        }),
-        limit: Joi.number().min(0),
-        offset: Joi.number().min(0)
+        })
       })
 
       const { error } = schema.validate(req.query)

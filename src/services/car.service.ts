@@ -3,7 +3,6 @@ import { Inject, Injectable } from '@decorators/di'
 import { ICar } from '../helpers/interfaces/car.interface'
 import { CarRepository } from '../repositories/car.repository'
 import { ICarService } from './interfaces/car-service.interface'
-import { IPagination } from '../helpers/interfaces/pagination.interface'
 import { ICarRepository } from '../repositories/interfaces/car-repository.interface'
 
 @Injectable()
@@ -33,8 +32,8 @@ export class CarService implements ICarService {
     return car
   }
 
-  async findAll (query: Partial<ICar>, limit: number, offset: number): Promise<IPagination<ICar>> {
-    return await this.carRepository.findAll(query, limit, offset)
+  async findAll (query: Partial<ICar>): Promise<ICar[]> {
+    return await this.carRepository.findAll(query)
   }
 
   async delete (id: string): Promise<ICar> {

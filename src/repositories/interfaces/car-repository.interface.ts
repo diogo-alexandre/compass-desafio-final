@@ -1,9 +1,8 @@
 import { ICar } from '../../helpers/interfaces/car.interface'
-import { IPagination } from '../../helpers/interfaces/pagination.interface'
 
 export interface ICarRepository {
   create: (car: ICar) => Promise<ICar>
-  findAll: (query: Partial<ICar>, limit: number, offset: number) => Promise<IPagination<ICar>>
+  findAll: (query: Partial<ICar>) => Promise<ICar[]>
   delete: (id: string) => Promise<ICar | null>
   findById: (id: string) => Promise<ICar | null>
 }
