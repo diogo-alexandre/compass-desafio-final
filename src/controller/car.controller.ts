@@ -53,6 +53,16 @@ export class CarController {
 
   @Delete('/:id')
   async delete (req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { id } = req.params
 
+      await this.carService.delete(id)
+
+      res
+        .status(HttpCode.NO_CONTENT)
+        .end()
+    } catch (error) {
+      next(error)
+    }
   }
 }
