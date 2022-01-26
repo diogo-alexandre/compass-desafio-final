@@ -5,10 +5,13 @@ import { ICar } from '../models/car.model'
 import { HttpCode } from '../constant/http-code.contant'
 import { ICarService } from '../services/interfaces/car-service.interface'
 import { CarCreateValidation } from '../validators/car/car-create.validator'
+import { Inject } from '@decorators/di'
+import { CarService } from '../services/car.service'
 
 @Controller('/car')
 export class CarController {
   constructor (
+    @Inject(CarService)
     private readonly carService: ICarService
   ) { }
 
