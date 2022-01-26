@@ -14,7 +14,7 @@ export class CarCreateValidation implements Middleware {
         quantidadePassageiros: Joi.number().required(),
         acessorios: Joi.array().min(1).items(Joi.object({
           descricao: Joi.string().required()
-        }))
+        })).required()
       })
 
       const { error } = schema.validate(req.body)
