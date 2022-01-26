@@ -1,6 +1,6 @@
 import { Injectable } from '@decorators/di'
 
-import { Car } from '../models/car.model'
+import { Car } from '../schemas/car.schema'
 import { clearObject } from '../utils/clear-object.util'
 import { ICar } from '../helpers/interfaces/car.interface'
 import { ICarRepository } from './interfaces/car-repository.interface'
@@ -22,7 +22,6 @@ export class CarRepository implements ICarRepository {
 
     const filter = {
       $and: [clearObject<Partial<ICar>>({
-        _id: query._id,
         modelo: new RegExp(query.modelo ?? '', 'i'),
         cor: query.cor,
         ano: query.ano,
