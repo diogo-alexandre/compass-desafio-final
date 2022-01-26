@@ -4,6 +4,7 @@ import { ICar } from '../models/car.model'
 import { ICarService } from './interfaces/car-service.interface'
 import { ICarRepository } from '../repositories/interfaces/car-repository.interface'
 import { CarRepository } from '../repositories/car.repository'
+import { IPagination } from '../helpers/interfaces/pagination.interface'
 
 @Injectable()
 export class CarService implements ICarService {
@@ -22,5 +23,9 @@ export class CarService implements ICarService {
       acessorios: acessoriosEntries.map(descricao => ({ descricao })),
       quantidadePassageiros
     })
+  }
+
+  async findAll (query: Partial<ICar>, limit: number, offset: number): Promise<IPagination<ICar>> {
+    return await this.carRepository.findAll(query, limit, offset)
   }
 }
