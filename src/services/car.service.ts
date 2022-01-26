@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@decorators/di'
 
-import { ICar } from '../models/car.model'
-import { ICarService } from './interfaces/car-service.interface'
-import { ICarRepository } from '../repositories/interfaces/car-repository.interface'
+import { ICar } from '../helpers/interfaces/car.interface'
 import { CarRepository } from '../repositories/car.repository'
+import { ICarService } from './interfaces/car-service.interface'
 import { IPagination } from '../helpers/interfaces/pagination.interface'
+import { ICarRepository } from '../repositories/interfaces/car-repository.interface'
 
 @Injectable()
 export class CarService implements ICarService {

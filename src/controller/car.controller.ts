@@ -2,7 +2,7 @@ import { Inject } from '@decorators/di'
 import { NextFunction, Request, Response } from 'express'
 import { Controller, Delete, Get, Post } from '@decorators/express'
 
-import { ICar } from '../models/car.model'
+import { ICar } from '../helpers/interfaces/car.interface'
 import { CarService } from '../services/car.service'
 import { HttpCode } from '../constant/http-code.contant'
 import { ICarService } from '../services/interfaces/car-service.interface'

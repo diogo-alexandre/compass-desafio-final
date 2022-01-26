@@ -1,4 +1,4 @@
-import { ICar } from '../../models/car.model'
+import { ICar } from '../../helpers/interfaces/car.interface'
 import { IPagination } from '../../helpers/interfaces/pagination.interface'
 
 export interface ICarRepository {

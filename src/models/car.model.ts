@@ -1,13 +1,5 @@
 import { Model, model, Schema } from 'mongoose'
-
-export interface ICar {
-  _id?: string
-  modelo: string
-  cor: string
-  ano: string
-  acessorios: Array<{ descricao: string }>
-  quantidadePassageiros: number
-}
+import { ICar } from '../helpers/interfaces/car.interface'
 
 const CarSchema = new Schema({
   modelo: {

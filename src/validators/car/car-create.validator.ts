@@ -1,8 +1,8 @@
 import Joi from 'joi'
 import { NextFunction, Request, Response } from 'express'
 
-import { ICar } from '../../models/car.model'
 import { Middleware } from '@decorators/express'
+import { ICar } from '../../helpers/interfaces/car.interface'
 
 export class CarCreateValidation implements Middleware {
   use (req: Request, res: Response, next: NextFunction): void {

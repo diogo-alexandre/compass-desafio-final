@@ -1,7 +1,8 @@
 import { Injectable } from '@decorators/di'
 
-import { Car, ICar } from '../models/car.model'
+import { Car } from '../models/car.model'
 import { clearObject } from '../utils/clear-object.util'
+import { ICar } from '../helpers/interfaces/car.interface'
 import { ICarRepository } from './interfaces/car-repository.interface'
 import { IPagination } from '../helpers/interfaces/pagination.interface'
 

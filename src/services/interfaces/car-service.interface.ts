@@ -1,5 +1,5 @@
 import { IPagination } from '../../helpers/interfaces/pagination.interface'
-import { ICar } from '../../models/car.model'
+import { ICar } from '../../helpers/interfaces/car.interface'
 
 export interface ICarService {
   create: (car: ICar) => Promise<ICar>

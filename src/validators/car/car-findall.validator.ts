@@ -2,8 +2,8 @@ import Joi, { LanguageMessages } from 'joi'
 import { isValidObjectId } from 'mongoose'
 import { NextFunction, Request, Response } from 'express'
 
-import { ICar } from '../../models/car.model'
 import { Middleware } from '@decorators/express'
+import { ICar } from '../../helpers/interfaces/car.interface'
 
 export class CarFindAllValidation implements Middleware {
   use (req: Request, res: Response, next: NextFunction): void {
