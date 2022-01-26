@@ -40,4 +40,8 @@ export class CarRepository implements ICarRepository {
       offsets: (limit === 0) ? 1 : Math.ceil(count / limit)
     }
   }
+
+  async delete (car: ICar): Promise<ICar> {
+    return await Car.remove(car)
+  }
 }
