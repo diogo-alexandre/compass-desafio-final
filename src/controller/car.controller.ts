@@ -66,4 +66,18 @@ export class CarController {
       next(error)
     }
   }
+
+  @Get('/:id', [ParamIdValidation])
+  async findById (req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { id } = req.params
+      const car = await this.carService.findById(id)
+
+      res
+        .status(HttpCode.OK)
+        .json(car)
+    } catch (error) {
+      next(error)
+    }
+  }
 }
