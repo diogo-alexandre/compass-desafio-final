@@ -28,6 +28,6 @@ const CarSchema = new Schema({
   acessorios: {
     type: Array
   }
-})
+}, { versionKey: false })
 
 export const Car: Model<ICar> = model('Car', CarSchema)
