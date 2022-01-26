@@ -1,10 +1,26 @@
-import { Injectable } from '@decorators/di'
-import { Car, ICar } from '../models/car.model'
+import { Inject, Injectable } from '@decorators/di'
+
+import { ICar } from '../models/car.model'
 import { ICarService } from './interfaces/car-service.interface'
+import { ICarRepository } from '../repositories/interfaces/car-repository.interface'
+import { CarRepository } from '../repositories/car.repository'
 
 @Injectable()
 export class CarService implements ICarService {
+  constructor (
+    @Inject(CarRepository)
+    private readonly carRepository: ICarRepository
+  ) { }
+
   async create ({ modelo, cor, ano, acessorios, quantidadePassageiros }: ICar): Promise<ICar> {
-    return new Car({ modelo, cor, ano, acessorios, quantidadePassageiros })
+    const acessoriosEntries = Array.from(new Set<string>(acessorios.map(a => a.descricao)))
+
+    return await this.carRepository.create({
+      modelo,
+      cor,
+      ano,
+      acessorios: acessoriosEntries.map(descricao => ({ descricao })),
+      quantidadePassageiros
+    })
   }
 }
