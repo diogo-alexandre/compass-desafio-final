@@ -1,5 +1,4 @@
-import Joi, { LanguageMessages } from 'joi'
-import { isValidObjectId } from 'mongoose'
+import Joi from 'joi'
 import { NextFunction, Request, Response } from 'express'
 
 import { Middleware } from '@decorators/express'
@@ -9,14 +8,6 @@ export class CarFindAllValidation implements Middleware {
   use (req: Request, res: Response, next: NextFunction): void {
     try {
       const schema: Joi.ObjectSchema<ICar> = Joi.object({
-        id: Joi.string().custom((value, helper) => {
-          if (!isValidObjectId(value)) {
-            return helper.message('Field id is not a valid id' as unknown as LanguageMessages)
-          } else {
-            req.query._id = value
-            return value
-          }
-        }),
         modelo: Joi.string(),
         cor: Joi.string(),
         ano: Joi.number().max(new Date().getFullYear()).min(1950),

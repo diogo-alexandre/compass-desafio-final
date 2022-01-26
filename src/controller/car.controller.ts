@@ -36,7 +36,7 @@ export class CarController {
     try {
       const { limit, offset, ...query } = req.query
       const { result, ...pagination } = await this.carService.findAll(
-        query as unknown as Partial<ICar>,
+        query,
         Number(limit),
         Number(offset)
       )
