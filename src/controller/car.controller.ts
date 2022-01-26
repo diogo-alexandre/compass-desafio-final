@@ -8,6 +8,7 @@ import { HttpCode } from '../constant/http-code.contant'
 import { ICarService } from '../services/interfaces/car-service.interface'
 import { CarCreateValidation } from '../validators/car/car-create.validator'
 import { CarFindAllValidation } from '../validators/car/car-findall.validator'
+import { ParamIdValidation } from '../validators/param-id.validator'
 
 @Controller('/car')
 export class CarController {
@@ -51,7 +52,7 @@ export class CarController {
     }
   }
 
-  @Delete('/:id')
+  @Delete('/:id', [ParamIdValidation])
   async delete (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { id } = req.params
