@@ -12,7 +12,7 @@ export class CarCreateValidation implements Middleware {
         cor: Joi.string().required(),
         ano: Joi.number().max(new Date().getFullYear()).required(),
         quantidadePassageiros: Joi.number().required(),
-        acessorios: Joi.array().items(Joi.object({
+        acessorios: Joi.array().min(1).items(Joi.object({
           descricao: Joi.string().required()
         }))
       })
