@@ -11,6 +11,10 @@ export class CarRepository implements ICarRepository {
     return await Car.create(car)
   }
 
+  async findById (id: string): Promise<ICar | null> {
+    return await Car.findOne({ _id: id })
+  }
+
   async findAll (query: Partial<ICar>, limit: number, offset: number): Promise<IPagination<ICar>> {
     limit = (!isNaN(limit)) ? limit : 0
     offset = (!isNaN(offset)) ? offset : 0
