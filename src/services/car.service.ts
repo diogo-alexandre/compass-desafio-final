@@ -33,8 +33,8 @@ export class CarService implements ICarService {
     return car
   }
 
-  async findAll (query: Partial<ICar>, limit: number, skip: number): Promise<IPaginateResult<ICar>> {
-    return await this.carRepository.findAll(query, limit, skip)
+  async findAll (query: Partial<ICar>, limit: number, offset: number): Promise<IPaginateResult<ICar>> {
+    return await this.carRepository.findAll(query, limit, offset)
   }
 
   async delete (id: string): Promise<ICar> {
