@@ -1,7 +1,8 @@
-import { Model, model, Schema } from 'mongoose'
+import { model, Schema } from 'mongoose'
 import mongoosePagination from 'mongoose-paginate-v2'
 
 import { ICar } from '../helpers/interfaces/car.interface'
+import { IPaginateModel } from '../helpers/interfaces/paginate.interface'
 
 const CarSchema = new Schema({
   modelo: {
@@ -27,4 +28,4 @@ const CarSchema = new Schema({
 
 CarSchema.plugin(mongoosePagination)
 
-export const Car: Model<ICar> = model<ICar>('Car', CarSchema)
+export const Car = model<ICar>('Car', CarSchema) as IPaginateModel<ICar>
