@@ -2,13 +2,13 @@ import { Inject } from '@decorators/di'
 import { NextFunction, Request, Response } from 'express'
 import { Controller, Delete, Get, Post } from '@decorators/express'
 
-import { ICar } from '../helpers/interfaces/car.interface'
 import { CarService } from '../services/car.service'
-import { HttpCode } from '../constant/http-code.contant'
+import { HttpCode } from '../constants/http-code.contant'
+import { ICar } from '../helpers/interfaces/car.interface'
+import { ParamIdValidation } from '../validators/param-id.validator'
 import { ICarService } from '../services/interfaces/car-service.interface'
 import { CarCreateValidation } from '../validators/car/car-create.validator'
 import { CarFindAllValidation } from '../validators/car/car-findall.validator'
-import { ParamIdValidation } from '../validators/param-id.validator'
 
 @Controller('/car')
 export class CarController {
