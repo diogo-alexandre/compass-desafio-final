@@ -12,17 +12,7 @@ export class CarFindAllValidation implements Middleware {
         cor: Joi.string(),
         ano: Joi.number().max(new Date().getFullYear()).min(1950),
         quantidadePassageiros: Joi.number(),
-        acessorios: Joi.string().custom((value, helper) => {
-          const acessorios = value.split(',')
-
-          req.query.acessorios = acessorios.map((descricao: string) => {
-            return {
-              descricao: descricao.trim()
-            }
-          })
-
-          return value
-        })
+        acessorios: Joi.array().items(Joi.string().trim())
       })
 
       const { error } = schema.validate(req.query)

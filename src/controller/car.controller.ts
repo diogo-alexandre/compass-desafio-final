@@ -35,6 +35,7 @@ export class CarController {
   async findAll (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { limit, offset, ...query } = req.query
+
       const result = await this.carService.findAll(query)
 
       res

@@ -21,7 +21,7 @@ export class CarRepository implements ICarRepository {
         modelo: new RegExp(query.modelo ?? '', 'i'),
         cor: query.cor,
         ano: query.ano,
-        acessorios: query.acessorios,
+        acessorios: { $in: query.acessorios?.map(descricao => ({ descricao })) },
         quantidadePassageiros: query.quantidadePassageiros
       })]
     }
