@@ -4,7 +4,7 @@ export function clearObject <T> (obj: any): T {
   const result: any = {}
 
   Object.keys(obj).forEach(key => {
-    if (obj[key] !== undefined && obj[key] !== '') {
+    if (obj[key] !== undefined && obj[key] !== '' && !isNaN(obj[key])) {
       if (typeof obj[key] === 'object' && !Array.isArray(obj[key]) && !isRegExp(obj[key])) {
         const r = clearObject<any>(obj[key])
 
