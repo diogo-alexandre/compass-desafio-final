@@ -1,7 +1,8 @@
+import Joi from 'joi'
 import { isValidObjectId } from 'mongoose'
-import Joi, { LanguageMessages } from 'joi'
 import { Middleware } from '@decorators/express'
 import { Request, Response, NextFunction } from 'express'
+
 import { BadRequest } from '../errors/http/bad-request.error'
 
 export class ParamIdValidation implements Middleware {
@@ -9,12 +10,7 @@ export class ParamIdValidation implements Middleware {
     try {
       const schema = Joi.object({
         id: Joi.string().custom((value, helper) => {
-          if (!isValidObjectId(value)) {
-            return helper.message('Field id is not a valid id' as unknown as LanguageMessages)
-          } else {
-            req.query._id = value
-            return value
-          }
+          return isValidObjectId(value) ? value : helper.message({ custom: 'Id field is not valid' })
         }).required()
       })
 
