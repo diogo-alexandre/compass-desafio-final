@@ -2,6 +2,8 @@ import { Inject } from '@decorators/di'
 import { Controller, Post } from '@decorators/express'
 import { NextFunction, Request } from 'express'
 import { HttpCode } from '../constants/http-code.contant'
+import { EntityNotFound } from '../errors/entity-not-found.error'
+import { NotFound } from '../errors/http/not-found-error'
 import { UnauthorizedError } from '../errors/http/unauthorized.error'
 import { InvalidPasswordError } from '../errors/invalid-password.error'
 import { Response } from '../helpers/interfaces/response.interface'
@@ -25,7 +27,9 @@ export class AuthController {
     } catch (err) {
       let localError = err
 
-      if (err instanceof InvalidPasswordError) {
+      if (err instanceof EntityNotFound) {
+        localError = new NotFound(err.message)
+      } else if (err instanceof InvalidPasswordError) {
         localError = new UnauthorizedError(err.message)
       }
 
