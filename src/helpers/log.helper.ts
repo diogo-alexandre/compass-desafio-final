@@ -17,7 +17,18 @@ function base (type: string, color: Color | string, message: string): void {
 }
 
 export const Log = {
-  info (message: string) {
+  info (message: string): void {
     base('info', Color.CYAN, message)
+  },
+  error (err: Error): void {
+    const stack = err.stack?.split('\n')
+
+    base('error', Color.RED + Color.BRIGHT, `${err.name}: ${err.message}`)
+
+    if (stack !== undefined) {
+      delete stack[0]
+
+      stack.forEach(line => console.log(line))
+    }
   }
 }
