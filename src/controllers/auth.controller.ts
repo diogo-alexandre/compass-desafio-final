@@ -9,6 +9,7 @@ import { InvalidPasswordError } from '../errors/invalid-password.error'
 import { Response } from '../helpers/interfaces/response.interface'
 import { AuthService } from '../services/auth.service'
 import { IAuthService } from '../services/interfaces/auth-service.interface'
+import { AuthLoginValidator } from '../validators/auth/auth-login.validator'
 
 @Controller('/authenticate')
 export class AuthController {
@@ -17,7 +18,7 @@ export class AuthController {
     private readonly authService: IAuthService
   ) { }
 
-  @Post('/')
+  @Post('/', [AuthLoginValidator])
   async handle (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { email, senha } = req.body
