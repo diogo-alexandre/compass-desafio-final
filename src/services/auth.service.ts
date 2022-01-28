@@ -33,7 +33,7 @@ export class AuthService implements IAuthService {
     return {
       jwt: jwt.sign({
         email: people.email,
-        habilitado: people.habilitado
+        habilitado: (people.habilitado) ? 'sim' : 'nao'
       }, secret)
     }
   }
