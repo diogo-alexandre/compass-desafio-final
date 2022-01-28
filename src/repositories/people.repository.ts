@@ -8,4 +8,8 @@ export class PeopleRepository implements IPeopleRepository {
   async create (people: IPeople): Promise<IPeople> {
     return await People.create(people)
   }
+
+  async findByEmail (email: string): Promise<IPeople | null> {
+    return await People.findOne({ email })
+  }
 }
