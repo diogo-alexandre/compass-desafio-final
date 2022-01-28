@@ -10,6 +10,7 @@ import { ParamIdValidation } from '../validators/param-id.validator'
 import { ICarService } from '../services/interfaces/car-service.interface'
 import { CarCreateValidation } from '../validators/car/car-create.validator'
 import { CarFindAllValidation } from '../validators/car/car-findall.validator'
+import { CarUpdateValidation } from '../validators/car/car-update.validator'
 
 @Controller('/car')
 export class CarController {
@@ -72,7 +73,7 @@ export class CarController {
     }
   }
 
-  @Put('/:id', [ParamIdValidation])
+  @Put('/:id', [ParamIdValidation, CarUpdateValidation])
   async update (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { id } = req.params
