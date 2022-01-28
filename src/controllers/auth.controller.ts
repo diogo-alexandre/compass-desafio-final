@@ -1,0 +1,35 @@
+import { Inject } from '@decorators/di'
+import { Controller, Post } from '@decorators/express'
+import { NextFunction, Request } from 'express'
+import { HttpCode } from '../constants/http-code.contant'
+import { UnauthorizedError } from '../errors/http/unauthorized.error'
+import { InvalidPasswordError } from '../errors/invalid-password.error'
+import { Response } from '../helpers/interfaces/response.interface'
+import { AuthService } from '../services/auth.service'
+import { IAuthService } from '../services/interfaces/auth-service.interface'
+
+@Controller('/authenticate')
+export class AuthController {
+  constructor (
+    @Inject(AuthService)
+    private readonly authService: IAuthService
+  ) { }
+
+  @Post('/')
+  async handle (req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { email, senha } = req.body
+      const result = await this.authService.login(email, senha)
+
+      return res.status(HttpCode.OK).json(result).end()
+    } catch (err) {
+      let localError = err
+
+      if (err instanceof InvalidPasswordError) {
+        localError = new UnauthorizedError(err.message)
+      }
+
+      return next(localError)
+    }
+  }
+}
