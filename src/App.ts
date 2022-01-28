@@ -1,6 +1,7 @@
 import express, { Express } from 'express'
 
 import { Database } from './database'
+import { errorHandler } from './middlewares/error-handle.middleware'
 import { Routes } from './routes'
 
 export class App {
@@ -11,6 +12,7 @@ export class App {
 
     this.middlewares()
     this.routes()
+    this.requestErrorHandler()
   }
 
   static async init (): Promise<Express> {
@@ -28,5 +30,9 @@ export class App {
 
   routes (): void {
     this.express.use('/api', Routes.handle())
+  }
+
+  requestErrorHandler (): void {
+    this.express.use(errorHandler)
   }
 }
