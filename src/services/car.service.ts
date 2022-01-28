@@ -5,6 +5,7 @@ import { CarRepository } from '../repositories/car.repository'
 import { ICarService } from './interfaces/car-service.interface'
 import { ICarRepository } from '../repositories/interfaces/car-repository.interface'
 import { IPaginateResult } from '../helpers/interfaces/paginate.interface'
+import { EntityNotFound } from '../errors/entity-not-found.error'
 
 @Injectable()
 export class CarService implements ICarService {
@@ -27,7 +28,7 @@ export class CarService implements ICarService {
     const car = await this.carRepository.findById(id)
 
     if (car === null) {
-      throw new Error()
+      throw new EntityNotFound(`Cannot find car with id = '${id}'`)
     }
 
     return car
@@ -41,7 +42,7 @@ export class CarService implements ICarService {
     const car = await this.carRepository.delete(id)
 
     if (car === null) {
-      throw new Error()
+      throw new EntityNotFound(`Cannot find car with id = '${id}'`)
     }
 
     return car
@@ -51,7 +52,7 @@ export class CarService implements ICarService {
     const result = await this.carRepository.update(id, payload)
 
     if (result === null) {
-      throw Error()
+      throw new EntityNotFound(`Cannot find car with id = '${id}'`)
     }
 
     return result
