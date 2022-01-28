@@ -45,9 +45,6 @@ export class CarRepository implements ICarRepository {
       quantidadePassageiros: payload.quantidadePassageiros
     })
 
-    const r = await Car.findByIdAndUpdate(id, car)
-    console.log(r)
-
-    return r
+    return await Car.findByIdAndUpdate(id, car)
   }
 }
