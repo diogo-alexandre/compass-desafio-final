@@ -2,6 +2,7 @@ import { isValidObjectId } from 'mongoose'
 import Joi, { LanguageMessages } from 'joi'
 import { Middleware } from '@decorators/express'
 import { Request, Response, NextFunction } from 'express'
+import { BadRequest } from '../errors/http/bad-request.error'
 
 export class ParamIdValidation implements Middleware {
   use (req: Request, res: Response, next: NextFunction): void {
@@ -19,8 +20,8 @@ export class ParamIdValidation implements Middleware {
 
       const { error } = schema.validate(req.params)
 
-      if (error != null) {
-        throw Error()
+      if (error !== undefined) {
+        throw new BadRequest(error.details[0].message)
       }
 
       return next()

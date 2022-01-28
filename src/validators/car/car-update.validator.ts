@@ -19,8 +19,8 @@ export class CarUpdateValidation implements Middleware {
 
       const { error } = schema.validate(req.body)
 
-      if (error != null) {
-        throw Error()
+      if (error !== undefined) {
+        throw new BadRequest(error.details[0].message)
       }
 
       return next()

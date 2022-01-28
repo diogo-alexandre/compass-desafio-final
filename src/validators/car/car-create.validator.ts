@@ -3,6 +3,7 @@ import { NextFunction, Response, Request } from 'express'
 
 import { Middleware } from '@decorators/express'
 import { ICar } from '../../helpers/interfaces/car.interface'
+import { BadRequest } from '../../errors/http/bad-request.error'
 
 export class CarCreateValidation implements Middleware {
   use (req: Request, res: Response, next: NextFunction): void {
@@ -19,8 +20,8 @@ export class CarCreateValidation implements Middleware {
 
       const { error } = schema.validate(req.body)
 
-      if (error != null) {
-        throw Error()
+      if (error !== undefined) {
+        throw new BadRequest(error.details[0].message)
       }
 
       return next()
