@@ -6,3 +6,7 @@ export interface IPeople {
   senha: string
   habilitado: boolean
 }
+
+export interface IPeopleDTO extends Omit<IPeople, 'habilitado'> {
+  habilitado: string
+}
