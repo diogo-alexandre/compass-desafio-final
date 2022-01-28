@@ -1,6 +1,6 @@
 {
   "name": "compass-desafio-final",
-  "version": "0.63.0",
+  "version": "0.64.0",
   "description": "",
   "main": "dist/src/server.js",
   "scripts": {
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/diogo-alexandre/compass-desafio-final#readme",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.13",
     "@types/node": "^17.0.12",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
@@ -36,6 +37,7 @@
     "@decorators/express": "^2.6.0",
     "@joi/date": "^2.1.0",
     "@types/mongoose-paginate-v2": "^1.4.3",
+    "bcrypt": "^5.0.1",
     "dotenv": "^14.3.0",
     "express": "^4.17.2",
     "joi": "^17.5.0",

@@ -21,7 +21,7 @@ export class PeopleCreateValidation implements Middleware {
         data_nascimento: Joi.date().format('DD/MM/YYYY').max(moment().subtract(18, 'years').toDate())
           .message('"data_nascimento" should be greater than 18 year from now').required(),
         email: Joi.string().trim().email().required(),
-        senha: Joi.string().trim().required(),
+        senha: Joi.string().min(6).required(),
         habilitado: Joi.string().trim().valid('sim', 'nao').required()
       })
 
