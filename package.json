@@ -1,6 +1,6 @@
 {
   "name": "compass-desafio-final",
-  "version": "0.59.0",
+  "version": "0.60.0",
   "description": "",
   "main": "dist/src/server.js",
   "scripts": {
@@ -34,10 +34,12 @@
   "dependencies": {
     "@decorators/di": "^1.0.3",
     "@decorators/express": "^2.6.0",
+    "@joi/date": "^2.1.0",
     "@types/mongoose-paginate-v2": "^1.4.3",
     "dotenv": "^14.3.0",
     "express": "^4.17.2",
     "joi": "^17.5.0",
+    "moment": "^2.29.1",
     "mongoose": "^6.1.8",
     "mongoose-paginate-ts": "^1.2.0",
     "mongoose-paginate-v2": "^1.5.0"
