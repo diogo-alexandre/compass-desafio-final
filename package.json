@@ -1,6 +1,6 @@
 {
   "name": "compass-desafio-final",
-  "version": "0.57.0",
+  "version": "0.57.1",
   "description": "",
   "main": "dist/src/server.js",
   "scripts": {

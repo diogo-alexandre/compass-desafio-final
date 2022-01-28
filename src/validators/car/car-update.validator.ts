@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express'
 
 import { Middleware } from '@decorators/express'
 import { ICar } from '../../helpers/interfaces/car.interface'
+import { BadRequest } from '../../errors/http/bad-request.error'
 
 export class CarUpdateValidation implements Middleware {
   use (req: Request, res: Response, next: NextFunction): void {
