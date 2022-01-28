@@ -4,7 +4,7 @@ import { NextFunction, Request } from 'express'
 import { HttpCode } from '../constants/http-code.contant'
 import { EntityNotFound } from '../errors/entity-not-found.error'
 import { NotFound } from '../errors/http/not-found-error'
-import { UnauthorizedError } from '../errors/http/unauthorized.error'
+import { Unauthorized } from '../errors/http/unauthorized.error'
 import { InvalidPasswordError } from '../errors/invalid-password.error'
 import { Response } from '../helpers/interfaces/response.interface'
 import { AuthService } from '../services/auth.service'
@@ -31,7 +31,7 @@ export class AuthController {
       if (err instanceof EntityNotFound) {
         localError = new NotFound(err.message)
       } else if (err instanceof InvalidPasswordError) {
-        localError = new UnauthorizedError(err.message)
+        localError = new Unauthorized(err.message)
       }
 
       return next(localError)
