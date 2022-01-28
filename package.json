@@ -1,6 +1,6 @@
 {
   "name": "compass-desafio-final",
-  "version": "0.68.0",
+  "version": "0.69.0",
   "description": "",
   "main": "dist/src/server.js",
   "scripts": {
@@ -22,6 +22,7 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "^17.0.12",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "eslint": "^7.32.0",
@@ -41,6 +42,7 @@
     "dotenv": "^14.3.0",
     "express": "^4.17.2",
     "joi": "^17.5.0",
+    "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "mongoose": "^6.1.8",
     "mongoose-paginate-ts": "^1.2.0",
