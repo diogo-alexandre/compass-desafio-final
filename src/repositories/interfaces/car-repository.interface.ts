@@ -6,4 +6,5 @@ export interface ICarRepository {
   findAll: (query: Partial<ICar>, limit: number, offset: number) => Promise<IPaginateResult<ICar>>
   delete: (id: string) => Promise<ICar | null>
   findById: (id: string) => Promise<ICar | null>
+  update: (id: string, payload: Partial<ICar>) => Promise<ICar | null>
 }

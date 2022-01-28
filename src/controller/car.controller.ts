@@ -1,6 +1,6 @@
 import { Inject } from '@decorators/di'
 import { NextFunction, Request } from 'express'
-import { Controller, Delete, Get, Post } from '@decorators/express'
+import { Controller, Delete, Get, Post, Put } from '@decorators/express'
 
 import { CarService } from '../services/car.service'
 import { HttpCode } from '../constants/http-code.contant'
@@ -67,6 +67,20 @@ export class CarController {
       const car = await this.carService.findById(id)
 
       return res.status(HttpCode.OK).json(car).end()
+    } catch (error) {
+      return next(error)
+    }
+  }
+
+  @Put('/:id', [ParamIdValidation])
+  async update (req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { id } = req.params
+      const payload = req.body
+
+      await this.carService.update(id, payload)
+
+      return res.status(HttpCode.NO_CONTENT).end()
     } catch (error) {
       return next(error)
     }
