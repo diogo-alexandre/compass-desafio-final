@@ -11,6 +11,8 @@ import { ICarService } from '../services/interfaces/car-service.interface'
 import { CarCreateValidation } from '../validators/car/car-create.validator'
 import { CarFindAllValidation } from '../validators/car/car-findall.validator'
 import { CarUpdateValidation } from '../validators/car/car-update.validator'
+import { EntityNotFound } from '../errors/entity-not-found.error'
+import { NotFound } from '../errors/http/not-found-error'
 
 @Controller('/car')
 export class CarController {
@@ -56,8 +58,14 @@ export class CarController {
       await this.carService.delete(id)
 
       return res.status(HttpCode.NO_CONTENT).end()
-    } catch (error) {
-      return next(error)
+    } catch (err) {
+      let localError = err
+
+      if (err instanceof EntityNotFound) {
+        localError = new NotFound(err.message)
+      }
+
+      return next(localError)
     }
   }
 
@@ -68,8 +76,14 @@ export class CarController {
       const car = await this.carService.findById(id)
 
       return res.status(HttpCode.OK).json(car).end()
-    } catch (error) {
-      return next(error)
+    } catch (err) {
+      let localError = err
+
+      if (err instanceof EntityNotFound) {
+        localError = new NotFound(err.message)
+      }
+
+      return next(localError)
     }
   }
 
@@ -82,8 +96,14 @@ export class CarController {
       await this.carService.update(id, payload)
 
       return res.status(HttpCode.NO_CONTENT).end()
-    } catch (error) {
-      return next(error)
+    } catch (err) {
+      let localError = err
+
+      if (err instanceof EntityNotFound) {
+        localError = new NotFound(err.message)
+      }
+
+      return next(localError)
     }
   }
 }
