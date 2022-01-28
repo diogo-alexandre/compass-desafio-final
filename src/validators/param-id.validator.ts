@@ -23,9 +23,9 @@ export class ParamIdValidation implements Middleware {
         throw Error()
       }
 
-      next()
+      return next()
     } catch (error) {
-      next(error)
+      return next(error)
     }
   }
 }

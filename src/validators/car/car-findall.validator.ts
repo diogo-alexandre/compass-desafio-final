@@ -23,9 +23,9 @@ export class CarFindAllValidation implements Middleware {
         throw Error()
       }
 
-      next()
+      return next()
     } catch (error) {
-      next(error)
+      return next(error)
     }
   }
 }

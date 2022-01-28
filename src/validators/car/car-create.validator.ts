@@ -1,5 +1,5 @@
 import Joi from 'joi'
-import { NextFunction, Request, Response } from 'express'
+import { NextFunction, Response, Request } from 'express'
 
 import { Middleware } from '@decorators/express'
 import { ICar } from '../../helpers/interfaces/car.interface'
@@ -19,15 +19,13 @@ export class CarCreateValidation implements Middleware {
 
       const { error } = schema.validate(req.body)
 
-      console.log(error)
-
       if (error != null) {
         throw Error()
       }
 
-      next()
+      return next()
     } catch (error) {
-      next(error)
+      return next(error)
     }
   }
 }
