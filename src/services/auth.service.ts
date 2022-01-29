@@ -4,7 +4,7 @@ import { Inject, Injectable } from '@decorators/di'
 
 import { PeopleService } from './people.service'
 import { IAuthService } from './interfaces/auth-service.interface'
-import { IAuthResponse } from '../helpers/interfaces/auth-interface'
+import { IAuthResponse } from '../helpers/interfaces/auth.interface'
 import { IPeopleService } from './interfaces/people-service.interface'
 import { InvalidPasswordError } from '../errors/invalid-password.error'
 import { env } from '../utils/env.util'
