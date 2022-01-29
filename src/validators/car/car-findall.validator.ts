@@ -9,9 +9,11 @@ export class CarFindAllValidation implements Middleware {
   use (req: Request, res: Response, next: NextFunction): void {
     try {
       const schema: Joi.ObjectSchema<ICar> = Joi.object({
-        modelo: Joi.string(),
+        modelo: Joi.string()
+          .trim(),
 
-        cor: Joi.string(),
+        cor: Joi.string()
+          .trim(),
 
         ano: Joi.number()
           .max(new Date().getFullYear())
