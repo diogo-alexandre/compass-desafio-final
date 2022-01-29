@@ -14,14 +14,8 @@ export class CarService implements ICarService {
     private readonly carRepository: ICarRepository
   ) { }
 
-  async create ({ modelo, cor, ano, acessorios, quantidadePassageiros }: ICar): Promise<ICar> {
-    return await this.carRepository.create({
-      modelo,
-      cor,
-      ano,
-      acessorios,
-      quantidadePassageiros
-    })
+  async create (car: ICar): Promise<ICar> {
+    return await this.carRepository.create(car)
   }
 
   async findById (id: string): Promise<ICar> {
