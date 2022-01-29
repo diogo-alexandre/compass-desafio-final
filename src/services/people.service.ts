@@ -18,10 +18,7 @@ export class PeopleService implements IPeopleService {
   async create (people: IPeopleDTO): Promise<IPeople> {
     try {
       return await this.peopleRepository.create({
-        nome: people.nome,
-        cpf: people.cpf,
-        data_nascimento: people.data_nascimento,
-        email: people.email,
+        ...people,
         senha: await bcrypt.hash(people.senha, 8),
         habilitado: (people.habilitado === 'sim')
       })
