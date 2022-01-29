@@ -8,8 +8,14 @@ export class AuthLoginValidator implements Middleware {
   use (req: Request, res: Response, next: NextFunction): void {
     try {
       const schema = Joi.object({
-        email: Joi.string().trim().email().required(),
-        senha: Joi.string().min(6).required()
+        email: Joi.string()
+          .trim()
+          .email()
+          .required(),
+
+        senha: Joi.string()
+          .min(6)
+          .required()
       })
 
       const { error } = schema.validate(req.body, { abortEarly: false })

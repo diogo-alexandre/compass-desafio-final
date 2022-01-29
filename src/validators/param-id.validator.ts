@@ -9,9 +9,11 @@ export class ParamIdValidation implements Middleware {
   use (req: Request, res: Response, next: NextFunction): void {
     try {
       const schema = Joi.object({
-        id: Joi.string().custom((value, helper) => {
-          return isValidObjectId(value) ? value : helper.message({ custom: 'Id field is not valid' })
-        }).required()
+        id: Joi.string()
+          .custom((value, helper) => {
+            return isValidObjectId(value) ? value : helper.message({ custom: 'Id field is not valid' })
+          })
+          .required()
       })
 
       const { error } = schema.validate(req.body, { abortEarly: false })
