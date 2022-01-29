@@ -4,6 +4,7 @@ import { NextFunction, Request, Response } from 'express'
 import { Middleware } from '@decorators/express'
 import { ICar } from '../../helpers/interfaces/car.interface'
 import { BadRequest } from '../../errors/http/bad-request.error'
+import { CarConstant } from '../../constants/car.constant'
 
 export class CarFindAllValidation implements Middleware {
   use (req: Request, res: Response, next: NextFunction): void {
@@ -16,8 +17,8 @@ export class CarFindAllValidation implements Middleware {
           .trim(),
 
         ano: Joi.number()
-          .max(new Date().getFullYear())
-          .min(1950),
+          .max(CarConstant.MAX_YEAR)
+          .min(CarConstant.MIN_YEAR),
 
         quantidadePassageiros: Joi.number(),
 
