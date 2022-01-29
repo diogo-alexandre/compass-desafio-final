@@ -13,7 +13,7 @@ export class CarRepository implements ICarRepository {
   }
 
   async findById (id: string): Promise<ICar | null> {
-    return await Car.findOne({ _id: id })
+    return await Car.findById(id)
   }
 
   async findAll (query: Partial<ICar>, limit: number, offset: number): Promise<IPaginateResult<ICar>> {
