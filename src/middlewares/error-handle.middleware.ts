@@ -5,17 +5,14 @@ import { HttpError } from '../errors/http/http.error'
 import { HttpCode } from '../constants/http-code.contant'
 
 export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
-  const result = {
+  let result: HttpError = {
     name: 'Internal Server Error',
+    message: 'Unexpected Internal Error',
     statusCode: HttpCode.INTERNAL_SERVER_ERROR,
-    details: [{ message: 'Unexpected Internal Error' }]
+    details: []
   }
 
-  if (err instanceof HttpError) {
-    result.name = err.name
-    result.statusCode = err.statusCode
-    result.details[0] = { message: err.message }
-  }
+  if (err instanceof HttpError) result = err
 
   if (result.statusCode === HttpCode.INTERNAL_SERVER_ERROR) Log.error(err)
 

@@ -18,10 +18,10 @@ export class CarFindAllValidation implements Middleware {
         offset: Joi.number().min(1)
       })
 
-      const { error } = schema.validate(req.query)
+      const { error } = schema.validate(req.body, { abortEarly: false })
 
       if (error !== undefined) {
-        throw new BadRequest(error.details[0].message)
+        throw new BadRequest(error.details.map(({ message }) => ({ message })))
       }
 
       return next()
