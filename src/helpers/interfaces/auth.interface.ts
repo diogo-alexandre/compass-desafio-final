@@ -1,3 +1,6 @@
+import { TokenType } from '../../constants/auth.constant'
+
 export interface IAuthResponse {
-  jwt: string
+  acess_token: string
+  type: TokenType
 }
