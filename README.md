@@ -56,7 +56,7 @@ Crie na raiz do projeto um arquivo `.env`, ele precisa ter as seguintes variáve
 PORT=3000
 
 # URI para que o app se comunique com o MongoDB.
-DB_URI=http://mongo/desafio-final
+DB_URI=mongodb://mongo/desafio-final
 
 # Uma chave para geração de token JWT.
 SECRET=segredo
