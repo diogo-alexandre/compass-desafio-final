@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt'
+import bcryptjs from 'bcryptjs'
 import { Inject, Injectable } from '@decorators/di'
 
 import { EntityNotFound } from '../errors/entity-not-found.error'
@@ -19,7 +19,7 @@ export class PeopleService implements IPeopleService {
     try {
       return await this.peopleRepository.create({
         ...people,
-        senha: await bcrypt.hash(people.senha, 8),
+        senha: await bcryptjs.hash(people.senha, 8),
         habilitado: (people.habilitado === 'sim')
       })
     } catch (err) {

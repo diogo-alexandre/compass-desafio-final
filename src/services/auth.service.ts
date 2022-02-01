@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt'
+import bcryptjs from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { Inject, Injectable } from '@decorators/di'
 
@@ -27,7 +27,7 @@ export class AuthService implements IAuthService {
 
     const people = await this.peopleService.findByEmail(email)
 
-    if (!await bcrypt.compare(password, people.senha)) {
+    if (!await bcryptjs.compare(password, people.senha)) {
       throw new InvalidPasswordError('Passwords are not the same')
     }
 
