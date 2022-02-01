@@ -2,26 +2,24 @@
   <img src="https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs" />
   <img src="https://img.shields.io/badge/release-1.0.0-blue" />
 </p>
-<center>
+<p align="center">
   <img src="https://scontent.frec5-1.fna.fbcdn.net/v/t39.30808-6/251638643_4793169397388190_2358352085720421550_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=e3f864&_nc_ohc=homloH0eWr4AX-WRpQK&_nc_ht=scontent.frec5-1.fna&oh=00_AT8BoZN2Y0YVJm0vO1lVf4A_tirk2HHbiizxZN3k-jLL0A&oe=61FEA543" />
-</center>
+</p>
 <br>
 
-<center>
-  <h1 align="center">Compass: Desafio Final</h1>
-  <p>
-    Este projeto faz parte do programa de bolsa de estudo da <a href="https://compass.uol/">Compass OUL</a> <br>
-    O desafio consiste em fazer uma API REST com os consteúdos aprendidos ao longo da bolsa.
-  </p>
-</center>
+<h1 align="center">Compass: Desafio Final</h1>
+<p align="center">
+  Este projeto faz parte do programa de bolsa de estudo da <a href="https://compass.uol/">Compass OUL</a> <br>
+  O desafio consiste em fazer uma API REST com os consteúdos aprendidos ao longo da bolsa.
+</p>
 
-<center>
+<p align="center">
   <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white">
   <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
   <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" />
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
   <img src="https://img.shields.io/badge/Vscode-2496ED?style=for-the-badge&logo=visualstudio&logoColor=blue&color=white">
-</center>
+</p>
 
 ### 📖 Indíce
 
