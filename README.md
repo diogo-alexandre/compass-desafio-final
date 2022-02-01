@@ -34,7 +34,7 @@ ___
 ### 📥 Clonando repositório
 
 O primeiro passo para subir a aplicação localmente é clonando o repositório em sua máquina. <br>
-Com o `git` instalado na sua máquina, você pode executar o seguinte comando no terminal:
+Com o [Git](https://git-scm.com/) instalado na sua máquina, você pode executar o seguinte comando no terminal:
 
 ```bash
 git clone https://github.com/diogo-alexandre/compass-desafio-final.git && cd compass-desafio-final
@@ -63,7 +63,7 @@ SECRET=segredo
 ```
 
 Existem também as variáveis de configuração do docker-compose, do serviço MongoDB. <br>
-Elas são `opicionais`, não sendo necessário passa-las no arquivo `.env`. Em caso de alteração, é necessário alterar a variável `DB_URI` também.
+Elas são `opcionais`, não sendo necessário passa-las no arquivo `.env`. Em caso de alteração, é necessário alterar a variável `DB_URI` também.
 
 ```bash
 # Configura o nome de usuário.
@@ -81,11 +81,11 @@ ___
 
 Depois de ter o `.env` configurado corretamente, é possível iniciar o app.
 
-> Caso utilize Docker, pule para seção: Utilizando Docker
+> Caso utilize Docker, pule para seção: [Utilizando Docker](#utilizando-docker)
 
 Existem dois ambientes para iniciar o aplicativo:
-  - Desenvolvimento
-  - Produção
+  - [Desenvolvimento](#iniciando-o-servidor/desenvolvimento)
+  - [Produção](#iniciando-o-servidor/producao)
 
 
 <a name="iniciando-o-servidor/desenvolvimento"></a>
@@ -113,10 +113,10 @@ npm run start
 ___
 <a name="utilizando-docker"></a>
 ### 🚢 Utilizando Docker
-É possível utilizar a aplicação com o Docker. <br>
-Para iniciar o app com o Docker, segue o mesmo raciocínio da seção `Inicializando o App` <br>
+É possível utilizar a aplicação com o [Docker](https://www.docker.com/). <br>
+Para iniciar o app com o Docker, segue o mesmo raciocínio da seção [Iniciando o Servidor](#iniciando-o-servidor) <br>
 
-Primeiro, certifique-se de ter o docker-compose na sua máquina. <br>
+Primeiro, certifique-se de ter o [Docker Compose](https://docs.docker.com/compose/install/) na sua máquina. <br>
 Em seguida, para o ambiente de desenvolvimento, existem os seguintes comandos:
 ```bash
 # Subir a aplicação
