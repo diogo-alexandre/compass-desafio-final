@@ -23,13 +23,14 @@
 
 ### 📖 Indíce
 
-- [Clonando repositório](#clonando-repositório)
-- [Configurando variáveis de ambiente](#configurando-variáveis-de-ambiente)
+- [Clonando repositório](#clonando-repositorio)
+- [Configurando variáveis de ambiente](#configurando-variaveis-de-ambiente)
 - [Iniciando o servidor](#iniciando-o-servidor)
-  - [Desenvolvimento](#Desenvolvimento)
-  - [Produção](#Produção)
+  - [Desenvolvimento](#iniciando-o-servidor/desenvolvimento)
+  - [Produção](#iniciando-o-servidor/producao)
 - [Utilizando Docker](#utilizando-docker)
 ___
+<a name="clonando-repositorio"></a>
 ### 📥 Clonando repositório
 
 O primeiro passo para subir a aplicação localmente é clonando o repositório em sua máquina. <br>
@@ -41,6 +42,7 @@ git clone https://github.com/diogo-alexandre/compass-desafio-final.git && cd com
 Após isso, você tem uma cópia do repositório em sua máquina. <br>
 Caso não tenha o `git` instalado, será necessário acessar o [repositório](https://github.com/diogo-alexandre/compass-desafio-final) e baixa-lo manualmente.
 ___
+<a name="configurando-variaveis-de-ambiente"></a>
 ### ⚙️ Configurando variáveis de ambiente
 
 Seguindo adiante, é antes de rodar a aplicação é necessário configurar as variáveis de ambiente. <br>
@@ -74,6 +76,7 @@ DB_PASS=12345
 DB_PORT=27017
 ```
 ___
+<a name="iniciando-o-servidor"></a>
 ### ▶️ Iniciando o servidor
 
 Depois de ter o `.env` configurado corretamente, é possível iniciar o app.
@@ -85,6 +88,7 @@ Existem dois ambientes para iniciar o aplicativo:
   - Produção
 
 
+<a name="iniciando-o-servidor/desenvolvimento"></a>
 #### 🔧 Desenvolvimento
 A aplicação roda localmente, escutando as modificações nos arquivos e reiniciando o serviço a cada modificação. <br>
 Por isso não é ideál executar este comando em produção.
@@ -94,6 +98,7 @@ Para executar a aplicação, execute o seguinte comando na linha de comando:
 ```bash
 npm run start:dev
 ```
+<a name="iniciando-o-servidor/producao"></a>
 #### 📦 Produção
 Antes de executa o app em modo produção, é necessário fazer o build. <br>
 A aplicação será compilada para arquivos `Javascript`.
@@ -106,6 +111,7 @@ Após isso, execute o seguinte comando para iniciar o serviço:
 npm run start
 ```
 ___
+<a name="utilizando-docker"></a>
 ### 🚢 Utilizando Docker
 É possível utilizar a aplicação com o Docker. <br>
 Para iniciar o app com o Docker, segue o mesmo raciocínio da seção `Inicializando o App` <br>
