@@ -4,7 +4,7 @@ import { Controller, Delete, Get, Post, Put } from '@decorators/express'
 
 import { CarService } from '../services/car.service'
 import { HttpCode } from '../constants/http-code.contant'
-import { ICar } from '../helpers/interfaces/car.interface'
+import { ICarDTO } from '../helpers/interfaces/car.interface'
 import { Response } from '../helpers/interfaces/response.interface'
 import { ParamIdValidation } from '../validators/param-id.validator'
 import { ICarService } from '../services/interfaces/car-service.interface'
@@ -23,7 +23,7 @@ export class CarController {
   @Post('/', [CarCreateValidation])
   async create (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const body: ICar = req.body
+      const body: ICarDTO = req.body
       const car = await this.carService.create(body)
 
       return res.status(HttpCode.CREATED).json(car).end()

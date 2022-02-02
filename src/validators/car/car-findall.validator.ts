@@ -2,14 +2,14 @@ import Joi from 'joi'
 import { NextFunction, Request, Response } from 'express'
 
 import { Middleware } from '@decorators/express'
-import { ICar } from '../../helpers/interfaces/car.interface'
+import { ICarDTO } from '../../helpers/interfaces/car.interface'
 import { BadRequest } from '../../errors/http/bad-request.error'
 import { CarConstant } from '../../constants/car.constant'
 
 export class CarFindAllValidation implements Middleware {
   use (req: Request, res: Response, next: NextFunction): void {
     try {
-      const schema: Joi.ObjectSchema<ICar> = Joi.object({
+      const schema: Joi.ObjectSchema<ICarDTO> = Joi.object({
         modelo: Joi.string()
           .trim(),
 
