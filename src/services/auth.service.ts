@@ -25,16 +25,13 @@ export class AuthService implements IAuthService {
       throw new RuntimeError('env "SECRET" was not providaded.')
     }
 
-    const people = await this.peopleService.findByEmail(email)
+    const { habilitado, senha } = await this.peopleService.findByEmail(email)
 
-    if (!await bcryptjs.compare(password, people.senha)) {
+    if (!await bcryptjs.compare(password, senha)) {
       throw new InvalidPasswordError('Passwords are not the same')
     }
 
-    const token = jwt.sign({
-      email: people.email,
-      habilitado: (people.habilitado) ? 'sim' : 'nao'
-    }, secret)
+    const token = jwt.sign({ email, habilitado }, secret)
 
     return {
       acess_token: token,
