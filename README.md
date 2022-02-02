@@ -9,7 +9,7 @@
 
 <h1 align="center">Compass: Desafio Final</h1>
 <p align="center">
-  Este projeto faz parte do programa de bolsa de estudo da <a href="https://compass.uol/">Compass OUL</a> <br>
+  Este projeto faz parte do programa de bolsa de estudo da <a href="https://compass.uol/">Compass UOL</a> <br>
   O desafio consiste em fazer uma API REST com os consteúdos aprendidos ao longo da bolsa.
 </p>
 
@@ -128,7 +128,7 @@ npm run docker:down:dev
 
 E em ambiente de produção, você pode executar:
 ```bash
-# Fazer o buld e subir a aplicação
+# Fazer o build e subir a aplicação
 npm run docker:up
 
 # Derrubar os containers
