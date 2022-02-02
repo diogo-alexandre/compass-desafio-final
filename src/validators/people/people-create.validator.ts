@@ -1,11 +1,11 @@
 import moment from 'moment'
 import JoiDate from '@joi/date'
 import JoiLib, { ObjectSchema } from 'joi'
+import { Middleware } from '@decorators/express'
 import { NextFunction, Response, Request } from 'express'
 
-import { Middleware } from '@decorators/express'
+import { CPF } from '../../utils/cpf.util'
 import { BadRequest } from '../../errors/http/bad-request.error'
-import { isCPF } from '../../utils/is-cpf.util'
 import { IPeopleDTO } from '../../helpers/interfaces/people.interface'
 
 const Joi = JoiLib.extend(JoiDate) as typeof JoiLib
@@ -23,7 +23,7 @@ export class PeopleCreateValidation implements Middleware {
           .min(11)
           .max(11)
           .custom((value: string, helper) => {
-            return (!isCPF(value) ? helper.message({ custom: '"cpf" field must be valid' }) : value)
+            return (!CPF.isCPF(value) ? helper.message({ custom: '"cpf" field must be valid' }) : value)
           })
           .required(),
 
