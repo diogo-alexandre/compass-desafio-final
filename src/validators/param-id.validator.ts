@@ -16,7 +16,7 @@ export class ParamIdValidation implements Middleware {
           .required()
       })
 
-      const { error } = schema.validate(req.body, { abortEarly: false })
+      const { error } = schema.validate(req.params, { abortEarly: false })
 
       if (error !== undefined) {
         throw new BadRequest(error.details.map(({ message }) => ({ message })))
