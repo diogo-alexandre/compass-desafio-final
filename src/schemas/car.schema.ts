@@ -22,7 +22,8 @@ const CarSchema = new Schema({
     required: true
   },
   acessorios: {
-    type: Array
+    type: Array,
+    required: true
   }
 }, {
   versionKey: false,
