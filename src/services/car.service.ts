@@ -42,7 +42,7 @@ export class CarService implements ICarService {
     return car
   }
 
-  async update (id: string, payload: Partial<ICar>): Promise<ICarDTO> {
+  async update (id: string, payload: ICar): Promise<ICarDTO> {
     const result = await this.carRepository.update(id, payload)
 
     if (result === null) {

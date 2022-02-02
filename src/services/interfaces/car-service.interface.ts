@@ -6,5 +6,5 @@ export interface ICarService {
   findAll: (query: Partial<ICar>, limit: number, offset: number) => Promise<IPaginateResult<ICarDTO>>
   findById: (id: string) => Promise<ICarDTO>
   delete: (id: string) => Promise<ICarDTO>
-  update: (id: string, car: Partial<ICar>) => Promise<ICarDTO>
+  update: (id: string, car: ICar) => Promise<ICarDTO>
 }

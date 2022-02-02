@@ -36,14 +36,16 @@ export class CarRepository implements ICarRepository {
     return await Car.findByIdAndDelete(id)
   }
 
-  async update (id: string, payload: Partial<ICar>): Promise<ICarDTO | null> {
-    const car = clearObject<Partial<ICarDTO>>({
+  async update (id: string, payload: ICar): Promise<ICarDTO | null> {
+    const car = clearObject<ICar>({
       modelo: payload.modelo,
       cor: payload.cor,
       ano: payload.ano,
       acessorios: payload.acessorios,
       quantidadePassageiros: payload.quantidadePassageiros
     })
+
+    console.log(car)
 
     return await Car.findByIdAndUpdate(id, car)
   }
