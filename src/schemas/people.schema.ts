@@ -4,25 +4,30 @@ import { IPeople } from '../helpers/interfaces/people.interface'
 
 const PeopleSchema = new Schema({
   nome: {
-    type: String
+    type: String,
+    required: true
   },
   cpf: {
     type: String,
-    unique: true
+    unique: true,
+    required: true
   },
   data_nascimento: {
     type: String
   },
   email: {
     type: String,
-    unique: true
+    unique: true,
+    required: true
   },
   senha: {
     type: String,
-    length: 60
+    length: 60,
+    required: true
   },
   habilitado: {
-    type: Boolean
+    type: Boolean,
+    required: true
   }
 }, { versionKey: false })
 
