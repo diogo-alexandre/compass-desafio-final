@@ -10,7 +10,6 @@ import { ParamIdValidation } from '../validators/param-id.validator'
 import { ICarService } from '../services/interfaces/car-service.interface'
 import { CarCreateValidation } from '../validators/car/car-create.validator'
 import { CarFindAllValidation } from '../validators/car/car-findall.validator'
-import { CarUpdateValidation } from '../validators/car/car-update.validator'
 import { EntityNotFound } from '../errors/entity-not-found.error'
 import { NotFound } from '../errors/http/not-found-error'
 
@@ -87,7 +86,7 @@ export class CarController {
     }
   }
 
-  @Put('/:id', [ParamIdValidation, CarUpdateValidation])
+  @Put('/:id', [ParamIdValidation, CarCreateValidation])
   async update (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { id } = req.params
