@@ -15,12 +15,11 @@ export class PeopleService implements IPeopleService {
     private readonly peopleRepository: IPeopleRepository
   ) { }
 
-  async create (people: IPeopleDTO): Promise<IPeople> {
+  async create (people: IPeople): Promise<IPeopleDTO> {
     try {
       return await this.peopleRepository.create({
         ...people,
-        senha: await bcryptjs.hash(people.senha, 8),
-        habilitado: (people.habilitado === 'sim')
+        senha: await bcryptjs.hash(people.senha, 8)
       })
     } catch (err) {
       let localError: any = err
@@ -35,7 +34,7 @@ export class PeopleService implements IPeopleService {
     }
   }
 
-  async findByEmail (email: string): Promise<IPeople> {
+  async findByEmail (email: string): Promise<IPeopleDTO> {
     const people = await this.peopleRepository.findByEmail(email)
 
     if (people === null) {

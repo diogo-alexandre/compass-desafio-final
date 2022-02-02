@@ -1,6 +1,8 @@
+import moment from 'moment'
 import { Inject } from '@decorators/di'
-import { Controller, Post } from '@decorators/express'
 import { Request, NextFunction } from 'express'
+import { Controller, Post } from '@decorators/express'
+
 import { HttpCode } from '../constants/http-code.contant'
 import { DuplicatedEntry } from '../errors/duplicated-entry.error'
 import { Conflict } from '../errors/http/conflict.error'
@@ -20,8 +22,13 @@ export class PeopleController {
   @Post('/', [PeopleCreateValidation])
   async create (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const body: IPeopleDTO = req.body
-      await this.peopleService.create(body)
+      const { data_nascimento: birthday, habilitado, ...people }: IPeopleDTO = req.body
+
+      await this.peopleService.create({
+        ...people,
+        data_nascimento: moment(birthday, 'DD/MM/YYYY').toDate(),
+        habilitado: (habilitado === 'sim')
+      })
 
       return res.status(HttpCode.CREATED).end()
     } catch (err) {

@@ -1,6 +1,9 @@
+import moment from 'moment'
 import { Schema, model } from 'mongoose'
+
+import { CPF } from '../utils/cpf.util'
+import { IPeopleDTO } from '../helpers/interfaces/people.interface'
 import { IPaginateModel } from '../helpers/interfaces/paginate.interface'
-import { IPeople } from '../helpers/interfaces/people.interface'
 
 const PeopleSchema = new Schema({
   nome: {
@@ -13,7 +16,8 @@ const PeopleSchema = new Schema({
     required: true
   },
   data_nascimento: {
-    type: String
+    type: Date,
+    required: true
   },
   email: {
     type: String,
@@ -29,6 +33,15 @@ const PeopleSchema = new Schema({
     type: Boolean,
     required: true
   }
-}, { versionKey: false })
+}, {
+  versionKey: false,
+  toJSON: {
+    transform: (doc, ret) => {
+      ret.cpf = CPF.format(ret.cpf)
+      ret.data_nascimento = moment(ret.data_nascimento).format('DD/MM/YYYY')
+      ret.habilitado = (ret.habilitado === 'sim')
+    }
+  }
+})
 
-export const People = model<IPeople>('People', PeopleSchema) as IPaginateModel<IPeople>
+export const People = model<IPeopleDTO>('People', PeopleSchema) as IPaginateModel<IPeopleDTO>
