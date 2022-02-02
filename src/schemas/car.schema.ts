@@ -14,7 +14,7 @@ const CarSchema = new Schema({
     required: true
   },
   ano: {
-    type: String,
+    type: Date,
     required: true
   },
   quantidadePassageiros: {
@@ -24,7 +24,14 @@ const CarSchema = new Schema({
   acessorios: {
     type: Array
   }
-}, { versionKey: false })
+}, {
+  versionKey: false,
+  toJSON: {
+    transform: (doc, ret) => {
+      ret.ano = String(ret.ano.getFullYear())
+    }
+  }
+})
 
 CarSchema.plugin(mongoosePagination)
 

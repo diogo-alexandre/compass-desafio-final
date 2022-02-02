@@ -23,10 +23,13 @@ export class CarController {
   @Post('/', [CarCreateValidation])
   async create (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const body: ICarDTO = req.body
-      const car = await this.carService.create(body)
+      const { ano, ...car }: ICarDTO = req.body
+      const result = await this.carService.create({
+        ...car,
+        ano: new Date(Number(ano), 0)
+      })
 
-      return res.status(HttpCode.CREATED).json(car).end()
+      return res.status(HttpCode.CREATED).json(result).end()
     } catch (error) {
       return next(error)
     }
@@ -90,9 +93,12 @@ export class CarController {
   async update (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { id } = req.params
-      const payload = req.body
+      const { ano, ...car }: ICarDTO = req.body
 
-      await this.carService.update(id, payload)
+      await this.carService.update(id, {
+        ...car,
+        ano: new Date(Number(ano), 0)
+      })
 
       return res.status(HttpCode.NO_CONTENT).end()
     } catch (err) {
