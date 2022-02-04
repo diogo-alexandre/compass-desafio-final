@@ -25,16 +25,18 @@ describe('Feature Test', () => {
     await mongod.stop()
   })
 
-  describe('/Authenticate', () => {
+  describe('/api/v1/authenticate', () => {
+    const prefix = '/api/v1/authenticate'
+
     describe('POST - login', () => {
       it('should throw "bad request" when request without body request', async () => {
-        const res = await supertest(app).post('/api/v1/authenticate')
+        const res = await supertest(app).post(prefix)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request without email', async () => {
-        const res = await supertest(app).post('/api/v1/authenticate').send({
+        const res = await supertest(app).post(prefix).send({
           senha: 'valid-password'
         })
 
@@ -42,7 +44,7 @@ describe('Feature Test', () => {
       })
 
       it('should throw "bad request" when request with invalid email', async () => {
-        const res = await supertest(app).post('/api/v1/authenticate').send({
+        const res = await supertest(app).post(prefix).send({
           email: 'invalid-email',
           senha: 'valid-password'
         })
@@ -51,7 +53,7 @@ describe('Feature Test', () => {
       })
 
       it('should throw "bad request" when request without password', async () => {
-        const res = await supertest(app).post('/api/v1/authenticate').send({
+        const res = await supertest(app).post(prefix).send({
           email: 'valid-email@mail.com'
         })
 
@@ -59,7 +61,7 @@ describe('Feature Test', () => {
       })
 
       it('should throw "bad request" when request with invalid password', async () => {
-        const res = await supertest(app).post('/api/v1/authenticate').send({
+        const res = await supertest(app).post(prefix).send({
           email: 'valid-email@mail.com',
           senha: 'inval'
         })
@@ -68,7 +70,7 @@ describe('Feature Test', () => {
       })
 
       it('should throw "not found" when request with email that was not registred', async () => {
-        const res = await supertest(app).post('/api/v1/authenticate').send({
+        const res = await supertest(app).post(prefix).send({
           email: 'valid-email@mail.com',
           senha: 'valid-password'
         })
@@ -77,7 +79,7 @@ describe('Feature Test', () => {
       })
 
       it('should throw "unauthorized" when request with incorrect password', async () => {
-        const res = await supertest(app).post('/api/v1/authenticate').send({
+        const res = await supertest(app).post(prefix).send({
           email: 'other-valid-email@mail.com',
           senha: 'invalid-password'
         })
@@ -86,7 +88,7 @@ describe('Feature Test', () => {
       })
 
       it('should throw "OK" when request with correct fields', async () => {
-        const res = await supertest(app).post('/api/v1/authenticate').send({
+        const res = await supertest(app).post(prefix).send({
           email: 'other-valid-email@mail.com',
           senha: 'valid-password'
         })
