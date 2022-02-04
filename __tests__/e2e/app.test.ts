@@ -236,4 +236,112 @@ describe('Feature Test', () => {
       })
     })
   })
+
+  describe('/api/v1/car', () => {
+    describe('POST - create a car', () => {
+      const prefix = '/api/v1/car'
+
+      it('should throw "bad request" when request without request body', async () => {
+        const res = await supertest(app).post(prefix).send({})
+
+        expect(res.statusCode).toBe(400)
+      })
+
+      it('should throw "bad request" when request with invalid "modelo" field', async () => {
+        const res = await supertest(app).post(prefix).send({
+          modelo: 1000,
+          cor: 'branco',
+          ano: '2021',
+          acessorios: [{ descricao: 'Ar-condicionado' }],
+          quantidadePassageiros: 5
+        })
+
+        expect(res.statusCode).toBe(400)
+      })
+
+      it('should throw "bad request" when request with invalid "cor" field', async () => {
+        const res = await supertest(app).post(prefix).send({
+          modelo: 'GM S10 2.8',
+          cor: 1000,
+          ano: '2021',
+          acessorios: [{ descricao: 'Ar-condicionado' }],
+          quantidadePassageiros: 5
+        })
+
+        expect(res.statusCode).toBe(400)
+      })
+
+      it('should throw "bad request" when request with invalid "ano" field', async () => {
+        const res = await supertest(app).post(prefix).send({
+          modelo: 'GM S10 2.8',
+          cor: 'branco',
+          ano: 'invalid-year',
+          acessorios: [{ descricao: 'Ar-condicionado' }],
+          quantidadePassageiros: 5
+        })
+
+        expect(res.statusCode).toBe(400)
+      })
+
+      it('should throw "bad request" when request with "ano" value smaller than 1950', async () => {
+        const res = await supertest(app).post(prefix).send({
+          modelo: 'GM S10 2.8',
+          cor: 'branco',
+          ano: 1949,
+          acessorios: [{ descricao: 'Ar-condicionado' }],
+          quantidadePassageiros: 5
+        })
+
+        expect(res.statusCode).toBe(400)
+      })
+
+      it('should throw "bad request" when request with "ano" value bigger than current year', async () => {
+        const res = await supertest(app).post(prefix).send({
+          modelo: 'GM S10 2.8',
+          cor: 'branco',
+          ano: new Date().getFullYear() + 1,
+          acessorios: [{ descricao: 'Ar-condicionado' }],
+          quantidadePassageiros: 5
+        })
+
+        expect(res.statusCode).toBe(400)
+      })
+
+      it('should throw "bad request" when request with "acessorios" field without child', async () => {
+        const res = await supertest(app).post(prefix).send({
+          modelo: 'GM S10 2.8',
+          cor: 'branco',
+          ano: '2021',
+          acessorios: [],
+          quantidadePassageiros: 5
+        })
+
+        expect(res.statusCode).toBe(400)
+      })
+
+      it('should throw "bad request" when request with invalid "quantidadePassageiros" field', async () => {
+        const res = await supertest(app).post(prefix).send({
+          modelo: 'GM S10 2.8',
+          cor: 'branco',
+          ano: '2021',
+          acessorios: [{ descricao: 'Ar-condicionado' }],
+          quantidadePassageiros: 'invalid-field'
+        })
+
+        expect(res.statusCode).toBe(400)
+      })
+
+      it('should throw "ok" when request with correct request body', async () => {
+        const res = await supertest(app).post(prefix).send({
+          modelo: 'GM S10 2.8',
+          cor: 'branco',
+          ano: '2021',
+          acessorios: [{ descricao: 'Ar-condicionado' }],
+          quantidadePassageiros: 5
+        })
+
+        expect(res.statusCode).toBe(201)
+      })
+    })
+  })
 })
