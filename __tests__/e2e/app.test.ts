@@ -69,6 +69,16 @@ describe('Feature Test', () => {
         expect(res.statusCode).toBe(400)
       })
 
+      it('should throw "bad request" when request with an unexpected field', async () => {
+        const res = await supertest(app).post(prefix).send({
+          email: 'valid-email@mail.com',
+          senha: 'valid-password',
+          field: 'unexpected-field'
+        })
+
+        expect(res.statusCode).toBe(400)
+      })
+
       it('should throw "not found" when request with email that was not registred', async () => {
         const res = await supertest(app).post(prefix).send({
           email: 'valid-email@mail.com',
