@@ -29,6 +29,7 @@
   - [Desenvolvimento](#iniciando-o-servidor/desenvolvimento)
   - [Produção](#iniciando-o-servidor/producao)
 - [Utilizando Docker](#utilizando-docker)
+- [Executando Testes](#executando-testes)
 ___
 <a name="clonando-repositorio"></a>
 ### 📥 Clonando repositório
@@ -134,3 +135,24 @@ npm run docker:up
 # Derrubar os containers
 npm run docker:down
 ```
+
+<a name='executando-testes'></a>
+### 🧪 Executando Testes
+
+O App atualmente utiliza de teste de feature para verificar a integridade do serviço. <br>
+Você pode testar a aplicação com o comando:
+```bash
+npm run test:e2e
+```
+
+Caso queira utilizar o Docker para fazer o teste, é necessário obter o id do container do app:
+```bash
+docker ps
+```
+
+Em seguida, você deve rodar o comando de teste dentro do container:
+```bash
+docker exec <id-do-container> npm run test:e2e
+```
+
+> O teste utiliza banco em memória, não sendo necessário a env DB_URI para executalo.
