@@ -368,5 +368,25 @@ describe('Feature Test', () => {
         expect(res.statusCode).toBe(204)
       })
     })
+
+    describe('GET - find car by id', () => {
+      it('should throw "bad request" when request with invalid "id" field', async () => {
+        const res = await supertest(app).get(prefix + '/invalid-id')
+
+        expect(res.statusCode).toBe(400)
+      })
+
+      it('should throw "not found" when request with id value that dont exists', async () => {
+        const res = await supertest(app).get(prefix + '/507f1f77bcf86cd799439011')
+
+        expect(res.statusCode).toBe(404)
+      })
+
+      it('should throw "ok" when request with correct fields', async () => {
+        const res = await supertest(app).get(`${prefix}/${carEntities[1]._id}`)
+
+        expect(res.statusCode).toBe(200)
+      })
+    })
   })
 })

@@ -13,6 +13,14 @@ export const CarSeeder = {
       quantidadePassageiros: 5
     }))
 
+    entities.push(await Car.create({
+      modelo: 'VW GOL 1.0',
+      cor: 'branco',
+      ano: '2015',
+      acessorios: [{ descricao: 'Ar-condicionado' }],
+      quantidadePassageiros: 5
+    }))
+
     return entities
   }
 }
