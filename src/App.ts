@@ -1,6 +1,7 @@
 import express, { Express } from 'express'
 
 import { Database } from './database'
+import { AppOptions } from './helpers/interfaces/app-options.interface'
 import { errorHandler } from './middlewares/error-handle.middleware'
 import { Routes } from './routes'
 
@@ -15,10 +16,10 @@ export class App {
     this.requestErrorHandler()
   }
 
-  static async init (): Promise<Express> {
+  static async init (options?: AppOptions): Promise<Express> {
     const app = new App()
 
-    await Database.init()
+    await Database.init(options?.db_uri)
 
     return app.express
   }
