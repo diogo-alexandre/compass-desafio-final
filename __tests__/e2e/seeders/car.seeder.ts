@@ -21,6 +21,14 @@ export const CarSeeder = {
       quantidadePassageiros: 5
     }))
 
+    entities.push(await Car.create({
+      modelo: 'VW Fusca',
+      cor: 'azul',
+      ano: '1950',
+      acessorios: [{ descricao: 'Funciona de baixo d\'agua' }],
+      quantidadePassageiros: 5
+    }))
+
     return entities
   }
 }
