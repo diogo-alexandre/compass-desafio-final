@@ -23,7 +23,8 @@ export class CarFindAllValidation implements Middleware {
         quantidadePassageiros: Joi.number(),
 
         acessorios: Joi.array()
-          .items(Joi.string().trim()),
+          .min(1)
+          .items(Joi.string().trim().required()),
 
         limit: Joi.number()
           .min(1),
@@ -32,7 +33,7 @@ export class CarFindAllValidation implements Middleware {
           .min(1)
       })
 
-      const { error } = schema.validate(req.body, { abortEarly: false })
+      const { error } = schema.validate(req.query, { abortEarly: false })
 
       if (error !== undefined) {
         throw new BadRequest(error.details.map(({ message }) => ({ message })))
