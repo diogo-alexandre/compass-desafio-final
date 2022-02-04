@@ -5,10 +5,14 @@ import { MongoMemoryServer } from 'mongodb-memory-server'
 
 import { App } from '../../src/App'
 import { PeopleSeeder } from './seeders/people.seeder'
+import { CarSeeder } from './seeders/car.seeder'
+import { ICar } from '../../src/helpers/interfaces/car.interface'
 
 describe('Feature Test', () => {
   let mongod: MongoMemoryServer
   let app: Express
+
+  let carEntities: Array<Omit<ICar, '_id'> & { _id: string }>
 
   beforeAll(async () => {
     mongod = await MongoMemoryServer.create()
@@ -17,6 +21,7 @@ describe('Feature Test', () => {
     })
 
     await PeopleSeeder.handle()
+    carEntities = await CarSeeder.handle() as any
   })
 
   afterAll(async () => {
@@ -238,9 +243,9 @@ describe('Feature Test', () => {
   })
 
   describe('/api/v1/car', () => {
-    describe('POST - create a car', () => {
-      const prefix = '/api/v1/car'
+    const prefix = '/api/v1/car'
 
+    describe('POST - create a car', () => {
       it('should throw "bad request" when request without request body', async () => {
         const res = await supertest(app).post(prefix).send({})
 
@@ -341,6 +346,26 @@ describe('Feature Test', () => {
         })
 
         expect(res.statusCode).toBe(201)
+      })
+    })
+
+    describe('DELETE - delete a car', () => {
+      it('should throw "bad request" when request with invalid "id" field', async () => {
+        const res = await supertest(app).delete(prefix + '/invalid-id')
+
+        expect(res.statusCode).toBe(400)
+      })
+
+      it('should throw "not found" when request with id value that dont exists', async () => {
+        const res = await supertest(app).delete(prefix + '/507f1f77bcf86cd799439011')
+
+        expect(res.statusCode).toBe(404)
+      })
+
+      it('should throw "ok" when request with correct fields', async () => {
+        const res = await supertest(app).delete(`${prefix}/${carEntities[0]._id}`)
+
+        expect(res.statusCode).toBe(204)
       })
     })
   })
