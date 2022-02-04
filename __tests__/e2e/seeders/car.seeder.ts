@@ -29,6 +29,14 @@ export const CarSeeder = {
       quantidadePassageiros: 5
     }))
 
+    entities.push(await Car.create({
+      modelo: 'VW Combi',
+      cor: 'preto',
+      ano: '1950',
+      acessorios: [{ descricao: 'Espaçoso' }],
+      quantidadePassageiros: 8
+    }))
+
     return entities
   }
 }

@@ -521,5 +521,95 @@ describe('Feature Test', () => {
         expect(res.statusCode).toBe(204)
       })
     })
+
+    describe('GET - find all cars', () => {
+      it('should sucess when request with no request body', async () => {
+        const res = await supertest(app).get(prefix)
+
+        expect(res.statusCode).toBe(200)
+      })
+
+      it('should throw "bad request" when request with invalid "ano" field', async () => {
+        const res = await supertest(app).get(prefix).query({
+          ano: 'invalid-year'
+        })
+
+        expect(res.statusCode).toBe(400)
+      })
+
+      it('should throw "bad request" when request with "ano" value smaller than 1950', async () => {
+        const res = await supertest(app).get(prefix).query({
+          ano: 1949
+        })
+
+        expect(res.statusCode).toBe(400)
+      })
+
+      it('should throw "bad request" when request with "ano" value bigger than current year', async () => {
+        const res = await supertest(app).get(prefix).query({
+          ano: new Date().getFullYear() + 1
+        })
+
+        expect(res.statusCode).toBe(400)
+      })
+
+      it('should throw "bad request" when request with invalid "quantidadePassageiros" field', async () => {
+        const res = await supertest(app).get(prefix).query({
+          quantidadePassageiros: 'invalid-field'
+        })
+
+        expect(res.statusCode).toBe(400)
+      })
+
+      it('should throw "bad request" when request with invalid "limit" field', async () => {
+        const res = await supertest(app).get(prefix).query({
+          limit: 'invalid-field'
+        })
+
+        expect(res.statusCode).toBe(400)
+      })
+
+      it('should throw "bad request" when request with "limit" field smaller than 1', async () => {
+        const res = await supertest(app).get(prefix).query({
+          limit: 0
+        })
+
+        expect(res.statusCode).toBe(400)
+      })
+
+      it('should throw "bad request" when request with invalid "offset" field', async () => {
+        const res = await supertest(app).get(prefix).query({
+          offset: 'invalid-field'
+        })
+
+        expect(res.statusCode).toBe(400)
+      })
+
+      it('should throw "bad request" when request with "offset" field smaller than 1', async () => {
+        const res = await supertest(app).get(prefix).query({
+          offset: 0
+        })
+
+        expect(res.statusCode).toBe(400)
+      })
+
+      it('should pagination "limit" work', async () => {
+        const res = await supertest(app).get(prefix).query({
+          limit: 1
+        })
+
+        expect(res.body.limit).toBe(1)
+        expect(res.body.veiculos.length).toBe(1)
+      })
+
+      it('should pagination "limit" work', async () => {
+        const res = await supertest(app).get(prefix).query({
+          limit: 1,
+          offset: 1
+        })
+
+        expect(res.body.offset).toBe(2)
+      })
+    })
   })
 })
