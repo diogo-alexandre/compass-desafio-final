@@ -1,9 +1,9 @@
 <p align="right">
   <img src="https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs" />
-  <img src="https://img.shields.io/badge/release-1.0.4-blue" />
+  <img src="https://img.shields.io/badge/release-1.0.5-blue" />
 </p>
 <p align="center">
-  <img src="https://scontent.frec5-1.fna.fbcdn.net/v/t39.30808-6/251638643_4793169397388190_2358352085720421550_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=e3f864&_nc_ohc=homloH0eWr4AX-WRpQK&_nc_ht=scontent.frec5-1.fna&oh=00_AT8BoZN2Y0YVJm0vO1lVf4A_tirk2HHbiizxZN3k-jLL0A&oe=61FEA543" />
+  <img src="https://i.imgur.com/ShZhcXw.png" />
 </p>
 <br>
 
