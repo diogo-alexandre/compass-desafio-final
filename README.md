@@ -489,6 +489,65 @@ Respostas:
 </details>
 <br>
 
+#### <img src="https://img.shields.io/badge/-PATCH-gray"/>&ensp;<sup>`/car/:carId/acessorios/:acessorioId` - Atualiza um acessório de um carro</sup>
+Params
+```jsonc
+{
+  "carId": "string",
+  "acessorioId": "string"
+}
+```
+
+Body Request:
+```jsonc
+// Todos os campos são obrigatórios
+{
+  "descricao": "string"
+}
+```
+
+Respostas:
+<details>
+  <summary>204 - No Content</summary>
+
+  ```jsonc
+  /*
+  * Sucessfully updated Car.acessorio
+  * No body expected
+  */
+  ```
+</details>
+
+<details>
+  <summary>400 - Bad Request</summary>
+
+  ```jsonc
+  {
+    "name": "Bad Request",
+    "details": [
+      {
+        "message": "..."
+      },
+      ...
+    ]
+  }
+  ```
+</details>
+
+<details>
+  <summary>404 - Not Found</summary>
+
+  ```jsonc
+  {
+    "name": "Not Found",
+    "details": [{
+      "message": "Cannot find car with id = ${id}"
+    }]
+  }
+  ```
+</details>
+<br>
+
 ___
 <a name="routes/people"></a>
 
