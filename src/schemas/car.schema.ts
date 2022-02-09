@@ -21,10 +21,12 @@ const CarSchema = new Schema({
     type: String,
     required: true
   },
-  acessorios: {
-    type: Array,
-    required: true
-  }
+  acessorios: [{
+    descricao: {
+      type: String,
+      required: true
+    }
+  }]
 }, {
   versionKey: false,
   toJSON: {
