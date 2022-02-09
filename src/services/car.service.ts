@@ -6,6 +6,7 @@ import { ICarService } from './interfaces/car-service.interface'
 import { ICarRepository } from '../repositories/interfaces/car-repository.interface'
 import { IPaginateResult } from '../helpers/interfaces/paginate.interface'
 import { EntityNotFound } from '../errors/entity-not-found.error'
+import { IAcessorioDTO } from '../helpers/interfaces/entities/acessorio.interface'
 
 @Injectable()
 export class CarService implements ICarService {
@@ -50,5 +51,19 @@ export class CarService implements ICarService {
     }
 
     return result
+  }
+
+  async updateAcessorio (carId: string, acessorioId: string, acessorio: IAcessorioDTO): Promise<ICar> {
+    const car = await this.carRepository.updateAcessorio(carId, acessorioId, acessorio)
+
+    if (car === null) {
+      throw new EntityNotFound(`Cannot find "Car" with id = ${carId}`)
+    }
+
+    if (car.acessorios.find(ac => ac._id.toString() === acessorioId) == null) {
+      throw new EntityNotFound(`Cannot find "Car.acessorio" with id = ${acessorioId}`)
+    }
+
+    return car
   }
 }

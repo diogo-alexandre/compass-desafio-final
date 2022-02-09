@@ -1,3 +1,4 @@
+import { IAcessorioDTO } from '../../helpers/interfaces/entities/acessorio.interface'
 import { ICar, ICarDTO } from '../../helpers/interfaces/entities/car.interface'
 import { IPaginateResult } from '../../helpers/interfaces/paginate.interface'
 
@@ -7,4 +8,5 @@ export interface ICarService {
   findById: (id: string) => Promise<ICar>
   delete: (id: string) => Promise<ICar>
   update: (id: string, car: ICarDTO) => Promise<ICar>
+  updateAcessorio: (carId: string, acessorioId: string, payload: IAcessorioDTO) => Promise<ICar>
 }

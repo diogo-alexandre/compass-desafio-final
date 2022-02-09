@@ -5,6 +5,7 @@ import { clearObject } from '../utils/clear-object.util'
 import { ICarDTO, ICar } from '../helpers/interfaces/entities/car.interface'
 import { ICarRepository } from './interfaces/car-repository.interface'
 import { IPaginateOptions, IPaginateResult } from '../helpers/interfaces/paginate.interface'
+import { IAcessorioDTO } from '../helpers/interfaces/entities/acessorio.interface'
 
 @Injectable()
 export class CarRepository implements ICarRepository {
@@ -46,5 +47,13 @@ export class CarRepository implements ICarRepository {
     })
 
     return await Car.findByIdAndUpdate(id, car)
+  }
+
+  async updateAcessorio (carId: string, acessorioId: string, { descricao }: IAcessorioDTO): Promise<ICar | null> {
+    return await Car.findByIdAndUpdate(carId, {
+      $set: { 'acessorios.$[el].descricao': descricao }
+    }, {
+      arrayFilters: [{ 'el._id': acessorioId }]
+    })
   }
 }

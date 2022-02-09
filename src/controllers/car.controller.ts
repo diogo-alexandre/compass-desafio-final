@@ -1,6 +1,6 @@
 import { Inject } from '@decorators/di'
 import { NextFunction, Request } from 'express'
-import { Controller, Delete, Get, Post, Put } from '@decorators/express'
+import { Controller, Delete, Get, Patch, Post, Put } from '@decorators/express'
 
 import { CarService } from '../services/car.service'
 import { HttpCode } from '../constants/http-code.contant'
@@ -93,6 +93,26 @@ export class CarController {
       const car: ICarDTO = req.body
 
       await this.carService.update(id, car)
+
+      return res.status(HttpCode.NO_CONTENT).end()
+    } catch (err) {
+      let localError = err
+
+      if (err instanceof EntityNotFound) {
+        localError = new NotFound(err.message)
+      }
+
+      return next(localError)
+    }
+  }
+
+  @Patch('/:carId/acessorios/:acessorioId')
+  async updateAcessorio (req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { carId, acessorioId } = req.params
+      const acessorio = req.body
+
+      await this.carService.updateAcessorio(carId, acessorioId, acessorio)
 
       return res.status(HttpCode.NO_CONTENT).end()
     } catch (err) {
