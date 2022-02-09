@@ -6,7 +6,7 @@ import { NextFunction, Response, Request } from 'express'
 
 import { CPF } from '../../utils/cpf.util'
 import { BadRequest } from '../../errors/http/bad-request.error'
-import { IPeopleDTO } from '../../helpers/interfaces/people.interface'
+import { IPeopleDTO } from '../../helpers/interfaces/entities/people.interface'
 
 const Joi = JoiLib.extend(JoiDate) as typeof JoiLib
 

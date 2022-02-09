@@ -1,10 +1,10 @@
-import { ICar, ICarDTO } from '../../helpers/interfaces/car.interface'
+import { ICar, ICarDTO } from '../../helpers/interfaces/entities/car.interface'
 import { IPaginateResult } from '../../helpers/interfaces/paginate.interface'
 
 export interface ICarRepository {
-  create: (car: ICar) => Promise<ICarDTO>
-  findAll: (query: Partial<ICar>, limit: number, offset: number) => Promise<IPaginateResult<ICarDTO>>
-  delete: (id: string) => Promise<ICarDTO | null>
-  findById: (id: string) => Promise<ICarDTO | null>
-  update: (id: string, payload: ICar) => Promise<ICarDTO | null>
+  create: (car: ICarDTO) => Promise<ICar>
+  findAll: (query: Partial<ICarDTO>, limit: number, offset: number) => Promise<IPaginateResult<ICar>>
+  delete: (id: string) => Promise<ICar | null>
+  findById: (id: string) => Promise<ICar | null>
+  update: (id: string, payload: ICarDTO) => Promise<ICar | null>
 }

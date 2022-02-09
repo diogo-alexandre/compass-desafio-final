@@ -1,4 +1,4 @@
-import { ICarDTO } from '../../../src/helpers/interfaces/car.interface'
+import { ICarDTO } from '../../../src/helpers/interfaces/entities/car.interface'
 import { Car } from '../../../src/schemas/car.schema'
 
 export const CarSeeder = {

@@ -2,7 +2,7 @@ import moment from 'moment'
 import { Schema, model } from 'mongoose'
 
 import { CPF } from '../utils/cpf.util'
-import { IPeople, IPeopleDTO } from '../helpers/interfaces/people.interface'
+import { IPeople } from '../helpers/interfaces/entities/people.interface'
 import { IPaginateModel } from '../helpers/interfaces/paginate.interface'
 import { DuplicatedEntry } from '../errors/duplicated-entry.error'
 
@@ -53,4 +53,4 @@ PeopleSchema.post('save', (err: any, doc: IPeople, next: Function) => {
   }
 })
 
-export const People = model<IPeopleDTO>('People', PeopleSchema) as IPaginateModel<IPeopleDTO>
+export const People = model<IPeople>('People', PeopleSchema) as IPaginateModel<IPeople>

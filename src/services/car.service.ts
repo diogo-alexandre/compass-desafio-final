@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@decorators/di'
 
-import { ICar, ICarDTO } from '../helpers/interfaces/car.interface'
+import { ICar, ICarDTO } from '../helpers/interfaces/entities/car.interface'
 import { CarRepository } from '../repositories/car.repository'
 import { ICarService } from './interfaces/car-service.interface'
 import { ICarRepository } from '../repositories/interfaces/car-repository.interface'
@@ -14,11 +14,11 @@ export class CarService implements ICarService {
     private readonly carRepository: ICarRepository
   ) { }
 
-  async create (car: ICar): Promise<ICarDTO> {
+  async create (car: ICarDTO): Promise<ICar> {
     return await this.carRepository.create(car)
   }
 
-  async findById (id: string): Promise<ICarDTO> {
+  async findById (id: string): Promise<ICar> {
     const car = await this.carRepository.findById(id)
 
     if (car === null) {
@@ -28,11 +28,11 @@ export class CarService implements ICarService {
     return car
   }
 
-  async findAll (query: Partial<ICar>, limit: number, offset: number): Promise<IPaginateResult<ICarDTO>> {
+  async findAll (query: Partial<ICarDTO>, limit: number, offset: number): Promise<IPaginateResult<ICar>> {
     return await this.carRepository.findAll(query, limit, offset)
   }
 
-  async delete (id: string): Promise<ICarDTO> {
+  async delete (id: string): Promise<ICar> {
     const car = await this.carRepository.delete(id)
 
     if (car === null) {
@@ -42,7 +42,7 @@ export class CarService implements ICarService {
     return car
   }
 
-  async update (id: string, payload: ICar): Promise<ICarDTO> {
+  async update (id: string, payload: ICarDTO): Promise<ICar> {
     const result = await this.carRepository.update(id, payload)
 
     if (result === null) {

@@ -4,7 +4,7 @@ import { Controller, Delete, Get, Post, Put } from '@decorators/express'
 
 import { CarService } from '../services/car.service'
 import { HttpCode } from '../constants/http-code.contant'
-import { ICarDTO } from '../helpers/interfaces/car.interface'
+import { ICarDTO } from '../helpers/interfaces/entities/car.interface'
 import { Response } from '../helpers/interfaces/response.interface'
 import { ParamIdValidation } from '../validators/param-id.validator'
 import { ICarService } from '../services/interfaces/car-service.interface'
@@ -23,11 +23,8 @@ export class CarController {
   @Post('/', [CarCreateValidation])
   async create (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { ano, ...car }: ICarDTO = req.body
-      const result = await this.carService.create({
-        ...car,
-        ano: new Date(Number(ano), 0)
-      })
+      const car: ICarDTO = req.body
+      const result = await this.carService.create(car)
 
       return res.status(HttpCode.CREATED).json(result).end()
     } catch (error) {
@@ -93,12 +90,9 @@ export class CarController {
   async update (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { id } = req.params
-      const { ano, ...car }: ICarDTO = req.body
+      const car: ICarDTO = req.body
 
-      await this.carService.update(id, {
-        ...car,
-        ano: new Date(Number(ano), 0)
-      })
+      await this.carService.update(id, car)
 
       return res.status(HttpCode.NO_CONTENT).end()
     } catch (err) {

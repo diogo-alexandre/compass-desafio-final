@@ -1,6 +1,6 @@
-import { IPeople, IPeopleDTO } from '../../helpers/interfaces/people.interface'
+import { IPeople, IPeopleDTO } from '../../helpers/interfaces/entities/people.interface'
 
 export interface IPeopleRepository {
-  create: (people: IPeople) => Promise<IPeopleDTO>
-  findByEmail: (email: string) => Promise<IPeopleDTO | null>
+  create: (people: IPeopleDTO) => Promise<IPeople>
+  findByEmail: (email: string) => Promise<IPeople | null>
 }

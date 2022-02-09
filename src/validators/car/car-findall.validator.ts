@@ -2,7 +2,7 @@ import Joi from 'joi'
 import { NextFunction, Request, Response } from 'express'
 
 import { Middleware } from '@decorators/express'
-import { ICarDTO } from '../../helpers/interfaces/car.interface'
+import { ICarDTO } from '../../helpers/interfaces/entities/car.interface'
 import { BadRequest } from '../../errors/http/bad-request.error'
 import { CarConstant } from '../../constants/car.constant'
 

@@ -6,7 +6,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server'
 import { App } from '../../src/App'
 import { PeopleSeeder } from './seeders/people.seeder'
 import { CarSeeder } from './seeders/car.seeder'
-import { ICar } from '../../src/helpers/interfaces/car.interface'
+import { ICar } from '../../src/helpers/interfaces/entities/car.interface'
 
 describe('Feature Test', () => {
   let mongod: MongoMemoryServer
