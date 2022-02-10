@@ -1,7 +1,6 @@
 import moment from 'moment'
 import { Schema, model } from 'mongoose'
 
-import { CPF } from '../utils/cpf.util'
 import { IPeople } from '../helpers/interfaces/entities/people.interface'
 import { IPaginateModel } from '../helpers/interfaces/paginate.interface'
 import { DuplicatedEntry } from '../errors/duplicated-entry.error'
@@ -38,7 +37,6 @@ const PeopleSchema = new Schema({
   versionKey: false,
   toJSON: {
     transform: (doc, ret) => {
-      ret.cpf = CPF.format(ret.cpf)
       ret.data_nascimento = moment(ret.data_nascimento).format('DD/MM/YYYY')
       ret.habilitado = (ret.habilitado === 'sim')
     }

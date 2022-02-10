@@ -4,7 +4,7 @@ import JoiLib, { ObjectSchema } from 'joi'
 import { Middleware } from '@decorators/express'
 import { NextFunction, Response, Request } from 'express'
 
-import { CPF } from '../../utils/cpf.util'
+import { CPF } from '../../utils/cpf-cnpj.util'
 import { BadRequest } from '../../errors/http/bad-request.error'
 import { IPeopleDTO } from '../../helpers/interfaces/entities/people.interface'
 
@@ -23,7 +23,13 @@ export class PeopleCreateValidation implements Middleware {
           .min(11)
           .max(11)
           .custom((value: string, helper) => {
-            return (!CPF.isCPF(value) ? helper.message({ custom: '"cpf" field must be valid' }) : value)
+            const message = helper.message({ custom: '"CPF" must be valid' })
+
+            try {
+              return (!CPF(value).isValid() ? message : value)
+            } catch (err) {
+              return message
+            }
           })
           .required(),
 
