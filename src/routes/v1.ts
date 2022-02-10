@@ -4,6 +4,7 @@ import { attachControllers } from '@decorators/express'
 import { CarController } from '../controllers/car.controller'
 import { PeopleController } from '../controllers/people.controller'
 import { AuthController } from '../controllers/auth.controller'
+import { RentalController } from '../controllers/rental.controller'
 
 export const V1 = {
   handle (): Router {
@@ -12,7 +13,8 @@ export const V1 = {
     attachControllers(router, [
       CarController,
       PeopleController,
-      AuthController
+      AuthController,
+      RentalController
     ])
 
     return router
