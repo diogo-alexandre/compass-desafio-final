@@ -39,4 +39,8 @@ export class RentalRepository implements IRentalRepository {
   async findById (id: string): Promise<IRental | null> {
     return await Rental.findById(id)
   }
+
+  async delete (id: string): Promise<IRental | null> {
+    return await Rental.findByIdAndDelete(id)
+  }
 }

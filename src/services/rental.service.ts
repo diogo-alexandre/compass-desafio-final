@@ -41,4 +41,14 @@ export class RentalService implements IRentalService {
 
     return rental
   }
+
+  async delete (id: string): Promise<IRental> {
+    const rental = await this.rentalRepository.delete(id)
+
+    if (rental === null) {
+      throw new EntityNotFound(`Cannot find rental with id = '${id}'`)
+    }
+
+    return rental
+  }
 }
