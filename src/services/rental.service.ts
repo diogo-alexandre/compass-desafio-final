@@ -1,5 +1,7 @@
 import { Inject, Injectable } from '@decorators/di'
+import { IAdressDTO } from '../helpers/interfaces/entities/adress.interface'
 import { IRental, IRentalDTO } from '../helpers/interfaces/entities/rental.interface'
+import { IPaginateResult } from '../helpers/interfaces/paginate.interface'
 import { IRentalRepository } from '../repositories/interfaces/rental-repository.interface'
 import { RentalRepository } from '../repositories/rental.repository'
 import { CEP } from '../utils/cep.util'
@@ -22,5 +24,9 @@ export class RentalService implements IRentalService {
       ...rental,
       endereco: await Promise.all(addresses)
     })
+  }
+
+  async findAll (query: Partial<Omit<IRentalDTO, 'endereco'> & IAdressDTO>, limit: number, offset: number): Promise<IPaginateResult<IRental>> {
+    return await this.rentalRepository.findAll(query, limit, offset)
   }
 }

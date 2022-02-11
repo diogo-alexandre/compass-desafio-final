@@ -28,6 +28,8 @@ export class CarRepository implements ICarRepository {
       })]
     }
 
+    console.log(filter.$and[0].acessorios)
+
     const options = clearObject<IPaginateOptions>({ limit, offset })
 
     return await Car.paginate(filter, options)
