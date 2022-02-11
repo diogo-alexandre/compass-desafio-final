@@ -7,6 +7,7 @@ import { IRentalDTO } from '../helpers/interfaces/entities/rental.interface'
 import { Response } from '../helpers/interfaces/response.interface'
 import { IRentalService } from '../services/interfaces/rental-service.interface'
 import { RentalService } from '../services/rental.service'
+import { CreateRentalValidation } from '../validators/entities/rental/create-rental.validator'
 
 @Controller('/rental')
 export class RentalController {
@@ -15,7 +16,7 @@ export class RentalController {
     private readonly rentalService: IRentalService
   ) { }
 
-  @Post('/')
+  @Post('/', [CreateRentalValidation])
   async create (req: Request, res: Response, next: NextFunction): Promise<void> {
     const rental: IRentalDTO = req.body
     const result = await this.rentalService.create(rental)
