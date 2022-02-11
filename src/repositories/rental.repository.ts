@@ -35,4 +35,8 @@ export class RentalRepository implements IRentalRepository {
 
     return await Rental.paginate(filter, options)
   }
+
+  async findById (id: string): Promise<IRental | null> {
+    return await Rental.findById(id)
+  }
 }

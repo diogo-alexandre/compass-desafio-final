@@ -8,6 +8,9 @@ import { Response } from '../helpers/interfaces/response.interface'
 import { IRentalService } from '../services/interfaces/rental-service.interface'
 import { RentalService } from '../services/rental.service'
 import { CreateRentalValidation } from '../validators/rental/create-rental.validator'
+import { ParamIdValidation } from '../validators/param-id.validator'
+import { EntityNotFound } from '../errors/entity-not-found.error'
+import { NotFound } from '../errors/http/not-found-error'
 
 @Controller('/rental')
 export class RentalController {
@@ -32,6 +35,22 @@ export class RentalController {
 
       return res.status(200).json(result).end()
     } catch (err) {
+      return next(err)
+    }
+  }
+
+  @Get('/:id', [ParamIdValidation])
+  async findById (req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { id } = req.params
+      const result = await this.rentalService.findById(id)
+
+      return res.status(HttpCode.OK).json(result).end()
+    } catch (err) {
+      if (err instanceof EntityNotFound) {
+        return next(new NotFound(err.message))
+      }
+
       return next(err)
     }
   }
