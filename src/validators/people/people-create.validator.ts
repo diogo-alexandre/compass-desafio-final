@@ -24,12 +24,7 @@ export class PeopleCreateValidation implements Middleware {
           .max(11)
           .custom((value: string, helper) => {
             const message = helper.message({ custom: '"CPF" must be valid' })
-
-            try {
-              return (!CPF(value).isValid() ? message : value)
-            } catch (err) {
-              return message
-            }
+            try { return CPF(value).isValid() ? value : message } catch { return message }
           })
           .required(),
 
