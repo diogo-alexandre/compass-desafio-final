@@ -40,6 +40,10 @@ export class RentalRepository implements IRentalRepository {
     return await Rental.findById(id)
   }
 
+  async update (id: string, payload: IRentalDTO): Promise<IRental | null> {
+    return await Rental.findByIdAndUpdate(id, payload)
+  }
+
   async delete (id: string): Promise<IRental | null> {
     return await Rental.findByIdAndDelete(id)
   }

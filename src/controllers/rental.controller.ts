@@ -1,6 +1,6 @@
 import { Inject } from '@decorators/di'
 import { Request, NextFunction } from 'express'
-import { Controller, Delete, Get, Post } from '@decorators/express'
+import { Controller, Delete, Get, Post, Put } from '@decorators/express'
 
 import { HttpCode } from '../constants/http-code.contant'
 import { IRentalDTO } from '../helpers/interfaces/entities/rental.interface'
@@ -46,6 +46,24 @@ export class RentalController {
       const result = await this.rentalService.findById(id)
 
       return res.status(HttpCode.OK).json(result).end()
+    } catch (err) {
+      if (err instanceof EntityNotFound) {
+        return next(new NotFound(err.message))
+      }
+
+      return next(err)
+    }
+  }
+
+  @Put('/:id', [ParamIdValidation, CreateRentalValidation])
+  async update (req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { id } = req.params
+      const payload: IRentalDTO = req.body
+
+      await this.rentalService.update(id, payload)
+
+      return res.status(HttpCode.NO_CONTENT).end()
     } catch (err) {
       if (err instanceof EntityNotFound) {
         return next(new NotFound(err.message))

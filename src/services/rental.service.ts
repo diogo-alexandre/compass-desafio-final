@@ -42,6 +42,24 @@ export class RentalService implements IRentalService {
     return rental
   }
 
+  async update (id: string, rental: IRentalDTO): Promise<IRental> {
+    const addresses = rental.endereco.map(async end => ({
+      ...end,
+      ...await CEP.getAdress(end.cep)
+    }))
+
+    const result = await this.rentalRepository.update(id, {
+      ...rental,
+      endereco: await Promise.all(addresses)
+    })
+
+    if (result === null) {
+      throw new EntityNotFound(`Cannot find rental with id = '${id}'`)
+    }
+
+    return result
+  }
+
   async delete (id: string): Promise<IRental> {
     const rental = await this.rentalRepository.delete(id)
 
