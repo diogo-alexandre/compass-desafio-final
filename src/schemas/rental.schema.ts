@@ -30,6 +30,10 @@ const RentalSchema = new Schema({
       type: String,
       required: true
     },
+    uf: {
+      type: String,
+      required: true
+    },
     localidade: {
       type: String,
       required: true
