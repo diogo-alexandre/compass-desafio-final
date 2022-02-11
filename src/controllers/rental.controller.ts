@@ -7,7 +7,7 @@ import { IRentalDTO } from '../helpers/interfaces/entities/rental.interface'
 import { Response } from '../helpers/interfaces/response.interface'
 import { IRentalService } from '../services/interfaces/rental-service.interface'
 import { RentalService } from '../services/rental.service'
-import { CreateRentalValidation } from '../validators/entities/rental/create-rental.validator'
+import { CreateRentalValidation } from '../validators/rental/create-rental.validator'
 
 @Controller('/rental')
 export class RentalController {
