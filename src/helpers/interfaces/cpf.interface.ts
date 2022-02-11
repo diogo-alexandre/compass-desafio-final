@@ -1,5 +1,11 @@
 export type ICPF = (cpf: string) => {
-  toStringOnlyNumbers: () => string
+  toStringPlain: () => string
+  toStringWithDots: () => string
+  isValid: () => boolean
+}
+
+export type ICNPJ = (cnpj: string) => {
+  toStringPlain: () => string
   toStringWithDots: () => string
   isValid: () => boolean
 }
