@@ -49,6 +49,8 @@ PeopleSchema.post('save', (err: any, doc: IPeople, next: Function) => {
 
     next(new DuplicatedEntry(`Already exists People with same value of ${key}`))
   }
+
+  next()
 })
 
 export const People = model<IPeople>('People', PeopleSchema) as IPaginateModel<IPeople>
