@@ -31,14 +31,18 @@ const PeopleSchema = new Schema({
   },
   habilitado: {
     type: Boolean,
-    required: true
+    required: true,
+    get: (value: boolean) => {
+      if (value) return 'sim'
+      else return 'nao'
+    },
+    set: (v: string) => (v === 'sim')
   }
 }, {
   versionKey: false,
   toJSON: {
     transform: (doc, ret) => {
       ret.data_nascimento = moment(ret.data_nascimento).format('DD/MM/YYYY')
-      ret.habilitado = (ret.habilitado === 'sim')
     }
   }
 })
