@@ -51,7 +51,7 @@ const RentalSchema = new Schema({
       required: true
     }
   }]
-})
+}, { versionKey: false })
 
 RentalSchema.plugin(mongoosePaginate)
 

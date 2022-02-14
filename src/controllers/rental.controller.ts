@@ -31,9 +31,15 @@ export class RentalController {
   async findAll (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { limit, offset, ...query } = req.query
-      const result = await this.rentalService.findAll(query, Number(limit), Number(offset))
+      const { docs, ...pagination } = await this.rentalService.findAll(query, Number(limit), Number(offset))
 
-      return res.status(200).json(result).end()
+      return res.status(HttpCode.OK).json({
+        rentals: docs,
+        total: pagination.totalDocs,
+        limit: pagination.limit,
+        offset: pagination.page,
+        offsets: pagination.totalPages
+      }).end()
     } catch (err) {
       return next(err)
     }
