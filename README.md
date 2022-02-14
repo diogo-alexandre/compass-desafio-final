@@ -678,3 +678,355 @@ Respostas:
 <br>
 
 ___
+<a name="routes/rental"></a>
+
+### Rental
+
+#### <img src="https://img.shields.io/badge/-GET-green"/>&ensp;<sup>`/rental` - Lista todas locadoras</sup>
+Query Params:
+```jsonc
+{
+  nome: "string"
+  cnpj: "string",
+  atividades: "string",
+  cep: "string",
+  longradouro: "string",
+  bairro: "string",
+  uf: "string",
+  localdiade: "string",
+  number: "string",
+  isFilial: "boolean",
+  limit: "number",
+  offset: "number"
+}
+```
+
+Repostas:
+<details>
+  <summary>200 - OK</summary>
+
+  ```jsonc
+  {
+    "locadoras": [
+      {
+        "id": "123",
+        "nome": "Localiza Rent a Car",
+        "cnpj": "16.670.085/0001-55",
+        "atividades": "Aluguel de Carros E Gestão de Frotas",
+        "endereco": [
+          {
+            "cep": "96200-200",
+            "logradouro": "Rua General Canabarro",
+            "complemento": "",
+            "bairro": "Centro",
+            "number":"1234",
+            "localidade": "Rio Grande",
+            "uf": "RS"
+          },
+          ...
+        ]
+      },
+      ...
+    ],
+    "total": 1,
+    "limit": 10,
+    "offset": 1,
+    "offsets": 1
+  }
+  ```
+</details>
+
+<details>
+  <summary>400 - Bad Request</summary>
+
+  ```jsonc
+  {
+    "name": "Bad Request",
+    "details": [
+      {
+        "message": "..."
+      },
+      ...
+    ]
+  }
+  ```
+</details>
+
+<br>
+
+#### <img src="https://img.shields.io/badge/-GET-green"/>&ensp;<sup>`/rental/:id` - Encontra uma locadora</sup>
+Query Params:
+```js
+id: "string"
+```
+
+Respostas:
+<details>
+  <summary>200 - OK</summary>
+
+  ```jsonc
+  {
+    "id": "123",
+    "nome": "Localiza Rent a Car",
+    "cnpj": "16.670.085/0001-55",
+    "atividades": "Aluguel de Carros E Gestão de Frotas",
+    "endereco": [
+      {
+        "cep": "96200-200",
+        "logradouro": "Rua General Canabarro",
+        "complemento": "",
+        "bairro": "Centro",
+        "number":"1234",
+        "localidade": "Rio Grande",
+        "uf": "RS"
+      }
+    ]
+  }
+  ```
+</details>
+
+<details>
+  <summary>400 - Bad Request</summary>
+
+  ```jsonc
+  {
+    "name": "Bad Request",
+    "details": [
+      {
+        "message": "..."
+      },
+      ...
+    ]
+  }
+  ```
+</details>
+
+<details>
+  <summary>404 - Bad Request</summary>
+
+  ```jsonc
+  {
+    "name": "Bad Request",
+    "details": [{
+      "message": "Cannot find car with id = ${id}"
+    }]
+  }
+  ```
+</details>
+<br>
+
+#### <img src="https://img.shields.io/badge/-POST-yellow"/>&ensp;<sup>`/rental` - Cria uma locadora</sup>
+Body Request:
+```jsonc
+/*
+* Todos campos são obrigatórios, com exceção de: endereco[i].complemento
+* Apenas pode existir 1 (um) endereco[i].isFilial = false
+*/
+{
+  "nome": "Localiza Rent a Car",
+  "cnpj": "16.670.085/0001-55",
+  "atividades": "Aluguel de Carros E Gestão de Frotas",
+  "endereco": [
+    {
+      "cep": "96200-200",
+      "number":"1234",
+      "isFilial": false
+    },
+    {
+      "cep": "96200-500",
+      "number":"5678",
+      "complemento": "Muro A",
+      "isFilial": true
+    }
+  ]
+}
+```
+
+Respostas:
+<details>
+  <summary>201 - Created</summary>
+
+  ```jsonc
+  {
+    "_id": "620a5f7113e5684a5d7e2f00",
+    "nome": "Localiza Rent a Car",
+    "cnpj": "16.670.085/0001-55",
+    "atividades": "Aluguel de Carros E Gestão de Frotas",
+    "endereco": [
+      {
+        "cep": "96200-200",
+        "logradouro": "Rua General Canabarro",
+        "bairro": "Centro",
+        "uf": "RS",
+        "localidade": "Rio Grande",
+        "number": "1234",
+        "isFilial": false
+      },
+      {
+        "cep": "96200-500",
+        "logradouro": "Rua General Gurjão",
+        "bairro": "Centro",
+        "uf": "RS",
+        "localidade": "Rio Grande",
+        "number": "5678",
+        "complemento": "Muro A",
+        "isFilial": true
+      }
+    ]
+  }
+  ```
+</details>
+
+<details>
+  <summary>400 - Bad Request</summary>
+
+  ```jsonc
+  {
+    "name": "Bad Request",
+    "details": [
+      {
+        "message": "..."
+      },
+      ...
+    ]
+  }
+  ```
+</details>
+
+<details>
+  <summary>404 - Not Found</summary>
+
+  ```jsonc
+  {
+    "name": "Not Found",
+    "details": [{
+      "message": "Cannot find car with id = ${id}"
+    }]
+  }
+  ```
+</details>
+<br>
+
+#### <img src="https://img.shields.io/badge/-PUT-blue"/>&ensp;<sup>`/rental/:id` - Atualiza uma locadora</sup>
+Query Params:
+```js
+id: "string"
+```
+
+Body Request:
+```jsonc
+/*
+* Todos campos são obrigatórios, com exceção de: endereco[i].complemento
+* Apenas pode existir 1 (um) endereco[i].isFilial = false
+*/
+{
+  "nome": "Localiza Rent a Car",
+  "cnpj": "16.670.085/0001-55",
+  "atividades": "Aluguel de Carros E Gestão de Frotas",
+  "endereco": [
+    {
+      "cep": "96200-200",
+      "number":"1234",
+      "isFilial": false
+    },
+    {
+      "cep": "96200-500",
+      "number":"5678",
+      "complemento": "Muro A",
+      "isFilial": true
+    }
+  ]
+}
+```
+
+Respostas:
+<details>
+  <summary>204 - No Content</summary>
+
+  ```jsonc
+  /*
+  * Sucessfully updated car
+  * No body expected
+  */
+  ```
+</details>
+
+<details>
+  <summary>400 - Bad Request</summary>
+
+  ```jsonc
+  {
+    "name": "Bad Request",
+    "details": [
+      {
+        "message": "..."
+      },
+      ...
+    ]
+  }
+  ```
+</details>
+
+<details>
+  <summary>404 - Not Found</summary>
+
+  ```jsonc
+  {
+    "name": "Not Found",
+    "details": [{
+      "message": "Cannot find car with id = ${id}"
+    }]
+  }
+  ```
+</details>
+<br>
+
+#### <img src="https://img.shields.io/badge/-DELETE-red"/>&ensp;<sup>`/rental/:id` - Delete uma locadora</sup>
+Query Params:
+```js
+id: "string"
+```
+
+Respostas:
+<details>
+  <summary>204 - No Content</summary>
+
+  ```jsonc
+  /*
+  * Sucessfully deleted car
+  * No body expected
+  */
+  ```
+</details>
+
+<details>
+  <summary>400 - Bad Request</summary>
+
+  ```jsonc
+  {
+    "name": "Bad Request",
+    "details": [
+      {
+        "message": "Id field is not valid"
+      }
+    ]
+  }
+  ```
+</details>
+
+<details>
+  <summary>404 - Not Found</summary>
+
+  ```jsonc
+  {
+    "name": "Not Found",
+    "details": [{
+      "message": "Cannot find car with id = ${id}"
+    }]
+  }
+  ```
+</details>
+
+<br>
+
+___
