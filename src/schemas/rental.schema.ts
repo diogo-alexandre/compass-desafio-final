@@ -11,6 +11,7 @@ const RentalSchema = new Schema({
   },
   cnpj: {
     type: String,
+    unique: true,
     required: true
   },
   atividades: {
