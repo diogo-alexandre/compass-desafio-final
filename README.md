@@ -1,6 +1,6 @@
 <p align="right">
   <img src="https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs" />
-  <img src="https://img.shields.io/badge/release-1.7.0-blue" />
+  <img src="https://img.shields.io/badge/release-1.8.0-blue" />
 </p>
 <p align="center">
   <img src="https://i.imgur.com/ShZhcXw.png" />

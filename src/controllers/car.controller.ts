@@ -13,8 +13,9 @@ import { CarFindAllValidation } from '../validators/car/car-findall.validator'
 import { EntityNotFound } from '../errors/entity-not-found.error'
 import { NotFound } from '../errors/http/not-found-error'
 import { ParamCardIdAndAcessorioIdValidator } from '../validators/car/param-id-acessorio-id.validator'
+import { Authenticate } from '../middlewares/authenticate.middleware'
 
-@Controller('/car')
+@Controller('/car', [Authenticate])
 export class CarController {
   constructor (
     @Inject(CarService)
