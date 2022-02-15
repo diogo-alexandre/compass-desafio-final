@@ -31,11 +31,13 @@ export class AuthService implements IAuthService {
       throw new InvalidPasswordError('Passwords are not the same')
     }
 
-    const token = jwt.sign({ email, habilitado }, secret)
+    const expiresIn = 1
+    const token = jwt.sign({ email, habilitado }, secret, { expiresIn })
 
     return {
-      acess_token: token,
-      type: TokenType.BEARER
+      access_token: token,
+      type: TokenType.BEARER,
+      expires_in: expiresIn
     }
   }
 }
