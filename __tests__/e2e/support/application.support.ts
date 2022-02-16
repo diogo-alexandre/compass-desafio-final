@@ -6,6 +6,7 @@ import { App } from '../../../src/App'
 import { IEntities } from './interfaces/entities.interface'
 import { PeopleSeeder } from '../seeders/people.seeder'
 import { CarSeeder } from '../seeders/car.seeder'
+import { RentalSeeder } from '../seeders/rental.seeder'
 
 export interface IApplicationResponse {
   app: Express
@@ -22,7 +23,8 @@ export const Application = {
       app,
       entities: {
         people: await PeopleSeeder.handle(),
-        car: await CarSeeder.handle()
+        car: await CarSeeder.handle(),
+        rental: await RentalSeeder.handle()
       },
       end: async () => {
         await mongoose.connection.close()

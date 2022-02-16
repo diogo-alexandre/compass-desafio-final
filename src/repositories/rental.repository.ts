@@ -29,8 +29,6 @@ export class RentalRepository implements IRentalRepository {
       })]
     }
 
-    console.log(filter.$and[0].endereco)
-
     const options = clearObject<IPaginateOptions>({ limit, offset })
 
     return await Rental.paginate(filter, options)
