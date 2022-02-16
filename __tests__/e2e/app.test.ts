@@ -13,7 +13,7 @@ import { IPeople } from '../../src/helpers/interfaces/entities/people.interface'
 describe('Feature Test', () => {
   let mongod: MongoMemoryServer
   let app: Express
-  let token: string
+  let auth: string
 
   let peopleEntities: IPeople[]
   let carEntities: ICar[]
@@ -28,10 +28,12 @@ describe('Feature Test', () => {
     peopleEntities = await PeopleSeeder.handle()
     carEntities = await CarSeeder.handle()
 
-    token = JWT.generate({
+    const jwt = JWT.generate({
       email: peopleEntities[0].email,
       habilitado: peopleEntities[0].habilitado
-    }).access_token
+    })
+
+    auth = `${jwt.type} ${jwt.access_token}`
   })
 
   afterAll(async () => {
@@ -264,7 +266,10 @@ describe('Feature Test', () => {
 
     describe('POST - create a car', () => {
       it('should throw "bad request" when request without request body', async () => {
-        const res = await supertest(app).post(prefix).send({}).set('Authorization', token)
+        const res = await supertest(app)
+          .post(prefix)
+          .send({})
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -279,7 +284,7 @@ describe('Feature Test', () => {
             acessorios: [{ descricao: 'Ar-condicionado' }],
             quantidadePassageiros: 5
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -294,7 +299,7 @@ describe('Feature Test', () => {
             acessorios: [{ descricao: 'Ar-condicionado' }],
             quantidadePassageiros: 5
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -309,7 +314,7 @@ describe('Feature Test', () => {
             acessorios: [{ descricao: 'Ar-condicionado' }],
             quantidadePassageiros: 5
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -324,7 +329,7 @@ describe('Feature Test', () => {
             acessorios: [{ descricao: 'Ar-condicionado' }],
             quantidadePassageiros: 5
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -339,7 +344,7 @@ describe('Feature Test', () => {
             acessorios: [{ descricao: 'Ar-condicionado' }],
             quantidadePassageiros: 5
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -354,7 +359,7 @@ describe('Feature Test', () => {
             acessorios: [],
             quantidadePassageiros: 5
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -369,7 +374,7 @@ describe('Feature Test', () => {
             acessorios: [{ descricao: 'Ar-condicionado' }],
             quantidadePassageiros: 'invalid-field'
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -384,7 +389,7 @@ describe('Feature Test', () => {
             acessorios: [{ descricao: 'Ar-condicionado' }],
             quantidadePassageiros: 5
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(201)
       })
@@ -394,7 +399,7 @@ describe('Feature Test', () => {
       it('should throw "bad request" when request with invalid "id" field', async () => {
         const res = await supertest(app)
           .delete(prefix + '/invalid-id')
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -402,7 +407,7 @@ describe('Feature Test', () => {
       it('should throw "not found" when request with id value that dont exists', async () => {
         const res = await supertest(app)
           .delete(prefix + '/507f1f77bcf86cd799439011')
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(404)
       })
@@ -410,7 +415,7 @@ describe('Feature Test', () => {
       it('should throw "ok" when request with correct fields', async () => {
         const res = await supertest(app)
           .delete(`${prefix}/${carEntities[0]._id}`)
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(204)
       })
@@ -420,7 +425,7 @@ describe('Feature Test', () => {
       it('should throw "bad request" when request with invalid "id" field', async () => {
         const res = await supertest(app)
           .get(prefix + '/invalid-id')
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -428,7 +433,7 @@ describe('Feature Test', () => {
       it('should throw "not found" when request with id value that dont exists', async () => {
         const res = await supertest(app)
           .get(prefix + '/507f1f77bcf86cd799439011')
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(404)
       })
@@ -436,7 +441,7 @@ describe('Feature Test', () => {
       it('should throw "ok" when request with correct fields', async () => {
         const res = await supertest(app)
           .get(`${prefix}/${carEntities[1]._id}`)
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(200)
       })
@@ -446,7 +451,7 @@ describe('Feature Test', () => {
       it('should throw "bad request" when request with invalid "id" field', async () => {
         const res = await supertest(app)
           .put(prefix + '/invalid-id')
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -460,7 +465,7 @@ describe('Feature Test', () => {
             acessorios: [{ descricao: 'Ar-condicionado' }],
             quantidadePassageiros: 5
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(404)
       })
@@ -468,7 +473,7 @@ describe('Feature Test', () => {
       it('should throw "bad request" when request without request body', async () => {
         const res = await supertest(app)
           .put(`${prefix}/${carEntities[1]._id}`)
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -481,7 +486,7 @@ describe('Feature Test', () => {
             ano: '2021',
             quantidadePassageiros: 5
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -495,7 +500,7 @@ describe('Feature Test', () => {
             acessorios: [{ descricao: 'Ar-condicionado' }],
             quantidadePassageiros: 5
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -510,7 +515,7 @@ describe('Feature Test', () => {
             acessorios: [{ descricao: 'Ar-condicionado' }],
             quantidadePassageiros: 5
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -525,7 +530,7 @@ describe('Feature Test', () => {
             acessorios: [{ descricao: 'Ar-condicionado' }],
             quantidadePassageiros: 5
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -540,7 +545,7 @@ describe('Feature Test', () => {
             acessorios: [{ descricao: 'Ar-condicionado' }],
             quantidadePassageiros: 5
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -555,7 +560,7 @@ describe('Feature Test', () => {
             acessorios: [{ descricao: 'Ar-condicionado' }],
             quantidadePassageiros: 5
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -570,7 +575,7 @@ describe('Feature Test', () => {
             acessorios: [],
             quantidadePassageiros: 5
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -585,7 +590,7 @@ describe('Feature Test', () => {
             acessorios: [{ descricao: 'Ar-condicionado' }],
             quantidadePassageiros: 'invalid-field'
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -600,7 +605,7 @@ describe('Feature Test', () => {
             acessorios: [{ descricao: 'Ar-condicionado' }],
             quantidadePassageiros: 5
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(204)
       })
@@ -610,7 +615,7 @@ describe('Feature Test', () => {
       it('should sucess when request with no request body', async () => {
         const res = await supertest(app)
           .get(prefix)
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(200)
       })
@@ -620,7 +625,7 @@ describe('Feature Test', () => {
           .get(prefix).query({
             ano: 'invalid-year'
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -631,7 +636,7 @@ describe('Feature Test', () => {
           .query({
             ano: 1949
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -642,7 +647,7 @@ describe('Feature Test', () => {
           .query({
             ano: new Date().getFullYear() + 1
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -653,7 +658,7 @@ describe('Feature Test', () => {
           .query({
             quantidadePassageiros: 'invalid-field'
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -664,7 +669,7 @@ describe('Feature Test', () => {
           .query({
             limit: 'invalid-field'
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -675,7 +680,7 @@ describe('Feature Test', () => {
           .query({
             limit: 0
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -686,7 +691,7 @@ describe('Feature Test', () => {
           .query({
             offset: 'invalid-field'
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -697,7 +702,7 @@ describe('Feature Test', () => {
           .query({
             offset: 0
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.statusCode).toBe(400)
       })
@@ -708,7 +713,7 @@ describe('Feature Test', () => {
           .query({
             limit: 1
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.body.limit).toBe(1)
         expect(res.body.veiculos.length).toBe(1)
@@ -721,7 +726,7 @@ describe('Feature Test', () => {
             limit: 1,
             offset: 1
           })
-          .set('Authorization', token)
+          .set('Authorization', auth)
 
         expect(res.body.offset).toBe(2)
       })
