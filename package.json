@@ -11,7 +11,7 @@
     "docker:down:dev": "docker-compose -f ./docker-compose.dev.yml down",
     "docker:up": "docker-compose -f ./docker-compose.prod.yml up",
     "docker:down": "docker-compose -f ./docker-compose.prod.yml down",
-    "test:e2e": "jest ./__tests__/e2e/app.test.ts"
+    "test:e2e": "jest ./__tests__/e2e/routes --silent"
   },
   "repository": {
     "type": "git",

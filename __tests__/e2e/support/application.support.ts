@@ -1,0 +1,48 @@
+import mongoose from 'mongoose'
+import { Express } from 'express'
+import { MongoMemoryServer } from 'mongodb-memory-server'
+
+import { App } from '../../../src/App'
+import { IEntities } from './interfaces/entities.interface'
+import { PeopleSeeder } from '../seeders/people.seeder'
+import { CarSeeder } from '../seeders/car.seeder'
+
+export interface IApplicationResponse {
+  app: Express
+  entities: IEntities
+  end: () => Promise<void>
+}
+
+export const Application = {
+  start: async (): Promise<IApplicationResponse> => {
+    const mongo = await MongoMemoryServer.create()
+    const app = await App.init({ db_uri: mongo.getUri() })
+
+    return {
+      app,
+      entities: {
+        people: await PeopleSeeder.handle(),
+        car: await CarSeeder.handle()
+      },
+      end: async () => {
+        await mongoose.connection.close()
+        await mongo.stop()
+      }
+    }
+  }
+}
+/*
+export async function Application (): Promise<IApplicationResponse> {
+  let mongo
+  let app
+
+  return {
+    start: async () => {
+
+    },
+    end: async () => {
+      console.log('end')
+    }
+  }
+}
+*/

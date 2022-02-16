@@ -31,6 +31,13 @@ export const CarSeeder = {
         ano: '1950',
         acessorios: [{ descricao: 'Espaçoso' }],
         quantidadePassageiros: 8
+      }),
+      await Car.create({
+        modelo: 'TO DELETE ENTITY',
+        cor: 'preto',
+        ano: '1950',
+        acessorios: [{ descricao: 'Espaçoso' }],
+        quantidadePassageiros: 8
       })
     ]
   }
