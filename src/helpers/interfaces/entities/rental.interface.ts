@@ -8,6 +8,7 @@ export interface IRental {
   endereco: Array<{ isFilial: boolean } & IAdress>
 }
 
-export interface IRentalDTO extends Omit<IRental, 'endereco'> {
+export interface IRentalDTO extends Omit<Omit<IRental, 'endereco'>, '_id'> {
+  _id?: string
   endereco: Array<{ isFilial: boolean } & IAdressDTO>
 }
