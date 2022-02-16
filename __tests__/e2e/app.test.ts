@@ -3,25 +3,35 @@ import supertest from 'supertest'
 import { Express } from 'express'
 import { MongoMemoryServer } from 'mongodb-memory-server'
 
+import { JWT } from '../../src/utils/jwt.util'
 import { App } from '../../src/App'
-import { PeopleSeeder } from './seeders/people.seeder'
 import { CarSeeder } from './seeders/car.seeder'
+import { PeopleSeeder } from './seeders/people.seeder'
 import { ICar } from '../../src/helpers/interfaces/entities/car.interface'
+import { IPeople } from '../../src/helpers/interfaces/entities/people.interface'
 
 describe('Feature Test', () => {
   let mongod: MongoMemoryServer
   let app: Express
+  let token: string
 
-  let carEntities: Array<Omit<ICar, '_id'> & { _id: string }>
+  let peopleEntities: IPeople[]
+  let carEntities: ICar[]
 
   beforeAll(async () => {
     mongod = await MongoMemoryServer.create()
+
     app = await App.init({
       db_uri: mongod.getUri() + 'e2e'
     })
 
-    await PeopleSeeder.handle()
-    carEntities = await CarSeeder.handle() as any
+    peopleEntities = await PeopleSeeder.handle()
+    carEntities = await CarSeeder.handle()
+
+    token = JWT.generate({
+      email: peopleEntities[0].email,
+      habilitado: peopleEntities[0].habilitado
+    }).access_token
   })
 
   afterAll(async () => {
@@ -247,103 +257,127 @@ describe('Feature Test', () => {
 
     describe('POST - create a car', () => {
       it('should throw "bad request" when request without request body', async () => {
-        const res = await supertest(app).post(prefix).send({})
+        const res = await supertest(app).post(prefix).send({}).set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with invalid "modelo" field', async () => {
-        const res = await supertest(app).post(prefix).send({
-          modelo: 1000,
-          cor: 'branco',
-          ano: '2021',
-          acessorios: [{ descricao: 'Ar-condicionado' }],
-          quantidadePassageiros: 5
-        })
+        const res = await supertest(app)
+          .post(prefix)
+          .send({
+            modelo: 1000,
+            cor: 'branco',
+            ano: '2021',
+            acessorios: [{ descricao: 'Ar-condicionado' }],
+            quantidadePassageiros: 5
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with invalid "cor" field', async () => {
-        const res = await supertest(app).post(prefix).send({
-          modelo: 'GM S10 2.8',
-          cor: 1000,
-          ano: '2021',
-          acessorios: [{ descricao: 'Ar-condicionado' }],
-          quantidadePassageiros: 5
-        })
+        const res = await supertest(app)
+          .post(prefix)
+          .send({
+            modelo: 'GM S10 2.8',
+            cor: 1000,
+            ano: '2021',
+            acessorios: [{ descricao: 'Ar-condicionado' }],
+            quantidadePassageiros: 5
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with invalid "ano" field', async () => {
-        const res = await supertest(app).post(prefix).send({
-          modelo: 'GM S10 2.8',
-          cor: 'branco',
-          ano: 'invalid-year',
-          acessorios: [{ descricao: 'Ar-condicionado' }],
-          quantidadePassageiros: 5
-        })
+        const res = await supertest(app)
+          .post(prefix)
+          .send({
+            modelo: 'GM S10 2.8',
+            cor: 'branco',
+            ano: 'invalid-year',
+            acessorios: [{ descricao: 'Ar-condicionado' }],
+            quantidadePassageiros: 5
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with "ano" value smaller than 1950', async () => {
-        const res = await supertest(app).post(prefix).send({
-          modelo: 'GM S10 2.8',
-          cor: 'branco',
-          ano: 1949,
-          acessorios: [{ descricao: 'Ar-condicionado' }],
-          quantidadePassageiros: 5
-        })
+        const res = await supertest(app)
+          .post(prefix)
+          .send({
+            modelo: 'GM S10 2.8',
+            cor: 'branco',
+            ano: 1949,
+            acessorios: [{ descricao: 'Ar-condicionado' }],
+            quantidadePassageiros: 5
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with "ano" value bigger than current year', async () => {
-        const res = await supertest(app).post(prefix).send({
-          modelo: 'GM S10 2.8',
-          cor: 'branco',
-          ano: new Date().getFullYear() + 1,
-          acessorios: [{ descricao: 'Ar-condicionado' }],
-          quantidadePassageiros: 5
-        })
+        const res = await supertest(app)
+          .post(prefix)
+          .send({
+            modelo: 'GM S10 2.8',
+            cor: 'branco',
+            ano: new Date().getFullYear() + 1,
+            acessorios: [{ descricao: 'Ar-condicionado' }],
+            quantidadePassageiros: 5
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with "acessorios" field without child', async () => {
-        const res = await supertest(app).post(prefix).send({
-          modelo: 'GM S10 2.8',
-          cor: 'branco',
-          ano: '2021',
-          acessorios: [],
-          quantidadePassageiros: 5
-        })
+        const res = await supertest(app)
+          .post(prefix)
+          .send({
+            modelo: 'GM S10 2.8',
+            cor: 'branco',
+            ano: '2021',
+            acessorios: [],
+            quantidadePassageiros: 5
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with invalid "quantidadePassageiros" field', async () => {
-        const res = await supertest(app).post(prefix).send({
-          modelo: 'GM S10 2.8',
-          cor: 'branco',
-          ano: '2021',
-          acessorios: [{ descricao: 'Ar-condicionado' }],
-          quantidadePassageiros: 'invalid-field'
-        })
+        const res = await supertest(app)
+          .post(prefix)
+          .send({
+            modelo: 'GM S10 2.8',
+            cor: 'branco',
+            ano: '2021',
+            acessorios: [{ descricao: 'Ar-condicionado' }],
+            quantidadePassageiros: 'invalid-field'
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "ok" when request with correct request body', async () => {
-        const res = await supertest(app).post(prefix).send({
-          modelo: 'GM S10 2.8',
-          cor: 'branco',
-          ano: '2021',
-          acessorios: [{ descricao: 'Ar-condicionado' }],
-          quantidadePassageiros: 5
-        })
+        const res = await supertest(app)
+          .post(prefix)
+          .send({
+            modelo: 'GM S10 2.8',
+            cor: 'branco',
+            ano: '2021',
+            acessorios: [{ descricao: 'Ar-condicionado' }],
+            quantidadePassageiros: 5
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(201)
       })
@@ -351,19 +385,25 @@ describe('Feature Test', () => {
 
     describe('DELETE - delete a car', () => {
       it('should throw "bad request" when request with invalid "id" field', async () => {
-        const res = await supertest(app).delete(prefix + '/invalid-id')
+        const res = await supertest(app)
+          .delete(prefix + '/invalid-id')
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "not found" when request with id value that dont exists', async () => {
-        const res = await supertest(app).delete(prefix + '/507f1f77bcf86cd799439011')
+        const res = await supertest(app)
+          .delete(prefix + '/507f1f77bcf86cd799439011')
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(404)
       })
 
       it('should throw "ok" when request with correct fields', async () => {
-        const res = await supertest(app).delete(`${prefix}/${carEntities[0]._id}`)
+        const res = await supertest(app)
+          .delete(`${prefix}/${carEntities[0]._id}`)
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(204)
       })
@@ -371,19 +411,25 @@ describe('Feature Test', () => {
 
     describe('GET - find car by id', () => {
       it('should throw "bad request" when request with invalid "id" field', async () => {
-        const res = await supertest(app).get(prefix + '/invalid-id')
+        const res = await supertest(app)
+          .get(prefix + '/invalid-id')
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "not found" when request with id value that dont exists', async () => {
-        const res = await supertest(app).get(prefix + '/507f1f77bcf86cd799439011')
+        const res = await supertest(app)
+          .get(prefix + '/507f1f77bcf86cd799439011')
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(404)
       })
 
       it('should throw "ok" when request with correct fields', async () => {
-        const res = await supertest(app).get(`${prefix}/${carEntities[1]._id}`)
+        const res = await supertest(app)
+          .get(`${prefix}/${carEntities[1]._id}`)
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(200)
       })
@@ -391,132 +437,163 @@ describe('Feature Test', () => {
 
     describe('PUT - update a car', () => {
       it('should throw "bad request" when request with invalid "id" field', async () => {
-        const res = await supertest(app).put(prefix + '/invalid-id')
+        const res = await supertest(app)
+          .put(prefix + '/invalid-id')
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "not found" when request with id value that dont exists', async () => {
-        const res = await supertest(app).put(prefix + '/507f1f77bcf86cd799439011').send({
-          modelo: 'GM S10 2.8',
-          cor: 'branco',
-          ano: '2021',
-          acessorios: [{ descricao: 'Ar-condicionado' }],
-          quantidadePassageiros: 5
-        })
+        const res = await supertest(app).put(prefix + '/507f1f77bcf86cd799439011')
+          .send({
+            modelo: 'GM S10 2.8',
+            cor: 'branco',
+            ano: '2021',
+            acessorios: [{ descricao: 'Ar-condicionado' }],
+            quantidadePassageiros: 5
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(404)
       })
 
       it('should throw "bad request" when request without request body', async () => {
-        const res = await supertest(app).put(`${prefix}/${carEntities[1]._id}`)
+        const res = await supertest(app)
+          .put(`${prefix}/${carEntities[1]._id}`)
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request without required field', async () => {
-        const res = await supertest(app).put(`${prefix}/${carEntities[1]._id}`).send({
-          modelo: 'GM S10 2.8',
-          cor: 'branco',
-          ano: '2021',
-          quantidadePassageiros: 5
-        })
+        const res = await supertest(app).put(`${prefix}/${carEntities[1]._id}`)
+          .send({
+            modelo: 'GM S10 2.8',
+            cor: 'branco',
+            ano: '2021',
+            quantidadePassageiros: 5
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with invalid "modelo" field', async () => {
-        const res = await supertest(app).put(`${prefix}/${carEntities[1]._id}`).send({
-          modelo: 1000,
-          cor: 'branco',
-          ano: '2021',
-          acessorios: [{ descricao: 'Ar-condicionado' }],
-          quantidadePassageiros: 5
-        })
+        const res = await supertest(app).put(`${prefix}/${carEntities[1]._id}`)
+          .send({
+            modelo: 1000,
+            cor: 'branco',
+            ano: '2021',
+            acessorios: [{ descricao: 'Ar-condicionado' }],
+            quantidadePassageiros: 5
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with invalid "cor" field', async () => {
-        const res = await supertest(app).put(`${prefix}/${carEntities[1]._id}`).send({
-          modelo: 'GM S10 2.8',
-          cor: 1000,
-          ano: '2021',
-          acessorios: [{ descricao: 'Ar-condicionado' }],
-          quantidadePassageiros: 5
-        })
+        const res = await supertest(app)
+          .put(`${prefix}/${carEntities[1]._id}`)
+          .send({
+            modelo: 'GM S10 2.8',
+            cor: 1000,
+            ano: '2021',
+            acessorios: [{ descricao: 'Ar-condicionado' }],
+            quantidadePassageiros: 5
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with invalid "ano" field', async () => {
-        const res = await supertest(app).put(`${prefix}/${carEntities[1]._id}`).send({
-          modelo: 'GM S10 2.8',
-          cor: 'branco',
-          ano: 'invalid-year',
-          acessorios: [{ descricao: 'Ar-condicionado' }],
-          quantidadePassageiros: 5
-        })
+        const res = await supertest(app)
+          .put(`${prefix}/${carEntities[1]._id}`)
+          .send({
+            modelo: 'GM S10 2.8',
+            cor: 'branco',
+            ano: 'invalid-year',
+            acessorios: [{ descricao: 'Ar-condicionado' }],
+            quantidadePassageiros: 5
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with "ano" value smaller than 1950', async () => {
-        const res = await supertest(app).put(`${prefix}/${carEntities[1]._id}`).send({
-          modelo: 'GM S10 2.8',
-          cor: 'branco',
-          ano: 1949,
-          acessorios: [{ descricao: 'Ar-condicionado' }],
-          quantidadePassageiros: 5
-        })
+        const res = await supertest(app)
+          .put(`${prefix}/${carEntities[1]._id}`)
+          .send({
+            modelo: 'GM S10 2.8',
+            cor: 'branco',
+            ano: 1949,
+            acessorios: [{ descricao: 'Ar-condicionado' }],
+            quantidadePassageiros: 5
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with "ano" value bigger than current year', async () => {
-        const res = await supertest(app).put(`${prefix}/${carEntities[1]._id}`).send({
-          modelo: 'GM S10 2.8',
-          cor: 'branco',
-          ano: new Date().getFullYear() + 1,
-          acessorios: [{ descricao: 'Ar-condicionado' }],
-          quantidadePassageiros: 5
-        })
+        const res = await supertest(app)
+          .put(`${prefix}/${carEntities[1]._id}`)
+          .send({
+            modelo: 'GM S10 2.8',
+            cor: 'branco',
+            ano: new Date().getFullYear() + 1,
+            acessorios: [{ descricao: 'Ar-condicionado' }],
+            quantidadePassageiros: 5
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with "acessorios" field without child', async () => {
-        const res = await supertest(app).put(`${prefix}/${carEntities[1]._id}`).send({
-          modelo: 'GM S10 2.8',
-          cor: 'branco',
-          ano: '2021',
-          acessorios: [],
-          quantidadePassageiros: 5
-        })
+        const res = await supertest(app)
+          .put(`${prefix}/${carEntities[1]._id}`)
+          .send({
+            modelo: 'GM S10 2.8',
+            cor: 'branco',
+            ano: '2021',
+            acessorios: [],
+            quantidadePassageiros: 5
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with invalid "quantidadePassageiros" field', async () => {
-        const res = await supertest(app).put(`${prefix}/${carEntities[1]._id}`).send({
-          modelo: 'GM S10 2.8',
-          cor: 'branco',
-          ano: '2021',
-          acessorios: [{ descricao: 'Ar-condicionado' }],
-          quantidadePassageiros: 'invalid-field'
-        })
+        const res = await supertest(app)
+          .put(`${prefix}/${carEntities[1]._id}`)
+          .send({
+            modelo: 'GM S10 2.8',
+            cor: 'branco',
+            ano: '2021',
+            acessorios: [{ descricao: 'Ar-condicionado' }],
+            quantidadePassageiros: 'invalid-field'
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "ok" when request with correct request body', async () => {
-        const res = await supertest(app).put(`${prefix}/${carEntities[1]._id}`).send({
-          modelo: 'GM S10 2.8',
-          cor: 'branco',
-          ano: '2021',
-          acessorios: [{ descricao: 'Ar-condicionado' }],
-          quantidadePassageiros: 5
-        })
+        const res = await supertest(app)
+          .put(`${prefix}/${carEntities[1]._id}`)
+          .send({
+            modelo: 'GM S10 2.8',
+            cor: 'branco',
+            ano: '2021',
+            acessorios: [{ descricao: 'Ar-condicionado' }],
+            quantidadePassageiros: 5
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(204)
       })
@@ -524,89 +601,120 @@ describe('Feature Test', () => {
 
     describe('GET - find all cars', () => {
       it('should sucess when request with no request body', async () => {
-        const res = await supertest(app).get(prefix)
+        const res = await supertest(app)
+          .get(prefix)
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(200)
       })
 
       it('should throw "bad request" when request with invalid "ano" field', async () => {
-        const res = await supertest(app).get(prefix).query({
-          ano: 'invalid-year'
-        })
+        const res = await supertest(app)
+          .get(prefix).query({
+            ano: 'invalid-year'
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with "ano" value smaller than 1950', async () => {
-        const res = await supertest(app).get(prefix).query({
-          ano: 1949
-        })
+        const res = await supertest(app)
+          .get(prefix)
+          .query({
+            ano: 1949
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with "ano" value bigger than current year', async () => {
-        const res = await supertest(app).get(prefix).query({
-          ano: new Date().getFullYear() + 1
-        })
+        const res = await supertest(app)
+          .get(prefix)
+          .query({
+            ano: new Date().getFullYear() + 1
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with invalid "quantidadePassageiros" field', async () => {
-        const res = await supertest(app).get(prefix).query({
-          quantidadePassageiros: 'invalid-field'
-        })
+        const res = await supertest(app)
+          .get(prefix)
+          .query({
+            quantidadePassageiros: 'invalid-field'
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with invalid "limit" field', async () => {
-        const res = await supertest(app).get(prefix).query({
-          limit: 'invalid-field'
-        })
+        const res = await supertest(app)
+          .get(prefix)
+          .query({
+            limit: 'invalid-field'
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with "limit" field smaller than 1', async () => {
-        const res = await supertest(app).get(prefix).query({
-          limit: 0
-        })
+        const res = await supertest(app)
+          .get(prefix)
+          .query({
+            limit: 0
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with invalid "offset" field', async () => {
-        const res = await supertest(app).get(prefix).query({
-          offset: 'invalid-field'
-        })
+        const res = await supertest(app)
+          .get(prefix)
+          .query({
+            offset: 'invalid-field'
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should throw "bad request" when request with "offset" field smaller than 1', async () => {
-        const res = await supertest(app).get(prefix).query({
-          offset: 0
-        })
+        const res = await supertest(app)
+          .get(prefix)
+          .query({
+            offset: 0
+          })
+          .set('Authorization', token)
 
         expect(res.statusCode).toBe(400)
       })
 
       it('should pagination "limit" work', async () => {
-        const res = await supertest(app).get(prefix).query({
-          limit: 1
-        })
+        const res = await supertest(app)
+          .get(prefix)
+          .query({
+            limit: 1
+          })
+          .set('Authorization', token)
 
         expect(res.body.limit).toBe(1)
         expect(res.body.veiculos.length).toBe(1)
       })
 
       it('should pagination "limit" work', async () => {
-        const res = await supertest(app).get(prefix).query({
-          limit: 1,
-          offset: 1
-        })
+        const res = await supertest(app)
+          .get(prefix)
+          .query({
+            limit: 1,
+            offset: 1
+          })
+          .set('Authorization', token)
 
         expect(res.body.offset).toBe(2)
       })
