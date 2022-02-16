@@ -118,8 +118,15 @@ describe('Feature Test', () => {
           senha: 'valid-password'
         })
 
+        const payload: any = JWT.verify(res.body.access_token)
+
+        expect(res.body.type).toBe('bearer')
+        expect(res.body.expires_in).toBe(86400)
+
+        expect(payload.email).toBe('other-valid-email@mail.com')
+        expect(payload.habilitado).toBe('nao')
+
         expect(res.statusCode).toBe(200)
-        expect(res.body).toHaveProperty('acess_token')
       })
     })
   })
