@@ -17,12 +17,17 @@ export class Authenticate implements Middleware {
         return res.status(HttpCode.FORBIDDEN).end()
       }
 
-      const [, token] = auth.split(' ')
+      const [type, token] = auth.split(' ')
+
+      if (type.toLocaleLowerCase() !== 'bearer') {
+        throw new BadRequest([], 'Authorization type should be "bearer"')
+      }
+
       JWT.verify(token)
 
       return next()
     } catch (err) {
-      let localError
+      let localError = err
 
       if (err instanceof TokenExpiredError) {
         localError = new Unauthorized('The access token provided is expired')
