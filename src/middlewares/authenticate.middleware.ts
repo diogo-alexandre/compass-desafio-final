@@ -1,13 +1,12 @@
-import JWT, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken'
-import { Middleware } from '@decorators/express'
 import { Request, NextFunction } from 'express'
+import { Middleware } from '@decorators/express'
+import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken'
 
-import { Response } from '../helpers/interfaces/response.interface'
-import { env } from '../utils/env.util'
-import { RuntimeError } from '../errors/runtime.error'
+import { JWT } from '../utils/jwt.util'
 import { HttpCode } from '../constants/http-code.contant'
 import { BadRequest } from '../errors/http/bad-request.error'
 import { Unauthorized } from '../errors/http/unauthorized.error'
+import { Response } from '../helpers/interfaces/response.interface'
 
 export class Authenticate implements Middleware {
   use (req: Request, res: Response, next: NextFunction): void {
@@ -19,13 +18,7 @@ export class Authenticate implements Middleware {
       }
 
       const [, token] = auth.split(' ')
-      const secret = env('SECRET')
-
-      if (secret === undefined) {
-        throw new RuntimeError('env "SECRET" was not providaded.')
-      }
-
-      JWT.verify(token, secret)
+      JWT.verify(token)
 
       return next()
     } catch (err) {
@@ -36,8 +29,6 @@ export class Authenticate implements Middleware {
       } else if (err instanceof JsonWebTokenError) {
         localError = new BadRequest([], 'The request signature is invalid')
       }
-
-      console.log(err)
 
       return next(localError)
     }

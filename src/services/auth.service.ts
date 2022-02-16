@@ -22,6 +22,6 @@ export class AuthService implements IAuthService {
       throw new InvalidPasswordError('Passwords are not the same')
     }
 
-    return await JWT.generate({ email, habilitado })
+    return JWT.generate({ email, habilitado })
   }
 }

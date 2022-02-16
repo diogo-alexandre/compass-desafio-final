@@ -6,7 +6,7 @@ import { IAuthResponse } from '../helpers/interfaces/auth.interface'
 import { TokenType } from '../constants/auth.constant'
 
 export const JWT = {
-  async generate (payload: object, expiresIn: number = 86400): Promise<IAuthResponse> {
+  generate (payload: object, expiresIn: number = 86400): IAuthResponse {
     const secret = env('SECRET')
 
     if (secret === undefined) {
@@ -20,5 +20,14 @@ export const JWT = {
       type: TokenType.BEARER,
       expires_in: expiresIn
     }
+  },
+  verify (token: string): string | jwt.JwtPayload {
+    const secret = env('SECRET')
+
+    if (secret === undefined) {
+      throw new RuntimeError('env "SECRET" was not providaded.')
+    }
+
+    return jwt.verify(token, secret)
   }
 }
