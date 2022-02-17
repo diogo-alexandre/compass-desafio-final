@@ -3,6 +3,7 @@ import mongoosePaginate from 'mongoose-paginate-v2'
 
 import { IRental } from '../helpers/interfaces/entities/rental.interface'
 import { IPaginateModel } from '../helpers/interfaces/paginate.interface'
+import { CNPJ } from '../utils/cpf-cnpj.util'
 
 const RentalSchema = new Schema({
   nome: {
@@ -12,7 +13,8 @@ const RentalSchema = new Schema({
   cnpj: {
     type: String,
     unique: true,
-    required: true
+    required: true,
+    set: (value: string) => CNPJ(value).toStringWithDots()
   },
   atividades: {
     type: String,

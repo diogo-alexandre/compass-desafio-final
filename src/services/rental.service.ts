@@ -19,7 +19,7 @@ export class RentalService implements IRentalService {
   async create (rental: IRentalDTO): Promise<IRental> {
     const addresses = rental.endereco.map(async end => ({
       ...end,
-      ...await CEP.getAdress(end.cep)
+      ...await CEP(end.cep).getAdress()
     }))
 
     return await this.rentalRepository.create({
@@ -45,7 +45,7 @@ export class RentalService implements IRentalService {
   async update (id: string, rental: IRentalDTO): Promise<IRental> {
     const addresses = rental.endereco.map(async end => ({
       ...end,
-      ...await CEP.getAdress(end.cep)
+      ...await CEP(end.cep).getAdress()
     }))
 
     const result = await this.rentalRepository.update(id, {
