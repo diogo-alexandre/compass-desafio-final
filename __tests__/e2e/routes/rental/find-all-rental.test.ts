@@ -98,8 +98,6 @@ describe('GET - find all rentals', () => {
         limit: 1
       })
 
-    console.log(res.body.limit)
-
     expect(res.body.limit).toBe(1)
     expect(res.body.rentals.length).toBe(1)
   })
