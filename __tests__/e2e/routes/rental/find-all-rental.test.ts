@@ -22,10 +22,10 @@ describe('GET - find all rentals', () => {
     expect(res.statusCode).toBe(200)
   })
 
-  it('should throw "bad request" when request with invalid "nome" field', async () => {
+  it('should throw "bad request" when request with empty "nome" field', async () => {
     const res = await supertest(dependecies.app)
       .get(path).query({
-        nome: 1000
+        nome: ''
       })
 
     expect(res.statusCode).toBe(400)
@@ -35,17 +35,17 @@ describe('GET - find all rentals', () => {
     const res = await supertest(dependecies.app)
       .get(path)
       .query({
-        quantidadePassageiros: 'invalid-field'
+        cnpj: 'invalid-field'
       })
 
     expect(res.statusCode).toBe(400)
   })
 
-  it('should throw "bad request" when request with invalid "atividades" field', async () => {
+  it('should throw "bad request" when request with empty "atividades" field', async () => {
     const res = await supertest(dependecies.app)
       .get(path)
       .query({
-        atividades: 1000
+        atividades: ''
       })
 
     expect(res.statusCode).toBe(400)
