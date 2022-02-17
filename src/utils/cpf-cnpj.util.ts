@@ -60,7 +60,7 @@ export const CNPJ: ICNPJ = (cnpj: string) => {
 
   return {
     toStringPlain: () => numbers + establishment + digits,
-    toStringWithDots: () => `${numbers.replace(/^([0-9]{2})([0-9]{3}){2}$/, '$1.$2.$3')}/${establishment}-${digits}`,
+    toStringWithDots: () => `${numbers.replace(/^([0-9]{2})([0-9]{3})([0-9]{3})$/, '$1.$2.$3')}/${establishment}-${digits}`,
     isValid: () => {
       let d1 = accum(numbers + establishment, 5, 9, 2) % 11
       d1 = (d1 < 2) ? 0 : 11 - d1
