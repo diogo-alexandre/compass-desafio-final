@@ -1,17 +1,12 @@
 import jwt from 'jsonwebtoken'
 
-import { env } from './env.util'
-import { RuntimeError } from '../errors/runtime.error'
-import { IAuthResponse } from '../helpers/interfaces/auth.interface'
+import { Env } from './env.util'
 import { TokenType } from '../constants/auth.constant'
+import { IAuthResponse } from '../helpers/interfaces/auth.interface'
 
 export const JWT = {
   generate (payload: object, expiresIn: number = 86400): IAuthResponse {
-    const secret = env('SECRET')
-
-    if (secret === undefined) {
-      throw new RuntimeError('env "SECRET" was not providaded.')
-    }
+    const secret = Env.get<string>('SECRET')
 
     const token = jwt.sign(payload, secret, { expiresIn })
 
@@ -22,11 +17,7 @@ export const JWT = {
     }
   },
   verify (token: string): string | jwt.JwtPayload {
-    const secret = env('SECRET')
-
-    if (secret === undefined) {
-      throw new RuntimeError('env "SECRET" was not providaded.')
-    }
+    const secret = Env.get<string>('SECRET')
 
     return jwt.verify(token, secret)
   }

@@ -1,3 +1,5 @@
+import { Env } from '../utils/env.util'
+
 enum Color {
   RESET = '\x1b[0m',
   BRIGHT = '\x1b[1m',
@@ -8,12 +10,16 @@ enum Color {
 }
 
 function base (type: string, color: Color | string, message: string): void {
-  const now = new Date().toTimeString().split(' ')[0]
-  const time = `${Color.BRIGHT}${Color.BLACK}${now}${Color.RESET}`
+  const appLog = Env.get('APP_LOG')
 
-  type = `[${color}${type.toLocaleUpperCase()}${Color.RESET}]`
+  if (appLog === true) {
+    const now = new Date().toTimeString().split(' ')[0]
+    const time = `${Color.BRIGHT}${Color.BLACK}${now}${Color.RESET}`
 
-  console.log(`${type} ${time} ${message}`)
+    type = `[${color}${type.toLocaleUpperCase()}${Color.RESET}]`
+
+    console.log(`${type} ${time} ${message}`)
+  }
 }
 
 export const Log = {

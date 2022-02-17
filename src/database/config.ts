@@ -1,20 +1,10 @@
-import { RuntimeError } from '../errors/runtime.error'
-import { env } from '../utils/env.util'
+import { Env } from '../utils/env.util'
 
 export const config = {
-  uri: (() => {
-    const r = env('DB_URI')
-
-    if (r === undefined) {
-      throw new RuntimeError('env "DB_URI" was not providaded.')
-    }
-
-    return r
-  })(),
+  uri: Env.get<string>('DB_URI'),
   hidden (uri: string): string {
     const [drive, rest] = uri.split('://')
 
-    console.log(rest)
     let auth = ''
     let host
 

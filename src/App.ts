@@ -1,9 +1,10 @@
 import express, { Express } from 'express'
 
+import { Routes } from './routes'
 import { Database } from './database'
+import { Env } from './utils/env.util'
 import { AppOptions } from './helpers/interfaces/app-options.interface'
 import { errorHandler } from './middlewares/error-handle.middleware'
-import { Routes } from './routes'
 
 export class App {
   readonly express: Express
@@ -19,7 +20,16 @@ export class App {
   static async init (options?: AppOptions): Promise<Express> {
     const app = new App()
 
-    await Database.init(options?.db_uri)
+    options = {
+      ...options,
+      log: true
+    }
+
+    for (const key in options) {
+      Env.set(key.includes('_') ? key : `app_${key}`, options[key as keyof AppOptions])
+    }
+
+    await Database.init()
 
     return app.express
   }
