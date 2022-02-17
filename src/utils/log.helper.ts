@@ -1,4 +1,4 @@
-import { Env } from '../utils/env.util'
+import { Env } from './env.util'
 
 enum Color {
   RESET = '\x1b[0m',

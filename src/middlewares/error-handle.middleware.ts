@@ -1,6 +1,6 @@
 import { ErrorRequestHandler } from 'express'
 
-import { Log } from '../helpers/log.helper'
+import { Log } from '../utils/log.helper'
 import { HttpError } from '../errors/http/http.error'
 import { HttpCode } from '../constants/http-code.contant'
 

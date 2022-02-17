@@ -1,5 +1,5 @@
 import { App } from './App'
-import { Log } from './helpers/log.helper'
+import { Log } from './utils/log.helper'
 import { Env } from './utils/env.util'
 
 async function main (): Promise<void> {

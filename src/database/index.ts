@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 import { config } from './config'
-import { Log } from '../helpers/log.helper'
+import { Log } from '../utils/log.helper'
 
 export const Database = {
   async init (uri: string = config.uri): Promise<typeof mongoose> {
