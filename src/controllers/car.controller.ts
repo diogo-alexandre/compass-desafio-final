@@ -6,13 +6,12 @@ import { CarService } from '../services/car.service'
 import { HttpCode } from '../constants/http-code.contant'
 import { ICarDTO } from '../helpers/interfaces/entities/car.interface'
 import { Response } from '../helpers/interfaces/response.interface'
-import { ParamIdValidation } from '../validators/param-id.validator'
+import { IdParamValidation } from '../validators/param-id.validator'
 import { ICarService } from '../services/interfaces/car-service.interface'
 import { CarCreateValidation } from '../validators/car/car-create.validator'
 import { CarFindAllValidation } from '../validators/car/car-findall.validator'
 import { EntityNotFound } from '../errors/entity-not-found.error'
 import { NotFound } from '../errors/http/not-found-error'
-import { ParamCardIdAndAcessorioIdValidator } from '../validators/car/param-id-acessorio-id.validator'
 import { Authenticate } from '../middlewares/authenticate.middleware'
 
 @Controller('/car', [Authenticate])
@@ -52,7 +51,7 @@ export class CarController {
     }
   }
 
-  @Delete('/:id', [ParamIdValidation])
+  @Delete('/:id', [IdParamValidation('id')])
   async delete (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { id } = req.params
@@ -70,7 +69,7 @@ export class CarController {
     }
   }
 
-  @Get('/:id', [ParamIdValidation])
+  @Get('/:id', [IdParamValidation('id')])
   async findById (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { id } = req.params
@@ -88,7 +87,7 @@ export class CarController {
     }
   }
 
-  @Put('/:id', [ParamIdValidation, CarCreateValidation])
+  @Put('/:id', [IdParamValidation('id'), CarCreateValidation])
   async update (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { id } = req.params
@@ -108,7 +107,7 @@ export class CarController {
     }
   }
 
-  @Patch('/:carId/acessorios/:acessorioId', [ParamCardIdAndAcessorioIdValidator])
+  @Patch('/:carId/acessorios/:acessorioId', [IdParamValidation('carId', 'acessorioId')])
   async updateAcessorio (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { carId, acessorioId } = req.params

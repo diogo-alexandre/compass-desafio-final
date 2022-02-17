@@ -8,7 +8,7 @@ import { Response } from '../helpers/interfaces/response.interface'
 import { IRentalService } from '../services/interfaces/rental-service.interface'
 import { RentalService } from '../services/rental.service'
 import { CreateRentalValidation } from '../validators/rental/create-rental.validator'
-import { ParamIdValidation } from '../validators/param-id.validator'
+import { IdParamValidation } from '../validators/param-id.validator'
 import { EntityNotFound } from '../errors/entity-not-found.error'
 import { NotFound } from '../errors/http/not-found-error'
 import { FindAllRentalValidation } from '../validators/rental/findall-rental.validator'
@@ -46,7 +46,7 @@ export class RentalController {
     }
   }
 
-  @Get('/:id', [ParamIdValidation])
+  @Get('/:id', [IdParamValidation('id')])
   async findById (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { id } = req.params
@@ -62,7 +62,7 @@ export class RentalController {
     }
   }
 
-  @Put('/:id', [ParamIdValidation, CreateRentalValidation])
+  @Put('/:id', [IdParamValidation('id'), CreateRentalValidation])
   async update (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { id } = req.params
@@ -80,7 +80,7 @@ export class RentalController {
     }
   }
 
-  @Delete('/:id', [ParamIdValidation])
+  @Delete('/:id', [IdParamValidation('id')])
   async delete (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { id } = req.params
