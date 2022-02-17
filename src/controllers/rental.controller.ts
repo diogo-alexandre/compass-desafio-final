@@ -11,6 +11,7 @@ import { CreateRentalValidation } from '../validators/rental/create-rental.valid
 import { ParamIdValidation } from '../validators/param-id.validator'
 import { EntityNotFound } from '../errors/entity-not-found.error'
 import { NotFound } from '../errors/http/not-found-error'
+import { FindAllRentalValidation } from '../validators/rental/findall-rental.validator'
 
 @Controller('/rental')
 export class RentalController {
@@ -27,7 +28,7 @@ export class RentalController {
     return res.status(HttpCode.CREATED).json(result).end()
   }
 
-  @Get('/')
+  @Get('/', [FindAllRentalValidation])
   async findAll (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { limit, offset, ...query } = req.query
