@@ -17,7 +17,7 @@ export interface IApplicationResponse {
 export const Application = {
   start: async (): Promise<IApplicationResponse> => {
     const mongo = await MongoMemoryServer.create()
-    const app = await App.init({ db_uri: mongo.getUri() })
+    const app = await App.init({ db_uri: mongo.getUri(), log: false })
 
     return {
       app,
