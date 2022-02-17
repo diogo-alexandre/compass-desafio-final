@@ -3,16 +3,16 @@ import { ICNPJ, ICPF } from '../helpers/interfaces/cpf.interface'
 
 function accum (numbers: string, start: number, max: number = start, min: number = 0): number {
   return numbers.split('').map(Number).reduce((prev, curr) => {
-    const c = start % (max + 1)
+    const rest = start % (max + 1)
 
     if (start === min) {
       start = max + 1
     }
 
-    const r = prev + curr * c
+    const result = prev + curr * rest
     start--
 
-    return r
+    return result
   }, 0)
 }
 
