@@ -17,7 +17,8 @@ const PeopleSchema = new Schema({
   },
   data_nascimento: {
     type: Date,
-    required: true
+    required: true,
+    get: (value: Date) => moment(value).format('DD/MM/YYYY')
   },
   email: {
     type: String,
@@ -38,14 +39,7 @@ const PeopleSchema = new Schema({
     },
     set: (v: string) => (v === 'sim')
   }
-}, {
-  versionKey: false,
-  toJSON: {
-    transform: (doc, ret) => {
-      ret.data_nascimento = moment(ret.data_nascimento).format('DD/MM/YYYY')
-    }
-  }
-})
+}, { versionKey: false })
 
 PeopleSchema.post('save', (err: any, doc: IPeople, next: Function) => {
   if (err.name === 'MongoServerError' && err.code === 11000) {
