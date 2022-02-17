@@ -21,15 +21,15 @@ export class App {
     const app = new App()
 
     options = {
-      ...options,
-      log: true
+      log: true,
+      ...options
     }
 
     for (const key in options) {
       Env.set(key.includes('_') ? key : `app_${key}`, options[key as keyof AppOptions])
     }
 
-    await Database.init()
+    await Database.init(options.db_uri)
 
     return app.express
   }
