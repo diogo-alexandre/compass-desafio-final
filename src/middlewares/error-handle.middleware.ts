@@ -17,18 +17,20 @@ import { Log } from '../utils/log.helper'
 export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   let responseError: HttpError
 
-  if (
-    err instanceof InvalidCEP ||
-    err instanceof InvalidCPF ||
-    err instanceof InvalidCNPJ
-  ) {
-    responseError = new BadRequest(err.message)
+  if (err instanceof HttpError) {
+    responseError = err
   } else if (err instanceof EntityNotFound) {
     responseError = new NotFound(err.message)
   } else if (err instanceof InvalidPasswordError) {
     responseError = new Unauthorized(err.message)
   } else if (err instanceof DuplicatedEntry) {
     responseError = new Conflict(err.message)
+  } else if (
+    err instanceof InvalidCEP ||
+    err instanceof InvalidCPF ||
+    err instanceof InvalidCNPJ
+  ) {
+    responseError = new BadRequest(err.message)
   } else {
     responseError = new InternalServerError('Unexpect internal error occurred')
     Log.error(responseError)
