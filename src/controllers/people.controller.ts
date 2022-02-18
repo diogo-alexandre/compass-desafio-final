@@ -3,8 +3,6 @@ import { Request, NextFunction } from 'express'
 import { Controller, Post } from '@decorators/express'
 
 import { HttpCode } from '../constants/http-code.contant'
-import { DuplicatedEntry } from '../errors/duplicated-entry.error'
-import { Conflict } from '../errors/http/conflict.error'
 import { IPeopleDTO } from '../helpers/interfaces/entities/people.interface'
 import { Response } from '../helpers/interfaces/response.interface'
 import { IPeopleService } from '../services/interfaces/people-service.interface'
@@ -31,13 +29,7 @@ export class PeopleController {
 
       return res.status(HttpCode.CREATED).end()
     } catch (err) {
-      let localError = err
-
-      if (err instanceof DuplicatedEntry) {
-        localError = new Conflict(err.message)
-      }
-
-      return next(localError)
+      return next(err)
     }
   }
 }

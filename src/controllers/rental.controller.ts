@@ -22,10 +22,14 @@ export class RentalController {
 
   @Post('/', [CreateRentalValidation])
   async create (req: Request, res: Response, next: NextFunction): Promise<void> {
-    const rental: IRentalDTO = req.body
-    const result = await this.rentalService.create(rental)
+    try {
+      const rental: IRentalDTO = req.body
+      const result = await this.rentalService.create(rental)
 
-    return res.status(HttpCode.CREATED).json(result).end()
+      return res.status(HttpCode.CREATED).json(result).end()
+    } catch (err) {
+      return next(err)
+    }
   }
 
   @Get('/', [FindAllRentalValidation])
@@ -54,10 +58,6 @@ export class RentalController {
 
       return res.status(HttpCode.OK).json(result).end()
     } catch (err) {
-      if (err instanceof EntityNotFound) {
-        return next(new NotFound(err.message))
-      }
-
       return next(err)
     }
   }
@@ -88,10 +88,6 @@ export class RentalController {
 
       return res.status(HttpCode.NO_CONTENT).end()
     } catch (err) {
-      if (err instanceof EntityNotFound) {
-        return next(new NotFound(err.message))
-      }
-
       return next(err)
     }
   }

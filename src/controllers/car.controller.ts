@@ -28,8 +28,8 @@ export class CarController {
       const result = await this.carService.create(car)
 
       return res.status(HttpCode.CREATED).json(result).end()
-    } catch (error) {
-      return next(error)
+    } catch (err) {
+      return next(err)
     }
   }
 
@@ -46,8 +46,8 @@ export class CarController {
         offset: pagination.page,
         offsets: pagination.totalPages
       }).end()
-    } catch (error) {
-      return next(error)
+    } catch (err) {
+      return next(err)
     }
   }
 
@@ -59,13 +59,7 @@ export class CarController {
 
       return res.status(HttpCode.NO_CONTENT).end()
     } catch (err) {
-      let localError = err
-
-      if (err instanceof EntityNotFound) {
-        localError = new NotFound(err.message)
-      }
-
-      return next(localError)
+      return next(err)
     }
   }
 
@@ -97,13 +91,7 @@ export class CarController {
 
       return res.status(HttpCode.NO_CONTENT).end()
     } catch (err) {
-      let localError = err
-
-      if (err instanceof EntityNotFound) {
-        localError = new NotFound(err.message)
-      }
-
-      return next(localError)
+      return next(err)
     }
   }
 
@@ -117,13 +105,7 @@ export class CarController {
 
       return res.status(HttpCode.NO_CONTENT).end()
     } catch (err) {
-      let localError = err
-
-      if (err instanceof EntityNotFound) {
-        localError = new NotFound(err.message)
-      }
-
-      return next(localError)
+      return next(err)
     }
   }
 }
