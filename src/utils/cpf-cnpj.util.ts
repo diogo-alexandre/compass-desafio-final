@@ -1,3 +1,4 @@
+import { InvalidCNPJ } from '../errors/invalid-cnpj.error'
 import { InvalidCPF } from '../errors/invalid-cpf.error'
 import { ICNPJ, ICPF } from '../helpers/interfaces/cpf.interface'
 
@@ -53,7 +54,7 @@ export const CNPJ: ICNPJ = (cnpj: string) => {
   const regex = /^([0-9]{2})[.]?([0-9]{3})[.]?([0-9]{3})[/]?([0-9]{4})[-]?([0-9]{2})$/
 
   if (!regex.test(cnpj)) {
-    throw new Error()
+    throw new InvalidCNPJ(`CNPJ ${cnpj} is not valid`)
   }
 
   const [numbers, establishment, digits] = cnpj.replace(regex, '$1$2$3 $4 $5').split(' ')
