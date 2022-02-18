@@ -1,6 +1,5 @@
 import { model, Schema } from 'mongoose'
 import mongoosePagination from 'mongoose-paginate-v2'
-import { CarConstant } from '../constants/car.constant'
 
 import { ICar } from '../helpers/interfaces/entities/car.interface'
 import { IPaginateModel } from '../helpers/interfaces/paginate.interface'
@@ -16,8 +15,6 @@ const CarSchema = new Schema({
   },
   ano: {
     type: Date,
-    min: CarConstant.MIN_YEAR,
-    max: CarConstant.MAX_YEAR,
     required: true,
     get: (value: Date): string => String(value.getFullYear())
   },
