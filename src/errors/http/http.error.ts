@@ -6,11 +6,9 @@ export abstract class HttpError extends Error {
   public readonly details: IMessage | IMessage[]
 
   constructor (statusCode: HttpCode, msg: string | IMessage[], name: string) {
-    const errorName = name ?? 'Internal Server Error'
+    super(name)
 
-    super(errorName)
-
-    this.name = errorName
+    this.name = name
     this.statusCode = statusCode
 
     if (Array.isArray(msg)) {
