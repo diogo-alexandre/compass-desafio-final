@@ -16,6 +16,11 @@ export const CEP: ICEP = (cep: string) => {
     toStringWithDots: () => cep.replace(regex, '$1-$2'),
     getAdress: async (): Promise<Omit<IAdress, 'number'>> => {
       const response = await axios.get(`https://viacep.com.br/ws/${cep}/json`)
+
+      if (response.data.erro === true) {
+        throw new InvalidCEP(`CEP ${cep} is not valid`)
+      }
+
       const { cep: cepWithDots, logradouro, bairro, localidade, uf } = response.data
 
       return {
@@ -25,21 +30,6 @@ export const CEP: ICEP = (cep: string) => {
         localidade,
         uf
       }
-    }
-  }
-}
-
-export const a = {
-  getAdress: async (cep: string): Promise<Omit<IAdress, 'number'>> => {
-    const response = await axios.get(`https://viacep.com.br/ws/${cep}/json`)
-    const { logradouro, bairro, localidade, uf } = response.data
-
-    return {
-      cep,
-      logradouro,
-      bairro,
-      localidade,
-      uf
     }
   }
 }
