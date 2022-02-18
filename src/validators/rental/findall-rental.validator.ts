@@ -5,11 +5,12 @@ import { Request, Response, NextFunction } from 'express'
 import { CNPJ } from '../../utils/cpf-cnpj.util'
 import { BadRequest } from '../../errors/http/bad-request.error'
 import { IRentalDTO } from '../../helpers/interfaces/entities/rental.interface'
+import { IAdress } from '../../helpers/interfaces/entities/adress.interface'
 
 export class FindAllRentalValidation implements Middleware {
   use (req: Request, res: Response, next: NextFunction): void {
     try {
-      const schema = Joi.object<IRentalDTO & { limit: number, offset: number }>({
+      const schema = Joi.object<IRentalDTO & { limit: number, offset: number } & IAdress>({
         nome: Joi.string()
           .trim(),
 
@@ -23,30 +24,26 @@ export class FindAllRentalValidation implements Middleware {
         atividades: Joi.string()
           .trim(),
 
-        endereco: Joi.array()
-          .items(Joi.object({
-            cep: Joi.string()
-              .trim()
-              .regex(/[0-9]{5}[-]?[0-9]{2}/)
-              .messages({
-                'string.pattern.base': '$label with value $value must be on formart: 12345-000 or 12345000'
-              }),
+        cep: Joi.string()
+          .trim(),
 
-            number: Joi.string()
-              .trim(),
+        logradouro: Joi.string()
+          .trim(),
 
-            complemento: Joi.string()
-              .trim(),
+        complemento: Joi.string()
+          .trim(),
 
-            isFilial: Joi.boolean()
-          }))
-          .min(1)
-          .unique((a, b) => {
-            return a.isFilial === false && b.isFilial === false
-          })
-          .messages({
-            'array.unique': 'There can only exist one "endereco" with "isFilial" field equals "false"'
-          }),
+        bairro: Joi.string()
+          .trim(),
+
+        number: Joi.string()
+          .trim(),
+
+        localidade: Joi.string()
+          .trim(),
+
+        uf: Joi.string()
+          .trim(),
 
         limit: Joi.number()
           .min(1),
