@@ -3,10 +3,10 @@ import { Middleware } from '@decorators/express'
 import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken'
 
 import { JWT } from '../utils/jwt.util'
-import { HttpCode } from '../constants/http-code.contant'
 import { BadRequest } from '../errors/http/bad-request.error'
 import { Unauthorized } from '../errors/http/unauthorized.error'
 import { Response } from '../helpers/interfaces/response.interface'
+import { Forbidden } from '../errors/http/forbidden.error'
 
 export class Authenticate implements Middleware {
   use (req: Request, res: Response, next: NextFunction): void {
@@ -14,13 +14,13 @@ export class Authenticate implements Middleware {
       const auth = req.headers.authorization
 
       if (auth === undefined) {
-        return res.status(HttpCode.FORBIDDEN).end()
+        throw new Forbidden('Bearer Token is necessary to access this route')
       }
 
       const [type, token] = auth.split(' ')
 
       if (type.toLocaleLowerCase() !== 'bearer') {
-        throw new BadRequest([], 'Authorization type should be "bearer"')
+        throw new BadRequest('Authorization type should be "bearer"')
       }
 
       JWT.verify(token)
@@ -32,7 +32,7 @@ export class Authenticate implements Middleware {
       if (err instanceof TokenExpiredError) {
         localError = new Unauthorized('The access token provided is expired')
       } else if (err instanceof JsonWebTokenError) {
-        localError = new BadRequest([], 'The request signature is invalid')
+        localError = new BadRequest('The request signature is invalid')
       }
 
       return next(localError)

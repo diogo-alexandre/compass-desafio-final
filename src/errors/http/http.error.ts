@@ -3,13 +3,24 @@ import { IMessage } from '../../helpers/interfaces/message.interface'
 
 export abstract class HttpError extends Error {
   public readonly statusCode: HttpCode
-  public readonly details: IMessage[]
+  public readonly details: IMessage | IMessage[]
 
-  constructor (statusCode: HttpCode, msg: string, details?: IMessage[]) {
-    super(msg)
+  constructor (statusCode: HttpCode, msg: string | IMessage[], name: string) {
+    const errorName = name ?? 'Internal Server Error'
 
-    this.name = 'Http Error'
+    super(errorName)
+
+    this.name = errorName
     this.statusCode = statusCode
-    this.details = details ?? [{ message: msg }]
+
+    if (Array.isArray(msg)) {
+      if (msg.length === 1) this.details = msg[0]
+      else this.details = msg
+    } else {
+      this.details = {
+        name: this.name,
+        description: msg
+      }
+    }
   }
 }

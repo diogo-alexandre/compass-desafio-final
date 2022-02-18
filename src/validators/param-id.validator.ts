@@ -22,7 +22,12 @@ export const IdParamValidation = (...keys: string[]): (new () => { [key in keyof
         const { error } = Joi.object(schema).validate(req.params, { abortEarly: false })
 
         if (error !== undefined) {
-          throw new BadRequest(error.details.map(({ message }) => ({ message })))
+          throw new BadRequest(error.details.map(detail => {
+            return {
+              name: String(detail.path),
+              description: detail.message
+            }
+          }))
         }
 
         return next()

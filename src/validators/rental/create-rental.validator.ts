@@ -60,10 +60,10 @@ export class CreateRentalValidation implements Middleware {
 
       if (error !== undefined) {
         throw new BadRequest(error.details.map(detail => {
-          const { label, value } = detail.context as { label: string, value: string }
-          const message = detail.message.replace(/\$label/, `"${label}"`).replace(/\$value/, `"${value}"`)
-
-          return { message }
+          return {
+            name: String(detail.path),
+            description: detail.message
+          }
         }))
       }
 

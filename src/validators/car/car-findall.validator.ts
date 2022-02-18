@@ -36,7 +36,12 @@ export class CarFindAllValidation implements Middleware {
       const { error } = schema.validate(req.query, { abortEarly: false })
 
       if (error !== undefined) {
-        throw new BadRequest(error.details.map(({ message }) => ({ message })))
+        throw new BadRequest(error.details.map(detail => {
+          return {
+            name: String(detail.path),
+            description: detail.message
+          }
+        }))
       }
 
       return next()
