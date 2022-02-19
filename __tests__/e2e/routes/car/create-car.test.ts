@@ -28,7 +28,9 @@ describe('POST - create a car', () => {
       .post(path)
 
     expect(res.statusCode).toBe(403)
+
     expect(res.body.name).toBe('Forbidden')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw bad request when request with invalid token type', async () => {
@@ -37,7 +39,9 @@ describe('POST - create a car', () => {
       .set('Authorization', `Invalid ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(400)
+
     expect(res.body.name).toBe('Bad Request')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw bad request when request with unsupported token type', async () => {
@@ -46,7 +50,9 @@ describe('POST - create a car', () => {
       .set('Authorization', `${jwt.type} eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`)
 
     expect(res.statusCode).toBe(400)
+
     expect(res.body.name).toBe('Bad Request')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw unauthorized when request with expired token', async () => {
@@ -60,7 +66,9 @@ describe('POST - create a car', () => {
       .set('Authorization', `${jwt.type} ${tokenExpired.access_token}`)
 
     expect(res.statusCode).toBe(401)
+
     expect(res.body.name).toBe('Unauthorized')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request without request body', async () => {
@@ -70,6 +78,12 @@ describe('POST - create a car', () => {
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(400)
+    expect(Array.isArray(res.body)).toBe(true)
+
+    for (let i = 0; i < res.body; i++) {
+      expect(res.body[i]).toHaveProperty('name')
+      expect(res.body[i]).toHaveProperty('description')
+    }
   })
 
   it('should throw "bad request" when request with invalid "modelo" field', async () => {
@@ -85,6 +99,9 @@ describe('POST - create a car', () => {
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('modelo')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid "cor" field', async () => {
@@ -100,6 +117,9 @@ describe('POST - create a car', () => {
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('cor')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid "ano" field', async () => {
@@ -115,6 +135,9 @@ describe('POST - create a car', () => {
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('ano')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with "ano" value smaller than 1950', async () => {
@@ -130,6 +153,9 @@ describe('POST - create a car', () => {
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('ano')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with "ano" value bigger than current year', async () => {
@@ -145,6 +171,9 @@ describe('POST - create a car', () => {
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('ano')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with "acessorios" field without child', async () => {
@@ -160,6 +189,9 @@ describe('POST - create a car', () => {
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('acessorios')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid "quantidadePassageiros" field', async () => {
@@ -175,20 +207,36 @@ describe('POST - create a car', () => {
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('quantidadePassageiros')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "ok" when request with correct request body', async () => {
+    const payload = {
+      modelo: 'GM S10 2.8',
+      cor: 'branco',
+      ano: '2021',
+      acessorios: [{ descricao: 'Ar-condicionado' }],
+      quantidadePassageiros: 5
+    }
+
     const res = await supertest(dependecies.app)
       .post(path)
-      .send({
-        modelo: 'GM S10 2.8',
-        cor: 'branco',
-        ano: '2021',
-        acessorios: [{ descricao: 'Ar-condicionado' }],
-        quantidadePassageiros: 5
-      })
+      .send(payload)
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(201)
+
+    Object.keys(payload).forEach((key: string) => {
+      expect(res.body).toHaveProperty(key)
+    })
+
+    expect(res.body).toHaveProperty('_id')
+
+    for (let i = 0; i < res.body.acessorios; i++) {
+      expect(res.body.acessorios[i]).toHaveProperty('_id')
+      expect(res.body.acessorios[i]).toHaveProperty('descricao')
+    }
   })
 })

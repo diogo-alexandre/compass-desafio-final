@@ -20,6 +20,12 @@ describe('POST - login', () => {
     const res = await supertest(dependecies.app).post(path)
 
     expect(res.statusCode).toBe(400)
+    expect(Array.isArray(res.body)).toBe(true)
+
+    for (let i = 0; i < res.body.length; i++) {
+      expect(res.body[i]).toHaveProperty('name')
+      expect(res.body[i]).toHaveProperty('description')
+    }
   })
 
   it('should throw "bad request" when request without email', async () => {
@@ -28,6 +34,9 @@ describe('POST - login', () => {
     })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('email')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid email', async () => {
@@ -37,6 +46,9 @@ describe('POST - login', () => {
     })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('email')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request without password', async () => {
@@ -45,6 +57,9 @@ describe('POST - login', () => {
     })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('senha')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid password', async () => {
@@ -54,6 +69,9 @@ describe('POST - login', () => {
     })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('senha')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with an unexpected field', async () => {
@@ -64,6 +82,9 @@ describe('POST - login', () => {
     })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('field')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "not found" when request with email that was not registred', async () => {
@@ -73,6 +94,9 @@ describe('POST - login', () => {
     })
 
     expect(res.statusCode).toBe(404)
+
+    expect(res.body.name).toBe('Not Found')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "unauthorized" when request with incorrect password', async () => {
@@ -82,6 +106,9 @@ describe('POST - login', () => {
     })
 
     expect(res.statusCode).toBe(401)
+
+    expect(res.body.name).toBe('Unauthorized')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "OK" when request with correct fields', async () => {
@@ -90,13 +117,18 @@ describe('POST - login', () => {
       senha: 'valid-password'
     })
 
-    const payload: any = JWT.verify(res.body.access_token)
+    expect(res.body).toHaveProperty('access_token')
 
-    expect(res.body.type).toBe('bearer')
-    expect(res.body.expires_in).toBe(86400)
+    const payload: any = JWT.verify(res.body.access_token)
 
     expect(payload.email).toBe('other-valid-email@mail.com')
     expect(payload.habilitado).toBe('nao')
+
+    expect(res.body).toHaveProperty('type')
+    expect(res.body.type).toBe('bearer')
+
+    expect(res.body).toHaveProperty('expires_in')
+    expect(res.body.expires_in).toBe(86400)
 
     expect(res.statusCode).toBe(200)
   })

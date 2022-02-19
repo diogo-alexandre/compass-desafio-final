@@ -19,6 +19,12 @@ describe('POST - create a user', () => {
     const res = await supertest(dependecies.app).post(path).send({})
 
     expect(res.statusCode).toBe(400)
+    expect(Array.isArray(res.body)).toBe(true)
+
+    for (let i = 0; i < res.body.length; i++) {
+      expect(res.body[i]).toHaveProperty('name')
+      expect(res.body[i]).toHaveProperty('description')
+    }
   })
 
   it('should throw "bad request" when request without required field', async () => {
@@ -31,6 +37,9 @@ describe('POST - create a user', () => {
     })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('nome')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid "cpf" field', async () => {
@@ -44,6 +53,13 @@ describe('POST - create a user', () => {
     })
 
     expect(res.statusCode).toBe(400)
+
+    expect(Array.isArray(res.body)).toBe(true)
+
+    for (let i = 0; i < res.body.length; i++) {
+      expect(res.body[i].name).toBe('cpf')
+      expect(res.body[i]).toHaveProperty('description')
+    }
   })
 
   it('should throw "bad request" when request with invalid "data_nascimento" field', async () => {
@@ -57,6 +73,9 @@ describe('POST - create a user', () => {
     })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('data_nascimento')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid "data_nascimento" date format field', async () => {
@@ -70,6 +89,9 @@ describe('POST - create a user', () => {
     })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('data_nascimento')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid "email" field', async () => {
@@ -83,9 +105,12 @@ describe('POST - create a user', () => {
     })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('email')
+    expect(res.body).toHaveProperty('description')
   })
 
-  it('should throw "bad request" when request with invalid "senha" field', async () => {
+  it('should throw "bad request" when request with "senha" field less than 6 characters', async () => {
     const res = await supertest(dependecies.app).post(path).send({
       nome: 'valid-name',
       cpf: '86416348004',
@@ -96,6 +121,9 @@ describe('POST - create a user', () => {
     })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('senha')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid "habilitado" field', async () => {
@@ -109,6 +137,9 @@ describe('POST - create a user', () => {
     })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('habilitado')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "conflict" when request with fields that already exists on app', async () => {
@@ -122,6 +153,9 @@ describe('POST - create a user', () => {
     })
 
     expect(res.statusCode).toBe(409)
+
+    expect(res.body.name).toBe('Conflict')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "OK" when request with request body correctly', async () => {
@@ -135,5 +169,6 @@ describe('POST - create a user', () => {
     })
 
     expect(res.statusCode).toBe(201)
+    expect(Object.keys(res.body).length).toBe(0)
   })
 })

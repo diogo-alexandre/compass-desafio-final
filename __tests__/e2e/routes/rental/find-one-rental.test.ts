@@ -20,6 +20,9 @@ describe('GET - find rental by id', () => {
       .get(path + '/invalid-id')
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('id')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "not found" when request with id value that dont exists', async () => {
@@ -27,6 +30,9 @@ describe('GET - find rental by id', () => {
       .get(path + '/507f1f77bcf86cd799439011')
 
     expect(res.statusCode).toBe(404)
+
+    expect(res.body.name).toBe('Not Found')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "ok" when request with correct fields', async () => {
@@ -34,5 +40,8 @@ describe('GET - find rental by id', () => {
       .get(`${path}/${dependecies.entities.rental[0]._id.toString()}`)
 
     expect(res.statusCode).toBe(200)
+
+    expect(res.statusCode).toBe(200)
+    expect(res.body._id).toBe(dependecies.entities.rental[0]._id.toString())
   })
 })

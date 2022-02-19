@@ -20,6 +20,28 @@ describe('GET - find all rentals', () => {
       .get(path)
 
     expect(res.statusCode).toBe(200)
+
+    expect(res.body).toHaveProperty('locadoras')
+    expect(Array.isArray(res.body.locadoras)).toBe(true)
+
+    for (let i = 0; i < res.body.locadoras.length; i++) {
+      const rental = res.body.locadoras[i]
+      const rentalDB = dependecies.entities.rental[i]
+
+      expect(rental._id).toBe(rentalDB._id.toString())
+    }
+
+    expect(res.body).toHaveProperty('total')
+    expect(res.body.total).toBe(dependecies.entities.rental.length)
+
+    expect(res.body).toHaveProperty('limit')
+    expect(res.body.limit).toBe(10)
+
+    expect(res.body).toHaveProperty('offset')
+    expect(res.body.offset).toBe(1)
+
+    expect(res.body).toHaveProperty('offsets')
+    expect(res.body.offsets).toBe(1)
   })
 
   it('should throw "bad request" when request with empty "nome" field', async () => {
@@ -29,6 +51,9 @@ describe('GET - find all rentals', () => {
       })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('nome')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid "cnpj" field', async () => {
@@ -39,6 +64,9 @@ describe('GET - find all rentals', () => {
       })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('cnpj')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with empty "atividades" field', async () => {
@@ -49,6 +77,9 @@ describe('GET - find all rentals', () => {
       })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('atividades')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid "limit" field', async () => {
@@ -59,6 +90,9 @@ describe('GET - find all rentals', () => {
       })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('limit')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with "limit" field smaller than 1', async () => {
@@ -69,6 +103,9 @@ describe('GET - find all rentals', () => {
       })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('limit')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid "offset" field', async () => {
@@ -79,6 +116,9 @@ describe('GET - find all rentals', () => {
       })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('offset')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with "offset" field smaller than 1', async () => {
@@ -89,6 +129,9 @@ describe('GET - find all rentals', () => {
       })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('offset')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should pagination "limit" work', async () => {
@@ -98,8 +141,13 @@ describe('GET - find all rentals', () => {
         limit: 1
       })
 
+    const rental = res.body.locadoras[0]
+    const rentalDB = dependecies.entities.rental[0]
+
+    expect(rental._id).toBe(rentalDB._id.toString())
+
     expect(res.body.limit).toBe(1)
-    expect(res.body.rentals.length).toBe(1)
+    expect(res.body.locadoras.length).toBe(1)
   })
 
   it('should pagination "offset" work', async () => {
@@ -110,6 +158,10 @@ describe('GET - find all rentals', () => {
         offset: 1
       })
 
+    const rental = res.body.locadoras[0]
+    const rentalDB = dependecies.entities.rental[1]
+
+    expect(rental._id).toBe(rentalDB._id.toString())
     expect(res.body.offset).toBe(2)
   })
 })

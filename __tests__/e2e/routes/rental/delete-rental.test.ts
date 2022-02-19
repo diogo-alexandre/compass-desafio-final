@@ -21,6 +21,9 @@ describe('DELETE - delete a rental', () => {
       .delete(path + '/invalid-id')
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('id')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "not found" when request with id value that dont exists', async () => {
@@ -28,6 +31,9 @@ describe('DELETE - delete a rental', () => {
       .delete(path + '/507f1f77bcf86cd799439011')
 
     expect(res.statusCode).toBe(404)
+
+    expect(res.body.name).toBe('Not Found')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "ok" when request with correct fields', async () => {
@@ -37,5 +43,6 @@ describe('DELETE - delete a rental', () => {
       .delete(`${path}/${_id.toString()}`)
 
     expect(res.statusCode).toBe(204)
+    expect(Object.keys(res.body).length).toBe(0)
   })
 })

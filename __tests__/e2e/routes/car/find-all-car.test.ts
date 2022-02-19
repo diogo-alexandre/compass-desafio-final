@@ -28,7 +28,9 @@ describe('GET - find all cars', () => {
       .get(path)
 
     expect(res.statusCode).toBe(403)
+
     expect(res.body.name).toBe('Forbidden')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw bad request when request with invalid token type', async () => {
@@ -37,7 +39,9 @@ describe('GET - find all cars', () => {
       .set('Authorization', `Invalid ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(400)
+
     expect(res.body.name).toBe('Bad Request')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw bad request when request with unsupported token type', async () => {
@@ -46,7 +50,9 @@ describe('GET - find all cars', () => {
       .set('Authorization', `${jwt.type} eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`)
 
     expect(res.statusCode).toBe(400)
+
     expect(res.body.name).toBe('Bad Request')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw unauthorized when request with expired token', async () => {
@@ -60,7 +66,9 @@ describe('GET - find all cars', () => {
       .set('Authorization', `${jwt.type} ${tokenExpired.access_token}`)
 
     expect(res.statusCode).toBe(401)
+
     expect(res.body.name).toBe('Unauthorized')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should sucess when request with no request body', async () => {
@@ -69,6 +77,28 @@ describe('GET - find all cars', () => {
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(200)
+
+    expect(res.body).toHaveProperty('veiculos')
+    expect(Array.isArray(res.body.veiculos)).toBe(true)
+
+    for (let i = 0; i < res.body.veiculos.length; i++) {
+      const veiculo = res.body.veiculos[i]
+      const veiculoDB = dependecies.entities.car[i]
+
+      expect(veiculo._id).toBe(veiculoDB._id.toString())
+    }
+
+    expect(res.body).toHaveProperty('total')
+    expect(res.body.total).toBe(dependecies.entities.car.length)
+
+    expect(res.body).toHaveProperty('limit')
+    expect(res.body.limit).toBe(10)
+
+    expect(res.body).toHaveProperty('offset')
+    expect(res.body.offset).toBe(1)
+
+    expect(res.body).toHaveProperty('offsets')
+    expect(res.body.offsets).toBe(1)
   })
 
   it('should throw "bad request" when request with invalid "ano" field', async () => {
@@ -79,6 +109,9 @@ describe('GET - find all cars', () => {
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('ano')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with "ano" value smaller than 1950', async () => {
@@ -90,6 +123,9 @@ describe('GET - find all cars', () => {
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('ano')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with "ano" value bigger than current year', async () => {
@@ -101,6 +137,9 @@ describe('GET - find all cars', () => {
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('ano')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid "quantidadePassageiros" field', async () => {
@@ -112,6 +151,9 @@ describe('GET - find all cars', () => {
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('quantidadePassageiros')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid "limit" field', async () => {
@@ -123,6 +165,9 @@ describe('GET - find all cars', () => {
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('limit')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with "limit" field smaller than 1', async () => {
@@ -134,6 +179,9 @@ describe('GET - find all cars', () => {
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('limit')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid "offset" field', async () => {
@@ -145,6 +193,9 @@ describe('GET - find all cars', () => {
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('offset')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with "offset" field smaller than 1', async () => {
@@ -156,6 +207,9 @@ describe('GET - find all cars', () => {
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('offset')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should pagination "limit" work', async () => {
@@ -165,6 +219,11 @@ describe('GET - find all cars', () => {
         limit: 1
       })
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
+
+    const veiculo = res.body.veiculos[0]
+    const veiculoDB = dependecies.entities.car[0]
+
+    expect(veiculo._id).toBe(veiculoDB._id.toString())
 
     expect(res.body.limit).toBe(1)
     expect(res.body.veiculos.length).toBe(1)
@@ -179,6 +238,10 @@ describe('GET - find all cars', () => {
       })
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
+    const veiculo = res.body.veiculos[0]
+    const veiculoDB = dependecies.entities.car[1]
+
+    expect(veiculo._id).toBe(veiculoDB._id.toString())
     expect(res.body.offset).toBe(2)
   })
 })

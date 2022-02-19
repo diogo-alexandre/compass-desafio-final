@@ -20,6 +20,9 @@ describe('PUT - update a rental', () => {
       .put(path + '/invalid-id')
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('id')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "not found" when request with id value that dont exists', async () => {
@@ -39,6 +42,9 @@ describe('PUT - update a rental', () => {
       })
 
     expect(res.statusCode).toBe(404)
+
+    expect(res.body.name).toBe('Not Found')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request without request body', async () => {
@@ -46,6 +52,12 @@ describe('PUT - update a rental', () => {
       .put(`${path}/${dependecies.entities.rental[0]._id.toString()}`)
 
     expect(res.statusCode).toBe(400)
+    expect(Array.isArray(res.body)).toBe(true)
+
+    for (let i = 0; i < res.body.length; i++) {
+      expect(res.body[i]).toHaveProperty('name')
+      expect(res.body[i]).toHaveProperty('description')
+    }
   })
 
   it('should throw "bad request" when request without required field', async () => {
@@ -58,6 +70,9 @@ describe('PUT - update a rental', () => {
       })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('endereco')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid "nome" field', async () => {
@@ -75,6 +90,9 @@ describe('PUT - update a rental', () => {
       })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('nome')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid cnpj field', async () => {
@@ -92,6 +110,9 @@ describe('PUT - update a rental', () => {
       })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('cnpj')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid "atividades" field', async () => {
@@ -109,6 +130,9 @@ describe('PUT - update a rental', () => {
       })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('atividades')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with "endereco" field without child', async () => {
@@ -122,6 +146,9 @@ describe('PUT - update a rental', () => {
       })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('endereco')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid "endereco.cep" field', async () => {
@@ -139,6 +166,9 @@ describe('PUT - update a rental', () => {
       })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('endereco,0,cep')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with "endereco.cep" that dont exists', async () => {
@@ -156,6 +186,9 @@ describe('PUT - update a rental', () => {
       })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('Bad Request')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid "endereco.number" field', async () => {
@@ -173,6 +206,9 @@ describe('PUT - update a rental', () => {
       })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('endereco,0,number')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with invalid "endereco.isFilial" field', async () => {
@@ -190,6 +226,9 @@ describe('PUT - update a rental', () => {
       })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('endereco,0,isFilial')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "bad request" when request with two or more isFilial equal false', async () => {
@@ -214,6 +253,9 @@ describe('PUT - update a rental', () => {
       })
 
     expect(res.statusCode).toBe(400)
+
+    expect(res.body.name).toBe('endereco,1')
+    expect(res.body).toHaveProperty('description')
   })
 
   it('should throw "ok" when request with correct request body', async () => {
@@ -233,5 +275,6 @@ describe('PUT - update a rental', () => {
       })
 
     expect(res.statusCode).toBe(204)
+    expect(Object.keys(res.body).length).toBe(0)
   })
 })
