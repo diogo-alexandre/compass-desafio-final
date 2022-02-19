@@ -23,7 +23,8 @@ describe('PUT - update a rental', () => {
   })
 
   it('should throw "not found" when request with id value that dont exists', async () => {
-    const res = await supertest(dependecies.app).put(path + '/507f1f77bcf86cd799439011')
+    const res = await supertest(dependecies.app)
+      .put(path + '/507f1f77bcf86cd799439011')
       .send({
         nome: 'Locadora',
         cnpj: '74.167.968/0001-43',
@@ -48,7 +49,8 @@ describe('PUT - update a rental', () => {
   })
 
   it('should throw "bad request" when request without required field', async () => {
-    const res = await supertest(dependecies.app).put(`${path}/${dependecies.entities.rental[0]._id.toString()}`)
+    const res = await supertest(dependecies.app)
+      .put(`${path}/${dependecies.entities.rental[0]._id.toString()}`)
       .send({
         nome: 'Locadora',
         cnpj: '74.167.968/0001-43',
@@ -60,7 +62,7 @@ describe('PUT - update a rental', () => {
 
   it('should throw "bad request" when request with invalid "nome" field', async () => {
     const res = await supertest(dependecies.app)
-      .post(path)
+      .put(`${path}/${dependecies.entities.rental[0]._id.toString()}`)
       .send({
         nome: 1000,
         cnpj: '99.809.007/0001-16',
@@ -77,7 +79,7 @@ describe('PUT - update a rental', () => {
 
   it('should throw "bad request" when request with invalid cnpj field', async () => {
     const res = await supertest(dependecies.app)
-      .post(path)
+      .put(`${path}/${dependecies.entities.rental[0]._id.toString()}`)
       .send({
         nome: 'Localiza Rent a Car',
         cnpj: 'invalid-cnpj',
@@ -94,7 +96,7 @@ describe('PUT - update a rental', () => {
 
   it('should throw "bad request" when request with invalid "atividades" field', async () => {
     const res = await supertest(dependecies.app)
-      .post(path)
+      .put(`${path}/${dependecies.entities.rental[0]._id.toString()}`)
       .send({
         nome: 'Localiza Rent a Car',
         cnpj: '99.809.007/0001-16',
@@ -111,7 +113,7 @@ describe('PUT - update a rental', () => {
 
   it('should throw "bad request" when request with "endereco" field without child', async () => {
     const res = await supertest(dependecies.app)
-      .post(path)
+      .put(`${path}/${dependecies.entities.rental[0]._id.toString()}`)
       .send({
         nome: 'Localiza Rent a Car',
         cnpj: '99.809.007/0001-16',
@@ -124,7 +126,7 @@ describe('PUT - update a rental', () => {
 
   it('should throw "bad request" when request with invalid "endereco.cep" field', async () => {
     const res = await supertest(dependecies.app)
-      .post(path)
+      .put(`${path}/${dependecies.entities.rental[0]._id.toString()}`)
       .send({
         nome: 'Localiza Rent a Car',
         cnpj: '99.809.007/0001-16',
@@ -139,9 +141,26 @@ describe('PUT - update a rental', () => {
     expect(res.statusCode).toBe(400)
   })
 
+  it('should throw "bad request" when request with "endereco.cep" that dont exists', async () => {
+    const res = await supertest(dependecies.app)
+      .put(`${path}/${dependecies.entities.rental[0]._id.toString()}`)
+      .send({
+        nome: 'Localiza Rent a Car',
+        cnpj: '99.809.007/0001-16',
+        atividades: 'Aluguel de Carros E Gestão de Frotas',
+        endereco: [{
+          cep: '00000-000',
+          number: '1234',
+          isFilial: false
+        }]
+      })
+
+    expect(res.statusCode).toBe(400)
+  })
+
   it('should throw "bad request" when request with invalid "endereco.number" field', async () => {
     const res = await supertest(dependecies.app)
-      .post(path)
+      .put(`${path}/${dependecies.entities.rental[0]._id.toString()}`)
       .send({
         nome: 'Localiza Rent a Car',
         cnpj: '99.809.007/0001-16',
@@ -158,7 +177,7 @@ describe('PUT - update a rental', () => {
 
   it('should throw "bad request" when request with invalid "endereco.isFilial" field', async () => {
     const res = await supertest(dependecies.app)
-      .post(path)
+      .put(`${path}/${dependecies.entities.rental[0]._id.toString()}`)
       .send({
         nome: 'Localiza Rent a Car',
         cnpj: '99.809.007/0001-16',
@@ -175,7 +194,7 @@ describe('PUT - update a rental', () => {
 
   it('should throw "bad request" when request with two or more isFilial equal false', async () => {
     const res = await supertest(dependecies.app)
-      .post(path)
+      .put(`${path}/${dependecies.entities.rental[0]._id.toString()}`)
       .send({
         nome: 'Localiza Rent a Car',
         cnpj: '99.809.007/0001-16',
