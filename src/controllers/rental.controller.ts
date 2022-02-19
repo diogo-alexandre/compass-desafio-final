@@ -39,7 +39,7 @@ export class RentalController {
       const { docs, ...pagination } = await this.rentalService.findAll(query, Number(limit), Number(offset))
 
       return res.status(HttpCode.OK).json({
-        rentals: docs,
+        locadoras: docs,
         total: pagination.totalDocs,
         limit: pagination.limit,
         offset: pagination.page,
