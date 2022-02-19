@@ -23,7 +23,12 @@ export class RentalRepository implements IRentalRepository {
           $elemMatch: {
             cep: endereco.cep,
             isFilial: endereco.isFilial,
-            ...endereco
+            logradouro: new RegExp(endereco.logradouro ?? '', 'i'),
+            complemento: new RegExp(endereco.complemento ?? '', 'i'),
+            bairro: new RegExp(endereco.bairro ?? '', 'i'),
+            number: endereco.number,
+            localidade: new RegExp(endereco.localidade ?? '', 'i'),
+            uf: new RegExp(endereco.uf ?? '', 'i')
           }
         }
       })]
