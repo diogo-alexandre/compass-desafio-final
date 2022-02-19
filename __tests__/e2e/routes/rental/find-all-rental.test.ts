@@ -44,6 +44,151 @@ describe('GET - find all rentals', () => {
     expect(res.body.offsets).toBe(1)
   })
 
+  it('should filter by "nome" field work', async () => {
+    const res = await supertest(dependecies.app)
+      .get(path)
+      .query({ nome: 'Localiza Rent a Car' })
+
+    expect(res.statusCode).toBe(200)
+
+    expect(res.body).toHaveProperty('locadoras')
+    expect(res.body.locadoras.length).toBe(2)
+
+    expect(res.body.locadoras[0]._id).toBe(dependecies.entities.rental[0]._id.toString())
+    expect(res.body.locadoras[1]._id).toBe(dependecies.entities.rental[1]._id.toString())
+
+    expect(res.body).toHaveProperty('total')
+    expect(res.body.total).toBe(2)
+  })
+
+  it('should filter by "cnpj" field work', async () => {
+    const res = await supertest(dependecies.app)
+      .get(path)
+      .query({ cnpj: '16.670.085/0001-55' })
+
+    expect(res.statusCode).toBe(200)
+
+    expect(res.body).toHaveProperty('locadoras')
+    expect(res.body.locadoras.length).toBe(1)
+
+    expect(res.body.locadoras[0]._id).toBe(dependecies.entities.rental[0]._id.toString())
+
+    expect(res.body).toHaveProperty('total')
+    expect(res.body.total).toBe(1)
+  })
+
+  it('should filter by "endereco.cep" field work', async () => {
+    const res = await supertest(dependecies.app)
+      .get(path)
+      .query({ cep: '96200-500' })
+
+    expect(res.statusCode).toBe(200)
+
+    expect(res.body).toHaveProperty('locadoras')
+    expect(res.body.locadoras.length).toBe(1)
+
+    expect(res.body.locadoras[0]._id).toBe(dependecies.entities.rental[1]._id.toString())
+
+    expect(res.body).toHaveProperty('total')
+    expect(res.body.total).toBe(1)
+  })
+
+  it('should filter by "endereco.logradouro" field work', async () => {
+    const res = await supertest(dependecies.app)
+      .get(path)
+      .query({ logradouro: 'Rua General Gurjão' })
+
+    expect(res.statusCode).toBe(200)
+
+    expect(res.body).toHaveProperty('locadoras')
+    expect(res.body.locadoras.length).toBe(1)
+
+    expect(res.body.locadoras[0]._id).toBe(dependecies.entities.rental[1]._id.toString())
+
+    expect(res.body).toHaveProperty('total')
+    expect(res.body.total).toBe(1)
+  })
+
+  it('should filter by "endereco.complemento" field work', async () => {
+    const res = await supertest(dependecies.app)
+      .get(path)
+      .query({ complemento: 'Muro A' })
+
+    expect(res.statusCode).toBe(200)
+
+    expect(res.body).toHaveProperty('locadoras')
+    expect(res.body.locadoras.length).toBe(1)
+
+    expect(res.body.locadoras[0]._id).toBe(dependecies.entities.rental[1]._id.toString())
+
+    expect(res.body).toHaveProperty('total')
+    expect(res.body.total).toBe(1)
+  })
+
+  it('should filter by "endereco.bairro" field work', async () => {
+    const res = await supertest(dependecies.app)
+      .get(path)
+      .query({ bairro: 'Espinheiro' })
+
+    expect(res.statusCode).toBe(200)
+
+    expect(res.body).toHaveProperty('locadoras')
+    expect(res.body.locadoras.length).toBe(1)
+
+    expect(res.body.locadoras[0]._id).toBe(dependecies.entities.rental[0]._id.toString())
+
+    expect(res.body).toHaveProperty('total')
+    expect(res.body.total).toBe(1)
+  })
+
+  it('should filter by "endereco.number" field work', async () => {
+    const res = await supertest(dependecies.app)
+      .get(path)
+      .query({ number: '5678' })
+
+    expect(res.statusCode).toBe(200)
+
+    expect(res.body).toHaveProperty('locadoras')
+    expect(res.body.locadoras.length).toBe(1)
+
+    expect(res.body.locadoras[0]._id).toBe(dependecies.entities.rental[1]._id.toString())
+
+    expect(res.body).toHaveProperty('total')
+    expect(res.body.total).toBe(1)
+  })
+
+  it('should filter by "endereco.localidade" field work', async () => {
+    const res = await supertest(dependecies.app)
+      .get(path)
+      .query({ localidade: 'Recife' })
+
+    expect(res.statusCode).toBe(200)
+
+    expect(res.body).toHaveProperty('locadoras')
+    expect(res.body.locadoras.length).toBe(1)
+
+    expect(res.body.locadoras[0]._id).toBe(dependecies.entities.rental[0]._id.toString())
+
+    expect(res.body).toHaveProperty('total')
+    expect(res.body.total).toBe(1)
+  })
+
+  it('should filter by "endereco.uf" field work', async () => {
+    const res = await supertest(dependecies.app)
+      .get(path)
+      .query({ uf: 'pe' })
+
+    expect(res.statusCode).toBe(200)
+
+    expect(res.body).toHaveProperty('locadoras')
+    expect(res.body.locadoras.length).toBe(1)
+
+    expect(res.body.locadoras[0]._id).toBe(dependecies.entities.rental[0]._id.toString())
+
+    expect(res.body).toHaveProperty('total')
+    expect(res.body.total).toBe(1)
+  })
+
   it('should throw "bad request" when request with empty "nome" field', async () => {
     const res = await supertest(dependecies.app)
       .get(path).query({

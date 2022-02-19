@@ -14,7 +14,7 @@ export const RentalSeeder = {
         atividades: 'Aluguel de Carros E Gestão de Frotas',
         endereco: [
           {
-            cep: '96200-200',
+            cep: '52021-000',
             number: '1234',
             isFilial: false
           }
@@ -47,12 +47,6 @@ export const RentalSeeder = {
             cep: '96200-200',
             number: '1234',
             isFilial: false
-          },
-          {
-            cep: '96200-500',
-            number: '5678',
-            complemento: 'Muro A',
-            isFilial: true
           }
         ]
       })
