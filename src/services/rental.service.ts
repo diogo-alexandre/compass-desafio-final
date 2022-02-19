@@ -28,8 +28,10 @@ export class RentalService implements IRentalService {
     })
   }
 
-  async findAll (query: Partial<Omit<IRentalDTO, 'endereco'> & IAdressDTO>, limit: number, offset: number): Promise<IPaginateResult<IRental>> {
-    return await this.rentalRepository.findAll(query, limit, offset)
+  async findAll ({ cep, ...query }: Partial<Omit<IRentalDTO, 'endereco'> & IAdressDTO>, limit: number, offset: number): Promise<IPaginateResult<IRental>> {
+    if (cep !== undefined) cep = CEP(cep).toStringWithDots()
+
+    return await this.rentalRepository.findAll({ cep, ...query }, limit, offset)
   }
 
   async findById (id: string): Promise<IRental> {
