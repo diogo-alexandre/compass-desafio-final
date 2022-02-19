@@ -13,6 +13,7 @@ import { CarFindAllValidation } from '../validators/car/car-findall.validator'
 import { EntityNotFound } from '../errors/entity-not-found.error'
 import { NotFound } from '../errors/http/not-found-error'
 import { Authenticate } from '../middlewares/authenticate.middleware'
+import { CarUpdateAccessoryValidation } from '../validators/car/car-update-accessory.validator'
 
 @Controller('/car', [Authenticate])
 export class CarController {
@@ -95,7 +96,7 @@ export class CarController {
     }
   }
 
-  @Patch('/:carId/acessorios/:acessorioId', [IdParamValidation('carId', 'acessorioId')])
+  @Patch('/:carId/acessorios/:acessorioId', [IdParamValidation('carId', 'acessorioId'), CarUpdateAccessoryValidation])
   async updateAcessorio (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { carId, acessorioId } = req.params
