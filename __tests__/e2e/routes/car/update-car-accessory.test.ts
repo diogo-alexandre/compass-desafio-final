@@ -93,8 +93,6 @@ describe('PATCH - update a car accessory', () => {
       .send({ descricao: 'Valid description' })
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
-    console.log(res.body)
-
     expect(res.statusCode).toBe(404)
 
     expect(res.body.name).toBe('Not Found')
@@ -107,7 +105,6 @@ describe('PATCH - update a car accessory', () => {
       .send({})
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
-    console.log(res.body)
     expect(res.statusCode).toBe(400)
 
     expect(res.body.name).toBe('descricao')
@@ -120,7 +117,6 @@ describe('PATCH - update a car accessory', () => {
       .send({ descricao: 'Valid description' })
       .set('Authorization', `${jwt.type} ${jwt.access_token}`)
 
-    console.log(res.body)
     expect(res.statusCode).toBe(204)
     expect(Object.keys(res.body).length).toBe(0)
   })
