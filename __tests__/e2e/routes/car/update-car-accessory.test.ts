@@ -99,6 +99,18 @@ describe('PATCH - update a car accessory', () => {
     expect(res.body).toHaveProperty('description')
   })
 
+  it('should throw bad request when request with car id that dont exists', async () => {
+    const res = await supertest(dependecies.app)
+      .patch(`${path}/620278d6030f60e763d6f463/acessorios/${dependecies.entities.car[0].acessorios[0]._id}`)
+      .send({ descricao: 'Valid description' })
+      .set('Authorization', `${jwt.type} ${jwt.access_token}`)
+
+    expect(res.statusCode).toBe(404)
+
+    expect(res.body.name).toBe('Not Found')
+    expect(res.body).toHaveProperty('description')
+  })
+
   it('should throw bad request when request without "descricao" field', async () => {
     const res = await supertest(dependecies.app)
       .patch(`${path}/${dependecies.entities.car[0]._id}/acessorios/${dependecies.entities.car[0].acessorios[0]._id}`)
