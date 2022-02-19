@@ -5,7 +5,7 @@ import { ICEP } from '../helpers/interfaces/cep.interface'
 import { IAdress } from '../helpers/interfaces/entities/adress.interface'
 
 export const CEP: ICEP = (cep: string) => {
-  const regex = /^([0-9]{5}[-]?([0-9]{3}))$/
+  const regex = /^([0-9]{5})[-]?([0-9]{3})$/
 
   if (!regex.test(cep)) {
     throw new InvalidCEP(`CEP ${cep} is not valid`)
