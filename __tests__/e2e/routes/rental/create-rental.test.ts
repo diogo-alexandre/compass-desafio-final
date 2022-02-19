@@ -87,7 +87,7 @@ describe('POST - create a rental', () => {
     expect(res.statusCode).toBe(400)
   })
 
-  it('should throw "bad request" when request with invalid "endereco.cep" field', async () => {
+  it('should throw "bad request" when request with invalid format "endereco.cep" field', async () => {
     const res = await supertest(dependecies.app)
       .post(path)
       .send({
@@ -96,6 +96,23 @@ describe('POST - create a rental', () => {
         atividades: 'Aluguel de Carros E Gestão de Frotas',
         endereco: [{
           cep: 'invalid cep',
+          number: '1234',
+          isFilial: false
+        }]
+      })
+
+    expect(res.statusCode).toBe(400)
+  })
+
+  it('should throw "bad request" when request with "endereco.cep" that dont exists', async () => {
+    const res = await supertest(dependecies.app)
+      .post(path)
+      .send({
+        nome: 'Localiza Rent a Car',
+        cnpj: '99.809.007/0001-16',
+        atividades: 'Aluguel de Carros E Gestão de Frotas',
+        endereco: [{
+          cep: '00000-000',
           number: '1234',
           isFilial: false
         }]
