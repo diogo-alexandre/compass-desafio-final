@@ -53,7 +53,11 @@ const RentalSchema = new Schema({
       required: true
     }
   }]
-}, { versionKey: false })
+}, {
+  versionKey: false,
+  toJSON: { getters: true },
+  toObject: { getters: true }
+})
 
 RentalSchema.plugin(mongoosePaginate)
 
