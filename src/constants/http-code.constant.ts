@@ -1,4 +1,4 @@
-export enum HttpCode {
+enum HttpCode {
   OK = 200,
   CREATED = 201,
   NO_CONTENT = 204,
@@ -9,3 +9,5 @@ export enum HttpCode {
   CONFLICT = 409,
   INTERNAL_SERVER_ERROR = 500
 }
+
+export default HttpCode;

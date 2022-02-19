@@ -1,26 +1,31 @@
-import { Router } from 'express'
-import swaggerUI from 'swagger-ui-express'
-import { attachControllers } from '@decorators/express'
+import { Router } from 'express';
+import swaggerUI from 'swagger-ui-express';
+import { attachControllers } from '@decorators/express';
 
-import swaggerDoc from '../../swagger.json'
-import { CarController } from '../controllers/car.controller'
-import { PeopleController } from '../controllers/people.controller'
-import { AuthController } from '../controllers/auth.controller'
-import { RentalController } from '../controllers/rental.controller'
+import swaggerDoc from '../../swagger.json';
+import CarController from '../controllers/car.controller';
+import PeopleController from '../controllers/people.controller';
+import AuthController from '../controllers/auth.controller';
+import RentalController from '../controllers/rental.controller';
 
-export const V1 = {
-  handle (): Router {
-    const router = Router()
+class V1 {
+  static handle(): Router {
+    const router = Router();
 
-    attachControllers(router, [
-      CarController,
-      PeopleController,
-      AuthController,
-      RentalController
-    ])
+    attachControllers(
+      router,
+      [
+        CarController,
+        PeopleController,
+        AuthController,
+        RentalController,
+      ],
+    );
 
-    router.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc))
+    router.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 
-    return router
+    return router;
   }
 }
+
+export default V1;

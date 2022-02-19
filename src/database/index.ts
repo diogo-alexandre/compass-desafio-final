@@ -1,16 +1,25 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
+import Env from '../utils/env.util';
+import Log from '../utils/log.helper';
 
-import { config } from './config'
-import { Log } from '../utils/log.helper'
+class Database {
+  static async init(uri: string = Env.get<string>('DB_URI')): Promise<typeof mongoose> {
+    Log.info(`Trying connection with mongo. Using uri: ${this.hiddeUri(uri)}`);
 
-export const Database = {
-  async init (uri: string = config.uri): Promise<typeof mongoose> {
-    Log.info(`Trying connection with mongo '${config.hidden(uri)}'`)
+    const conn = await mongoose.connect(uri);
+    return conn;
+  }
 
-    const conn = await mongoose.connect(uri)
+  private static hiddeUri(uri: string): string {
+    const [drive, rest] = uri.split('://');
 
-    Log.info('Connection with mongo established')
+    if (uri.includes('@')) {
+      const host = rest.split('@')[1];
+      return `${drive}://***:***@${host}`;
+    }
 
-    return conn
+    return `${drive}://${rest}`;
   }
 }
+
+export default Database;

@@ -1,6 +1,6 @@
-import { IAdressDTO } from '../../helpers/interfaces/entities/adress.interface'
-import { IRental, IRentalDTO } from '../../helpers/interfaces/entities/rental.interface'
-import { IPaginateResult } from '../../helpers/interfaces/paginate.interface'
+import { IAdressDTO } from '../../helpers/interfaces/entities/adress.interface';
+import { IRental, IRentalDTO } from '../../helpers/interfaces/entities/rental.interface';
+import { IPaginateResult } from '../../helpers/interfaces/paginate.interface';
 
 export interface IRentalService {
   create: (rental: IRentalDTO) => Promise<IRental>

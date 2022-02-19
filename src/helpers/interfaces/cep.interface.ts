@@ -1,4 +1,4 @@
-import { IAdress } from './entities/adress.interface'
+import { IAdress } from './entities/adress.interface';
 
 export type ICEP = (cep: string) => {
   toStringPlain: () => string

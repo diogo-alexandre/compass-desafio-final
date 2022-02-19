@@ -1,3 +1,5 @@
-export enum TokenType {
+enum TokenType {
   BEARER = 'bearer'
 }
+
+export default TokenType;

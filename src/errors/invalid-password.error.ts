@@ -1,7 +1,9 @@
-export class InvalidPasswordError extends Error {
-  constructor (msg: string) {
-    super(msg)
+class InvalidPasswordError extends Error {
+  constructor(msg: string) {
+    super(msg);
 
-    this.name = 'Invalid Password Error'
+    this.name = 'Invalid Password Error';
   }
 }
+
+export default InvalidPasswordError;

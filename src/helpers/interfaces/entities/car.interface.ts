@@ -1,4 +1,4 @@
-import { IAcessorio, IAcessorioDTO } from './acessorio.interface'
+import { IAcessorio, IAcessorioDTO } from './acessorio.interface';
 
 export interface ICar {
   _id: string

@@ -1,19 +1,22 @@
-import { Injectable } from '@decorators/di'
+import { Injectable } from '@decorators/di';
 
-import { Rental } from '../schemas/rental.schema'
-import { clearObject } from '../utils/clear-object.util'
-import { IAdressDTO } from '../helpers/interfaces/entities/adress.interface'
-import { IRentalRepository } from './interfaces/rental-repository.interface'
-import { IRental, IRentalDTO } from '../helpers/interfaces/entities/rental.interface'
-import { IPaginateOptions, IPaginateResult } from '../helpers/interfaces/paginate.interface'
+import Rental from '../schemas/rental.schema';
+import clearObject from '../utils/clear-object.util';
+
+import { IAdressDTO } from '../helpers/interfaces/entities/adress.interface';
+import { IRentalRepository } from './interfaces/rental-repository.interface';
+import { IRental, IRentalDTO } from '../helpers/interfaces/entities/rental.interface';
+import { IPaginateOptions, IPaginateResult } from '../helpers/interfaces/paginate.interface';
 
 @Injectable()
-export class RentalRepository implements IRentalRepository {
-  async create (rental: IRentalDTO): Promise<IRental> {
-    return await Rental.create(rental)
+class RentalRepository implements IRentalRepository {
+  async create(rental: IRentalDTO): Promise<IRental> {
+    return Rental.create(rental);
   }
 
-  async findAll ({ nome, cnpj, atividades, ...endereco }: Partial<Omit<IRentalDTO, 'endereco'> & IAdressDTO & { isFilial: boolean }>, limit: number, offset: number): Promise<IPaginateResult<IRental>> {
+  async findAll({
+    nome, cnpj, atividades, ...endereco
+  }: Partial<Omit<IRentalDTO, 'endereco'> & IAdressDTO & { isFilial: boolean }>, limit: number, offset: number): Promise<IPaginateResult<IRental>> {
     const filter = {
       $and: [clearObject<Partial<IRentalDTO>>({
         nome: new RegExp(nome ?? '', 'i'),
@@ -28,26 +31,28 @@ export class RentalRepository implements IRentalRepository {
             bairro: new RegExp(endereco.bairro ?? '', 'i'),
             number: endereco.number,
             localidade: new RegExp(endereco.localidade ?? '', 'i'),
-            uf: new RegExp(endereco.uf ?? '', 'i')
-          }
-        }
-      })]
-    }
+            uf: new RegExp(endereco.uf ?? '', 'i'),
+          },
+        },
+      })],
+    };
 
-    const options = clearObject<IPaginateOptions>({ limit, offset })
+    const options = clearObject<IPaginateOptions>({ limit, offset });
 
-    return await Rental.paginate(filter, options)
+    return Rental.paginate(filter, options);
   }
 
-  async findById (id: string): Promise<IRental | null> {
-    return await Rental.findById(id)
+  async findById(id: string): Promise<IRental | null> {
+    return Rental.findById(id);
   }
 
-  async update (id: string, payload: IRentalDTO): Promise<IRental | null> {
-    return await Rental.findByIdAndUpdate(id, payload)
+  async update(id: string, payload: IRentalDTO): Promise<IRental | null> {
+    return Rental.findByIdAndUpdate(id, payload);
   }
 
-  async delete (id: string): Promise<IRental | null> {
-    return await Rental.findByIdAndDelete(id)
+  async delete(id: string): Promise<IRental | null> {
+    return Rental.findByIdAndDelete(id);
   }
 }
+
+export default RentalRepository;

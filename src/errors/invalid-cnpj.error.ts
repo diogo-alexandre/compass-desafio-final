@@ -1,7 +1,9 @@
-export class InvalidCNPJ extends Error {
-  constructor (msg: string = 'CNPJ is not valid') {
-    super(msg)
+class InvalidCNPJ extends Error {
+  constructor(msg: string = 'CNPJ is not valid') {
+    super(msg);
 
-    this.name = 'Invalid CNPJ'
+    this.name = 'Invalid CNPJ';
   }
 }
+
+export default InvalidCNPJ;

@@ -1,4 +1,4 @@
-import { Habilitado } from '../../../constants/people.constant'
+import Habilitado from '../../../constants/people.constant';
 
 export interface IPeople {
   _id: string

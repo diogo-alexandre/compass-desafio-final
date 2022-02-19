@@ -1,4 +1,4 @@
-import { IAdress, IAdressDTO } from './adress.interface'
+import { IAdress, IAdressDTO } from './adress.interface';
 
 export interface IRental {
   _id: string

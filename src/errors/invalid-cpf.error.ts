@@ -1,7 +1,9 @@
-export class InvalidCPF extends Error {
-  constructor (msg: string = 'CPF is not valid') {
-    super(msg)
+class InvalidCPF extends Error {
+  constructor(msg: string = 'CPF is not valid') {
+    super(msg);
 
-    this.name = 'InvalidCPF'
+    this.name = 'InvalidCPF';
   }
 }
+
+export default InvalidCPF;

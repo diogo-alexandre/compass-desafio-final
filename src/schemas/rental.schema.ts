@@ -1,64 +1,66 @@
-import { model, Schema } from 'mongoose'
-import mongoosePaginate from 'mongoose-paginate-v2'
+import { model, Schema } from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
-import { IRental } from '../helpers/interfaces/entities/rental.interface'
-import { IPaginateModel } from '../helpers/interfaces/paginate.interface'
-import { CNPJ } from '../utils/cpf-cnpj.util'
+import { IRental } from '../helpers/interfaces/entities/rental.interface';
+import { IPaginateModel } from '../helpers/interfaces/paginate.interface';
+import { CNPJ } from '../utils/cpf-cnpj.util';
 
 const RentalSchema = new Schema({
   nome: {
     type: String,
-    required: true
+    required: true,
   },
   cnpj: {
     type: String,
     unique: true,
     required: true,
-    set: (value: string) => CNPJ(value).toStringWithDots()
+    set: (value: string) => CNPJ(value).toStringWithDots(),
   },
   atividades: {
     type: String,
-    required: true
+    required: true,
   },
   endereco: [{
     cep: {
       type: String,
-      required: true
+      required: true,
     },
     logradouro: {
       type: String,
-      required: true
+      required: true,
     },
     bairro: {
       type: String,
-      required: true
+      required: true,
     },
     uf: {
       type: String,
-      required: true
+      required: true,
     },
     localidade: {
       type: String,
-      required: true
+      required: true,
     },
     number: {
       type: String,
-      required: true
+      required: true,
     },
     complemento: {
-      type: String
+      type: String,
     },
     isFilial: {
       type: Boolean,
-      required: true
-    }
-  }]
+      required: true,
+    },
+  }],
 }, {
   versionKey: false,
   toJSON: { getters: true },
-  toObject: { getters: true }
-})
+  toObject: { getters: true },
+});
 
-RentalSchema.plugin(mongoosePaginate)
+RentalSchema.plugin(mongoosePaginate);
 
-export const Rental = model<IRental>('Rental', RentalSchema) as IPaginateModel<IRental>
+const Rental = model<IRental>('Rental', RentalSchema) as IPaginateModel<IRental>;
+
+export default Rental;

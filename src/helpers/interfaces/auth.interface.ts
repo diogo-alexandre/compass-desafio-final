@@ -1,4 +1,4 @@
-import { TokenType } from '../../constants/auth.constant'
+import TokenType from '../../constants/auth.constant';
 
 export interface IAuthResponse {
   access_token: string

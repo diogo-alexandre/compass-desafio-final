@@ -1,7 +1,9 @@
-export class DuplicatedEntry extends Error {
-  constructor (msg: string) {
-    super(msg)
+class DuplicatedEntry extends Error {
+  constructor(msg: string) {
+    super(msg);
 
-    this.name = 'Duplicated Entry'
+    this.name = 'Duplicated Entry';
   }
 }
+
+export default DuplicatedEntry;

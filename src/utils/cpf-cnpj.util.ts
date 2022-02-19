@@ -1,82 +1,82 @@
-import { InvalidCNPJ } from '../errors/invalid-cnpj.error'
-import { InvalidCPF } from '../errors/invalid-cpf.error'
-import { ICNPJ, ICPF } from '../helpers/interfaces/cpf.interface'
+import InvalidCNPJ from '../errors/invalid-cnpj.error';
+import InvalidCPF from '../errors/invalid-cpf.error';
+import { ICNPJ, ICPF } from '../helpers/interfaces/cpf.interface';
 
-function accum (numbers: string, start: number, max: number = start, min: number = 0): number {
+function accum(numbers: string, start: number, max: number = start, min: number = 0): number {
   return numbers.split('').map(Number).reduce((prev, curr) => {
-    const rest = start % (max + 1)
+    const rest = start % (max + 1);
 
     if (start === min) {
-      start = max + 1
+      start = max + 1;
     }
 
-    const result = prev + curr * rest
-    start--
+    const result = prev + curr * rest;
+    start -= 1;
 
-    return result
-  }, 0)
+    return result;
+  }, 0);
 }
 
 export const CPF: ICPF = (cpf: string) => {
-  const regex = /^([0-9]{3})[.]?([0-9]{3})[.]?([0-9]{3})[-]?([0-9]{2})$/
+  const regex = /^([0-9]{3})[.]?([0-9]{3})[.]?([0-9]{3})[-]?([0-9]{2})$/;
 
   if (!regex.test(cpf)) {
-    throw new InvalidCPF()
+    throw new InvalidCPF();
   }
 
-  const [numbers, digits] = cpf.replace(regex, '$1$2$3 $4').split(' ')
+  const [numbers, digits] = cpf.replace(regex, '$1$2$3 $4').split(' ');
 
   return {
     toStringPlain: () => numbers + digits,
-    toStringWithDots: () => numbers.split(/[0-9]{3}/).filter(e => e !== '').join('.') + '-' + digits,
+    toStringWithDots: () => `${numbers.split(/[0-9]{3}/).filter((e) => e !== '').join('.')}-${digits}`,
     isValid: () => {
       // Check if CPF only contains repeated values, exemplae: 11111111111
       if (/^(\d)\1+$/.test(numbers + digits)) {
-        return false
+        return false;
       }
 
-      let d1 = accum(numbers, 10) * 10 % 11
-      d1 = (d1 === 10 || d1 === 11) ? 0 : d1
+      let d1 = (accum(numbers, 10) * 10) % 11;
+      d1 = (d1 === 10 || d1 === 11) ? 0 : d1;
 
-      if (d1.toString() !== digits[0]) return false
+      if (d1.toString() !== digits[0]) return false;
 
-      let d2 = accum(`${numbers}${d1}`, 11) * 10 % 11
-      d2 = (d2 === 10 || d2 === 1) ? 0 : d2
+      let d2 = (accum(`${numbers}${d1}`, 11) * 10) % 11;
+      d2 = (d2 === 10 || d2 === 1) ? 0 : d2;
 
-      if (d2.toString() !== digits[1]) return false
+      if (d2.toString() !== digits[1]) return false;
 
-      return true
-    }
-  }
-}
+      return true;
+    },
+  };
+};
 
 export const CNPJ: ICNPJ = (cnpj: string) => {
-  const regex = /^([0-9]{2})[.]?([0-9]{3})[.]?([0-9]{3})[/]?([0-9]{4})[-]?([0-9]{2})$/
+  const regex = /^([0-9]{2})[.]?([0-9]{3})[.]?([0-9]{3})[/]?([0-9]{4})[-]?([0-9]{2})$/;
 
   if (!regex.test(cnpj)) {
-    throw new InvalidCNPJ(`CNPJ ${cnpj} is not valid`)
+    throw new InvalidCNPJ(`CNPJ ${cnpj} is not valid`);
   }
 
-  const [numbers, establishment, digits] = cnpj.replace(regex, '$1$2$3 $4 $5').split(' ')
+  const [numbers, establishment, digits] = cnpj.replace(regex, '$1$2$3 $4 $5').split(' ');
 
   return {
     toStringPlain: () => numbers + establishment + digits,
     toStringWithDots: () => `${numbers.replace(/^([0-9]{2})([0-9]{3})([0-9]{3})$/, '$1.$2.$3')}/${establishment}-${digits}`,
     isValid: () => {
-      let d1 = accum(numbers + establishment, 5, 9, 2) % 11
-      d1 = (d1 < 2) ? 0 : 11 - d1
+      let d1 = accum(numbers + establishment, 5, 9, 2) % 11;
+      d1 = (d1 < 2) ? 0 : 11 - d1;
 
-      if (d1.toString() !== digits[0]) return false
+      if (d1.toString() !== digits[0]) return false;
 
-      let d2 = accum(numbers + establishment + digits[0], 6, 9, 2) % 11
-      d2 = (d2 < 2) ? 0 : 11 - d2
+      let d2 = accum(numbers + establishment + digits[0], 6, 9, 2) % 11;
+      d2 = (d2 < 2) ? 0 : 11 - d2;
 
-      if (d2.toString() !== digits[1]) return false
+      if (d2.toString() !== digits[1]) return false;
 
-      return true
-    }
-  }
-}
+      return true;
+    },
+  };
+};
 
 /*
 function calc (numbers: number[], acum = 0): number {

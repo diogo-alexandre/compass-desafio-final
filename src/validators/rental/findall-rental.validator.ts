@@ -1,14 +1,14 @@
-import Joi from 'joi'
-import { Middleware } from '@decorators/express'
-import { Request, Response, NextFunction } from 'express'
+import Joi from 'joi';
+import { Middleware } from '@decorators/express';
+import { Request, Response, NextFunction } from 'express';
 
-import { CNPJ } from '../../utils/cpf-cnpj.util'
-import { BadRequest } from '../../errors/http/bad-request.error'
-import { IRentalDTO } from '../../helpers/interfaces/entities/rental.interface'
-import { IAdress } from '../../helpers/interfaces/entities/adress.interface'
+import { CNPJ } from '../../utils/cpf-cnpj.util';
+import { IRentalDTO } from '../../helpers/interfaces/entities/rental.interface';
+import { IAdress } from '../../helpers/interfaces/entities/adress.interface';
+import BadRequest from '../../errors/http/bad-request.error';
 
-export class FindAllRentalValidation implements Middleware {
-  use (req: Request, res: Response, next: NextFunction): void {
+class FindAllRentalValidation implements Middleware {
+  use(req: Request, res: Response, next: NextFunction): void {
     try {
       const schema = Joi.object<IRentalDTO & { limit: number, offset: number } & IAdress>({
         nome: Joi.string()
@@ -17,8 +17,8 @@ export class FindAllRentalValidation implements Middleware {
         cnpj: Joi.string()
           .trim()
           .custom((value, helper) => {
-            const message = helper.message({ custom: '"CNPJ" must be valid' })
-            try { return (CNPJ(value).isValid()) ? value : message } catch { return message }
+            const message = helper.message({ custom: '"CNPJ" must be valid' });
+            try { return (CNPJ(value).isValid()) ? value : message; } catch { return message; }
           }),
 
         atividades: Joi.string()
@@ -49,23 +49,23 @@ export class FindAllRentalValidation implements Middleware {
           .min(1),
 
         offset: Joi.number()
-          .min(1)
-      })
+          .min(1),
+      });
 
-      const { error } = schema.validate(req.query, { abortEarly: false })
+      const { error } = schema.validate(req.query, { abortEarly: false });
 
       if (error !== undefined) {
-        throw new BadRequest(error.details.map(detail => {
-          return {
-            name: String(detail.path),
-            description: detail.message
-          }
-        }))
+        throw new BadRequest(error.details.map((detail) => ({
+          name: String(detail.path),
+          description: detail.message,
+        })));
       }
 
-      return next()
+      return next();
     } catch (error) {
-      return next(error)
+      return next(error);
     }
   }
 }
+
+export default FindAllRentalValidation;

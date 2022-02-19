@@ -1,13 +1,13 @@
-import Joi from 'joi'
-import { NextFunction, Request, Response } from 'express'
+import Joi from 'joi';
+import { NextFunction, Request, Response } from 'express';
 
-import { Middleware } from '@decorators/express'
-import { ICarDTO } from '../../helpers/interfaces/entities/car.interface'
-import { BadRequest } from '../../errors/http/bad-request.error'
-import { CarConstant } from '../../constants/car.constant'
+import { Middleware } from '@decorators/express';
+import { ICarDTO } from '../../helpers/interfaces/entities/car.interface';
+import CarConstant from '../../constants/car.constant';
+import BadRequest from '../../errors/http/bad-request.error';
 
-export class CarFindAllValidation implements Middleware {
-  use (req: Request, res: Response, next: NextFunction): void {
+class CarFindAllValidation implements Middleware {
+  use(req: Request, res: Response, next: NextFunction): void {
     try {
       const schema: Joi.ObjectSchema<ICarDTO> = Joi.object({
         modelo: Joi.string()
@@ -30,23 +30,23 @@ export class CarFindAllValidation implements Middleware {
           .min(1),
 
         offset: Joi.number()
-          .min(1)
-      })
+          .min(1),
+      });
 
-      const { error } = schema.validate(req.query, { abortEarly: false })
+      const { error } = schema.validate(req.query, { abortEarly: false });
 
       if (error !== undefined) {
-        throw new BadRequest(error.details.map(detail => {
-          return {
-            name: String(detail.path),
-            description: detail.message
-          }
-        }))
+        throw new BadRequest(error.details.map((detail) => ({
+          name: String(detail.path),
+          description: detail.message,
+        })));
       }
 
-      return next()
+      return next();
     } catch (error) {
-      return next(error)
+      return next(error);
     }
   }
 }
+
+export default CarFindAllValidation;

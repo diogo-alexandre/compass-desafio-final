@@ -1,4 +1,4 @@
-import { Env } from './env.util'
+import Env from './env.util';
 
 enum Color {
   RESET = '\x1b[0m',
@@ -9,32 +9,34 @@ enum Color {
   BLACK = '\x1b[30m'
 }
 
-function base (type: string, color: Color | string, message: string): void {
-  const appLog = Env.get('APP_LOG')
+function base(type: string, color: Color | string, message: string): void {
+  const appLog = Env.get<boolean>('APP_LOG');
 
   if (appLog === true) {
-    const now = new Date().toTimeString().split(' ')[0]
-    const time = `${Color.BRIGHT}${Color.BLACK}${now}${Color.RESET}`
+    const now = new Date().toTimeString().split(' ')[0];
+    const time = `${Color.BRIGHT}${Color.BLACK}${now}${Color.RESET}`;
 
-    type = `[${color}${type.toLocaleUpperCase()}${Color.RESET}]`
+    type = `[${color}${type.toLocaleUpperCase()}${Color.RESET}]`;
 
-    console.log(`${type} ${time} ${message}`)
+    console.log(`${type} ${time} ${message}`);
   }
 }
 
-export const Log = {
-  info (message: string): void {
-    base('info', Color.CYAN, message)
+const Log = {
+  info(message: string): void {
+    base('info', Color.CYAN, message);
   },
-  error (err: Error): void {
-    const stack = err.stack?.split('\n')
+  error(err: Error): void {
+    const stack = err.stack?.split('\n');
 
-    base('error', Color.RED + Color.BRIGHT, `${err.name}: ${err.message}`)
+    base('error', Color.RED + Color.BRIGHT, `${err.name}: ${err.message}`);
 
     if (stack !== undefined) {
-      delete stack[0]
+      delete stack[0];
 
-      stack.forEach(line => console.log(line))
+      stack.forEach((line) => console.log(line));
     }
-  }
-}
+  },
+};
+
+export default Log;

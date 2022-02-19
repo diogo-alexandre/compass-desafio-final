@@ -1,11 +1,11 @@
-import { IRental } from '../../../src/helpers/interfaces/entities/rental.interface'
-import { RentalRepository } from '../../../src/repositories/rental.repository'
-import { RentalService } from '../../../src/services/rental.service'
+import { IRental } from '../../../src/helpers/interfaces/entities/rental.interface';
+import RentalRepository from '../../../src/repositories/rental.repository';
+import RentalService from '../../../src/services/rental.service';
 
-export const RentalSeeder = {
+const RentalSeeder = {
   handle: async (): Promise<IRental[]> => {
-    const rentalRepository = new RentalRepository()
-    const rentalService = new RentalService(rentalRepository)
+    const rentalRepository = new RentalRepository();
+    const rentalService = new RentalService(rentalRepository);
 
     return [
       await rentalService.create({
@@ -16,9 +16,9 @@ export const RentalSeeder = {
           {
             cep: '52021-000',
             number: '1234',
-            isFilial: false
-          }
-        ]
+            isFilial: false,
+          },
+        ],
       }),
       await rentalService.create({
         nome: 'Localiza Rent a Car',
@@ -28,15 +28,15 @@ export const RentalSeeder = {
           {
             cep: '96200-200',
             number: '1234',
-            isFilial: false
+            isFilial: false,
           },
           {
             cep: '96200-500',
             number: '5678',
             complemento: 'Muro A',
-            isFilial: true
-          }
-        ]
+            isFilial: true,
+          },
+        ],
       }),
       await rentalService.create({
         nome: 'TO DELETE ENTITY',
@@ -46,10 +46,12 @@ export const RentalSeeder = {
           {
             cep: '96200-200',
             number: '1234',
-            isFilial: false
-          }
-        ]
-      })
-    ]
-  }
-}
+            isFilial: false,
+          },
+        ],
+      }),
+    ];
+  },
+};
+
+export default RentalSeeder;
