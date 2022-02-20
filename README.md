@@ -14,11 +14,11 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white">
-  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
-  <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" />
-  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
-  <img src="https://img.shields.io/badge/Vscode-2496ED?style=for-the-badge&logo=visualstudio&logoColor=blue&color=white">
+  <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white"></a>
+  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" /></a>
+  <a href="https://mongodb.com/"><img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" /></a>
+  <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" /></a>
+  <a href="https://code.visualstudio.com/"><img src="https://img.shields.io/badge/Vscode-2496ED?style=for-the-badge&logo=visualstudio&logoColor=blue&</a>color=white">
 </p>
 
 ## 📖 Indíce
@@ -150,13 +150,21 @@ ___
 <a name='executando-testes'></a>
 ## 🧪 Executando Testes
 
-O App atualmente utiliza de teste de feature para verificar a integridade do serviço. <br>
+A aplicação utiliza de testes de `feature` para testar a integridade da aplicação. <br>
+A cobertura atual é de `90%`.
+
+<img src="https://i.imgur.com/w2B3XFU.jpeg"/>
+
 Você pode testar a aplicação com o comando:
 ```bash
 npm run test:e2e
 ```
 
-Caso queira utilizar o Docker para fazer o teste, é necessário obter o id do container do app:
+Caso queira utilizar o Docker para fazer o teste, é necessário iniciá-lo primeiro. <br>
+[Utilizando Docker]() mostra como iniciar um container da aplicação.
+
+Após iniciar o container, é necessário pegar o `ID` do container `app`.
+
 ```bash
 docker ps
 ```
@@ -191,7 +199,7 @@ ___
 - ### Postman
 
   Também é possível importar as rotas diretamente no [Postman](https://www.postman.com/)
-  Na raiz do projeto existe um arquivo [desafio-final.postman_collection.json](https://github.com/diogo-alexandre/compass-desafio-final/blob/main/desafio-final.postman_collection.json) <br>
+  Na raiz do projeto existe um arquivo [desafio-final.postman.json](https://github.com/diogo-alexandre/compass-desafio-final/blob/main/desafio-final.postman.json) <br>
   Basta importar este arquivo no postman e testar todas rotas.
 
 <a name="routes/docs"></a>
