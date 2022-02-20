@@ -23,6 +23,7 @@
   "paths": {
     "/authenticate": {
       "post": {
+        "security": [],
         "tags": [
           "Auth"
         ],
@@ -77,16 +78,8 @@
                       "type": "string",
                       "example": "Unauthorized"
                     },
-                    "details": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string"
-                          }
-                        }
-                      }
+                    "description": {
+                      "type": "string"
                     }
                   }
                 }
@@ -154,22 +147,50 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string",
-                      "example": "Bad Request"
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      }
                     },
-                    "details": {
+                    {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "properties": {
-                          "message": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
                             "type": "string"
                           }
                         }
                       }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Its necessary Bearer token to acess this endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    },
+                    "description": {
+                      "type": "string"
                     }
                   }
                 }
@@ -177,7 +198,7 @@
             }
           },
           "500": {
-            "description": "Unexpected internal server error.",
+            "description": "Internal Server Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -187,16 +208,8 @@
                       "type": "string",
                       "example": "Internal Server Error"
                     },
-                    "details": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string"
-                          }
-                        }
-                      }
+                    "description": {
+                      "type": "string"
                     }
                   }
                 }
@@ -214,24 +227,21 @@
             "in": "query",
             "name": "modelo",
             "schema": {
-              "type": "string",
-              "example": "GM S10 2.8"
+              "type": "string"
             }
           },
           {
             "in": "query",
             "name": "cor",
             "schema": {
-              "type": "string",
-              "example": "branco"
+              "type": "string"
             }
           },
           {
             "in": "query",
             "name": "ano",
             "schema": {
-              "type": "string",
-              "example": 2021
+              "type": "string"
             }
           },
           {
@@ -243,8 +253,7 @@
                 "type": "object",
                 "properties": {
                   "descricao": {
-                    "type": "string",
-                    "example": "Ar-condicionado"
+                    "type": "string"
                   }
                 }
               }
@@ -254,24 +263,21 @@
             "in": "query",
             "name": "quantidadePassageiros",
             "schema": {
-              "type": "number",
-              "example": 5
+              "type": "number"
             }
           },
           {
             "in": "query",
             "name": "limit",
             "schema": {
-              "type": "number",
-              "example": 1
+              "type": "number"
             }
           },
           {
             "in": "query",
             "name": "offset",
             "schema": {
-              "type": "number",
-              "example": 1
+              "type": "number"
             }
           }
         ],
@@ -315,22 +321,50 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string",
-                      "example": "Bad Request"
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      }
                     },
-                    "details": {
+                    {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "properties": {
-                          "message": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
                             "type": "string"
                           }
                         }
                       }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Its necessary Bearer token to acess this endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    },
+                    "description": {
+                      "type": "string"
                     }
                   }
                 }
@@ -338,7 +372,7 @@
             }
           },
           "500": {
-            "description": "Unexpected internal server error.",
+            "description": "Internal Server Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -348,16 +382,8 @@
                       "type": "string",
                       "example": "Internal Server Error"
                     },
-                    "details": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string"
-                          }
-                        }
-                      }
+                    "description": {
+                      "type": "string"
                     }
                   }
                 }
@@ -391,22 +417,50 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string",
-                      "example": "Bad Request"
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      }
                     },
-                    "details": {
+                    {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "properties": {
-                          "message": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
                             "type": "string"
                           }
                         }
                       }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Its necessary Bearer token to acess this endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    },
+                    "description": {
+                      "type": "string"
                     }
                   }
                 }
@@ -414,7 +468,7 @@
             }
           },
           "404": {
-            "description": "Car not found",
+            "description": "Entity cannot be found",
             "content": {
               "application/json": {
                 "schema": {
@@ -424,16 +478,8 @@
                       "type": "string",
                       "example": "Not Found"
                     },
-                    "details": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string"
-                          }
-                        }
-                      }
+                    "description": {
+                      "type": "string"
                     }
                   }
                 }
@@ -441,7 +487,7 @@
             }
           },
           "500": {
-            "description": "Unexpected internal server error.",
+            "description": "Internal Server Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -451,16 +497,8 @@
                       "type": "string",
                       "example": "Internal Server Error"
                     },
-                    "details": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string"
-                          }
-                        }
-                      }
+                    "description": {
+                      "type": "string"
                     }
                   }
                 }
@@ -502,22 +540,50 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string",
-                      "example": "Bad Request"
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      }
                     },
-                    "details": {
+                    {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "properties": {
-                          "message": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
                             "type": "string"
                           }
                         }
                       }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Its necessary Bearer token to acess this endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    },
+                    "description": {
+                      "type": "string"
                     }
                   }
                 }
@@ -525,7 +591,7 @@
             }
           },
           "404": {
-            "description": "Car not found",
+            "description": "Entity cannot be found",
             "content": {
               "application/json": {
                 "schema": {
@@ -535,24 +601,16 @@
                       "type": "string",
                       "example": "Not Found"
                     },
-                    "details": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string"
-                          }
-                        }
-                      }
+                    "description": {
+                      "type": "string"
                     }
                   }
                 }
               }
             }
           },
-          "500": {
-            "description": "Unexpected internal server error.",
+           "500": {
+            "description": "Internal Server Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -562,16 +620,8 @@
                       "type": "string",
                       "example": "Internal Server Error"
                     },
-                    "details": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string"
-                          }
-                        }
-                      }
+                    "description": {
+                      "type": "string"
                     }
                   }
                 }
@@ -610,22 +660,50 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string",
-                      "example": "Bad Request"
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      }
                     },
-                    "details": {
+                    {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "properties": {
-                          "message": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
                             "type": "string"
                           }
                         }
                       }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Its necessary Bearer token to acess this endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    },
+                    "description": {
+                      "type": "string"
                     }
                   }
                 }
@@ -633,7 +711,7 @@
             }
           },
           "404": {
-            "description": "Car not found",
+            "description": "Entity cannot be found",
             "content": {
               "application/json": {
                 "schema": {
@@ -643,16 +721,8 @@
                       "type": "string",
                       "example": "Not Found"
                     },
-                    "details": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string"
-                          }
-                        }
-                      }
+                    "description": {
+                      "type": "string"
                     }
                   }
                 }
@@ -660,7 +730,7 @@
             }
           },
           "500": {
-            "description": "Unexpected internal server error.",
+            "description": "Internal Server Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -670,16 +740,737 @@
                       "type": "string",
                       "example": "Internal Server Error"
                     },
-                    "details": {
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/car/{carId}/acessorios/{acessorioId}": {
+      "patch": {
+        "tags": [
+          "Car"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "carId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "acessorioId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "descricao": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Car accessory sucessfully updated"
+          },
+          "400": {
+            "description": "Bad Request. The server dont understand your request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "properties": {
-                          "message": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
                             "type": "string"
                           }
                         }
                       }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Its necessary Bearer token to acess this endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Entity cannot be found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Not Found"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Internal Server Error"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rental": {
+      "post": {
+        "security": [],
+        "tags": [
+          "Rental"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RentalEdit"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Rental was created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rental"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. The server dont understand your request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Internal Server Error"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "security": [],
+        "tags": [
+          "Rental"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "nome",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "cnpj",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "atividades",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "cep",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "logradouro",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "complemento",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "bairro",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "number",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "localidade",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "uf",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Find all rents",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "veiculos": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Rental"
+                      }
+                    },
+                    "total": {
+                      "type": "number",
+                      "example": 346
+                    },
+                    "limit": {
+                      "type": "number",
+                      "example": 100
+                    },
+                    "offset": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "offsets": {
+                      "type": "number",
+                      "example": 35
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. The server dont understand your request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Its necessary Bearer token to acess this endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Forbidden"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Internal Server Error"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rental/{id}": {
+      "delete": {
+        "security": [],
+        "tags": [
+          "Rental"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Rental deleted sucessfully"
+          },
+          "400": {
+            "description": "Bad Request. The server dont understand your request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Entity cannot be found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Not Found"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Internal Server Error"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [],
+        "tags": [
+          "Rental"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RentalEdit"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Update one rental"
+          },
+          "400": {
+            "description": "Bad Request. The server dont understand your request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Entity cannot be found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Not Found"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+           "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Internal Server Error"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "security": [],
+        "tags": [
+          "Rental"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Find one Rental",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rental"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. The server dont understand your request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Entity cannot be found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Not Found"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Internal Server Error"
+                    },
+                    "description": {
+                      "type": "string"
                     }
                   }
                 }
@@ -691,6 +1482,7 @@
     },
     "/people": {
       "post": {
+        "security": [],
         "tags": [
           "People"
         ],
@@ -713,24 +1505,33 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string",
-                      "example": "Bad Request"
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      }
                     },
-                    "details": {
+                    {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "properties": {
-                          "message": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
                             "type": "string"
                           }
                         }
                       }
                     }
-                  }
+                  ]
                 }
               }
             }
@@ -746,24 +1547,16 @@
                       "type": "string",
                       "example": "Conflict"
                     },
-                    "details": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string"
-                          }
-                        }
-                      }
+                    "description": {
+                      "type": "string"
                     }
                   }
                 }
               }
             }
           },
-          "500": {
-            "description": "Unexpected internal server error.",
+           "500": {
+            "description": "Internal Server Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -773,16 +1566,8 @@
                       "type": "string",
                       "example": "Internal Server Error"
                     },
-                    "details": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string"
-                          }
-                        }
-                      }
+                    "description": {
+                      "type": "string"
                     }
                   }
                 }
@@ -869,6 +1654,108 @@
           "quantidadePassageiros": {
             "type": "number",
             "example": 5
+          }
+        }
+      },
+      "Rental": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "123"
+          },
+          "nome": {
+            "type": "string",
+            "example": "Localiza Rent a Car"
+          },
+          "cnpj": {
+            "type": "string",
+            "example": "16.670.085/0001-55"
+          },
+          "atividades": {
+            "type": "string",
+            "example": "Aluguel de Carros E Gestão de Frotas"
+          },
+          "endereco": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cep": {
+                  "type": "string",
+                  "example": "96200-200"
+                },
+                "logradouro": {
+                  "type": "string",
+                  "example": "Rua General Canabarro"
+                },
+                "complemento": {
+                  "type": "string",
+                  "example": ""
+                },
+                "bairo": {
+                  "type": "string",
+                  "example": "Centro"
+                },
+                "number": {
+                  "type": "string",
+                  "example": "1234"
+                },
+                "localidade": {
+                  "type": "string",
+                  "example": "Rio Grande"
+                },
+                "uf": {
+                  "type": "string",
+                  "example": "RS"
+                },
+                "isFilial": {
+                  "type": "boolean",
+                  "example": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "RentalEdit": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "example": "Localiza Rent a Car"
+          },
+          "cnpj": {
+            "type": "string",
+            "example": "16.670.085/0001-55"
+          },
+          "atividades": {
+            "type": "string",
+            "example": "Aluguel de Carros E Gestão de Frotas"
+          },
+          "endereco": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cep": {
+                  "type": "string",
+                  "example": "96200-200"
+                },
+                "complemento": {
+                  "type": "string",
+                  "example": ""
+                },
+                "number": {
+                  "type": "string",
+                  "example": "1234"
+                },
+                "isFilial": {
+                  "type": "boolean",
+                  "example": false
+                }
+              }
+            }
           }
         }
       },
