@@ -39,7 +39,12 @@ const PeopleSchema = new Schema({
     },
     set: (v: string) => (v === 'sim'),
   },
-}, { versionKey: false });
+}, {
+  id: false,
+  versionKey: false,
+  toJSON: { getters: true },
+  toObject: { getters: true },
+});
 
 PeopleSchema.post('save', (err: any, doc: IPeople, next: Function) => {
   if (err.name === 'MongoServerError' && err.code === 11000) {

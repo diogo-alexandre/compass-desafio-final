@@ -29,6 +29,7 @@ const CarSchema = new Schema({
     },
   }],
 }, {
+  id: false,
   versionKey: false,
   toJSON: { getters: true },
   toObject: { getters: true },
