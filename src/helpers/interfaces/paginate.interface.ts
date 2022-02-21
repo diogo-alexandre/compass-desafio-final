@@ -1,4 +1,4 @@
-import { Model } from 'mongoose'
+import { Model } from 'mongoose';
 
 export interface IPaginateOptions {
   select?: object | string
@@ -37,7 +37,11 @@ export interface IPaginateResult<T> {
 }
 
 export interface IPaginate<T> {
-  paginate: (query?: object, options?: IPaginateOptions, callback?: Function) => Promise<IPaginateResult<T>>
+  paginate: (
+    query?: object,
+    options?: IPaginateOptions,
+    callback?: Function
+  ) => Promise<IPaginateResult<T>>
 }
 
 export type IPaginateModel<T> = Model<T> & IPaginate<T>

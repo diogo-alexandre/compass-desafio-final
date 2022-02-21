@@ -1,39 +1,39 @@
-import { model, Schema } from 'mongoose'
-import mongoosePagination from 'mongoose-paginate-v2'
+import { Schema } from 'mongoose';
 
-import { ICarDTO } from '../helpers/interfaces/car.interface'
-import { IPaginateModel } from '../helpers/interfaces/paginate.interface'
+import Model from '../helpers/model.helper';
+import { ICar } from '../helpers/interfaces/entities/car.interface';
 
 const CarSchema = new Schema({
   modelo: {
     type: String,
-    required: true
+    required: true,
   },
   cor: {
     type: String,
-    required: true
+    required: true,
   },
   ano: {
     type: Date,
-    required: true
+    required: true,
+    get: (value: Date) => value.getFullYear().toString(),
   },
   quantidadePassageiros: {
     type: String,
-    required: true
+    required: true,
   },
-  acessorios: {
-    type: Array,
-    required: true
-  }
+  acessorios: [{
+    descricao: {
+      type: String,
+      required: true,
+    },
+  }],
 }, {
+  id: false,
   versionKey: false,
-  toJSON: {
-    transform: (doc, ret) => {
-      ret.ano = String(ret.ano.getFullYear())
-    }
-  }
-})
+  toJSON: { getters: true },
+  toObject: { getters: true },
+});
 
-CarSchema.plugin(mongoosePagination)
+const Car = Model<ICar>('Car', CarSchema);
 
-export const Car = model<ICarDTO>('Car', CarSchema) as IPaginateModel<ICarDTO>
+export default Car;

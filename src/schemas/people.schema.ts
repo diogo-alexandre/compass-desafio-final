@@ -1,56 +1,50 @@
-import moment from 'moment'
-import { Schema, model } from 'mongoose'
+import moment from 'moment';
+import { Schema } from 'mongoose';
 
-import { CPF } from '../utils/cpf.util'
-import { IPeople, IPeopleDTO } from '../helpers/interfaces/people.interface'
-import { IPaginateModel } from '../helpers/interfaces/paginate.interface'
-import { DuplicatedEntry } from '../errors/duplicated-entry.error'
+import Model from '../helpers/model.helper';
+import { IPeople } from '../helpers/interfaces/entities/people.interface';
 
 const PeopleSchema = new Schema({
   nome: {
     type: String,
-    required: true
+    required: true,
   },
   cpf: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   data_nascimento: {
     type: Date,
-    required: true
+    required: true,
+    get: (value: Date) => moment(value).format('DD/MM/YYYY'),
   },
   email: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   senha: {
     type: String,
     length: 60,
-    required: true
+    required: true,
   },
   habilitado: {
     type: Boolean,
-    required: true
-  }
+    required: true,
+    get: (value: boolean) => {
+      if (value) return 'sim';
+      return 'nao';
+    },
+    set: (v: string) => (v === 'sim'),
+  },
 }, {
+  id: false,
   versionKey: false,
-  toJSON: {
-    transform: (doc, ret) => {
-      ret.cpf = CPF.format(ret.cpf)
-      ret.data_nascimento = moment(ret.data_nascimento).format('DD/MM/YYYY')
-      ret.habilitado = (ret.habilitado === 'sim')
-    }
-  }
-})
+  toJSON: { getters: true },
+  toObject: { getters: true },
+});
 
-PeopleSchema.post('save', (err: any, doc: IPeople, next: Function) => {
-  if (err.name === 'MongoServerError' && err.code === 11000) {
-    const key = Object.keys(err.keyPattern)[0]
+const People = Model<IPeople>('People', PeopleSchema);
 
-    next(new DuplicatedEntry(`Already exists People with same value of ${key}`))
-  }
-})
-
-export const People = model<IPeopleDTO>('People', PeopleSchema) as IPaginateModel<IPeopleDTO>
+export default People;

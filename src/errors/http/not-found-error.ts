@@ -1,10 +1,12 @@
-import { HttpCode } from '../../constants/http-code.contant'
-import { HttpError } from './http.error'
+import HttpCode from '../../constants/http-code.constant';
+import HttpError from './http.error';
 
-export class NotFound extends HttpError {
-  constructor (msg: string) {
-    super(HttpCode.NOT_FOUND, msg)
+import { IMessage } from '../../helpers/interfaces/message.interface';
 
-    this.name = 'Not Found'
+class NotFound extends HttpError {
+  constructor(msg: string | IMessage[]) {
+    super(HttpCode.NOT_FOUND, msg, 'Not Found');
   }
 }
+
+export default NotFound;

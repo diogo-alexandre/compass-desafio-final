@@ -1,6 +1,6 @@
 <p align="right">
   <img src="https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs" />
-  <img src="https://img.shields.io/badge/release-1.0.5-blue" />
+  <img src="https://img.shields.io/badge/release-1.9.0-blue" />
 </p>
 <p align="center">
   <img src="https://i.imgur.com/ShZhcXw.png" />
@@ -10,32 +10,115 @@
 <h1 align="center">Compass: Desafio Final</h1>
 <p align="center">
   Este projeto faz parte do programa de bolsa de estudo da <a href="https://compass.uol/">Compass UOL</a> <br>
-  O desafio consiste em fazer uma API REST com os consteúdos aprendidos ao longo da bolsa.
+  O desafio consiste em fazer uma API REST com os consteúdos aprendidos ao longo da bolsa. <br>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white">
-  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
-  <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" />
-  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
-  <img src="https://img.shields.io/badge/Vscode-2496ED?style=for-the-badge&logo=visualstudio&logoColor=blue&color=white">
+  <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white"></a>
+  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" /></a>
+  <a href="https://mongodb.com/"><img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" /></a>
+  <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" /></a>
+  <a href="https://code.visualstudio.com/"><img src="https://img.shields.io/badge/Vscode-2496ED?style=for-the-badge&logo=visualstudio&logoColor=blue&color=white"></a>
+  <a href="https://www.postman.com/"><img src="https://img.shields.io/badge/Postman-2496ED?style=for-the-badge&logo=postman&logoColor=orange&color=yellow"></a>
 </p>
 
-## 📖 Indíce
+## 📖 Índice
+  <ul>
+    <li>
+      <a href="#run">Run</a> <br>
+      <sup>Teste a aplicação na nuvem.</sup>
+    </li>
+    <li>
+      <a href="#clonando-repositorio">Clonando repositório</a> <br>
+      <sup>Fazendo uma cópia do projeto.</sup>
+    </li>
+    <li>
+      <a href="#configurando-variaveis-de-ambiente">Configurando variáveis de ambiente</a> <br>
+      <sup>Configurando a aplicação.</sup>
+    </li>
+    <li>
+      <a href="#configurando-variaveis-de-ambiente">Iniciando o servidor</a> <br>
+      <sup>Iniciando a aplicação REST.</sup>
+    </li>
+    <ul>
+      <li>
+        <a href="#iniciando-o-servidor/desenvolvimento">Desenvolvimento</a> <br>
+        <sup>Iniciando em modo Desenvolvimento.</sup>
+      </li>
+      <li>
+        <a href="#iniciando-o-servidor/producao">Produção</a> <br>
+        <sup>Iniciando em modo produção.</sup>
+      </li>
+    </ul>
+    <li>
+      <a href="#utilizando-docker">Utilizando Docker</a> <br>
+      <sup>Rodando a aplicação com Docker.</sup>
+    </li>
+    <li>
+      <a href="#executando-testes">Executando Testes</a> <br>
+      <sup>Executando testes de feature.</sup>
+    </li>
+    <li>
+      <a href="#rotas">Rotas</a> <br>
+      <sup>Documentação das rotas da aplicação.</sup>
+    </li>
+    <ul>
+      <li>
+        <a href="#rotas/swagger">Swagger</a> <br>
+        <sup>Documentação com Swagger e rodando rotas.</sup>
+      </li>
+      <li>
+        <a href="#rotas/postman">Postman</a> <br>
+        <sup>Rodando rotas com postman</sup>
+      </li>
+      <li>
+        <a href="#rotas/docs">Documentação</a> <br>
+        <sup>Documentando todas rotas.</sup>
+      </li>
+      <ul>
+      <li>
+        <a href="#rotas/docs/car">Car</a> <br>
+      </li>
+      <li>
+        <a href="#rotas/docs/rental">Rental</a> <br>
+      </li>
+      <li>
+        <a href="#rotas/docs/people">People</a> <br>
+      </li>
+      <li>
+        <a href="#rotas/docs/authenticate">Authenticate</a> <br>
+      </li>
+    </ul>
+    </ul>
+  </ul>
 
-- [Clonando repositório](#clonando-repositorio)
-- [Configurando variáveis de ambiente](#configurando-variaveis-de-ambiente)
-- [Iniciando o servidor](#iniciando-o-servidor)
-  - [Desenvolvimento](#iniciando-o-servidor/desenvolvimento)
-  - [Produção](#iniciando-o-servidor/producao)
-- [Utilizando Docker](#utilizando-docker)
-- [Executando Testes](#executando-testes)
-- [Rotas](#routes)
-  - [Car](#routes/car)
-  - [People](#routes/people)
-  - [Autheticante](#routes/authenticate)
+<br>
+
 ___
+
+<a name="run"></a>
+
+## ▶️ Run
+
+É possível testar a aplicação sem clonar o repositório. <br>
+
+Basta utilizar o endpoint: <br>
+[https://compass-desafio-final.herokuapp.com](https://compass-desafio-final.herokuapp.com)
+
+Atente-se que é possível testar as rotas com o [Swagger UI](https://compass-desafio-final.herokuapp.com/api/v1/api-docs). <br>
+Verifique a seção [Swagger](#rotas/swagger)
+
+É possível também baixar a coleção de rotas e importa-las diretamente no [Postman](https://www.postman.com/). <br>
+Para isso, verifique a seção [Postman](#rotas/postman)
+
+No mais, é preciso colocar as rotas na ferramentas de sua preferência e testar. <br>
+Você pode verificar as rotas na seção de [Documentação](#rotas/docs)
+
+Se preferir clonar o repositório, segue as seções abaixo.
+___
+
 <a name="clonando-repositorio"></a>
+
 ## 📥 Clonando repositório
 
 O primeiro passo para subir a aplicação localmente é clonando o repositório em sua máquina. <br>
@@ -143,13 +226,21 @@ ___
 <a name='executando-testes'></a>
 ## 🧪 Executando Testes
 
-O App atualmente utiliza de teste de feature para verificar a integridade do serviço. <br>
+A aplicação utiliza de testes de `feature` para testar a integridade da aplicação. <br>
+A cobertura atual é de `90%`.
+
+<img src="https://i.imgur.com/hFEENBP.jpg"/>
+
 Você pode testar a aplicação com o comando:
 ```bash
 npm run test:e2e
 ```
 
-Caso queira utilizar o Docker para fazer o teste, é necessário obter o id do container do app:
+Caso queira utilizar o Docker para fazer o teste, é necessário iniciá-lo primeiro. <br>
+[Utilizando Docker]() mostra como iniciar um container da aplicação.
+
+Após iniciar o container, é necessário pegar o `ID` do container `app`.
+
 ```bash
 docker ps
 ```
@@ -161,93 +252,187 @@ docker exec <id-do-container> npm run test:e2e
 
 > O teste utiliza banco em memória, não sendo necessário a env DB_URI para executalo.
 ___
-<a name="routes"></a>
-## 🗺️ Rotas
 
-O app usa como caminha base `/api/v1`
+<a name="rotas"></a>
 
-<a name="routes/car"></a>
-### Car
+## 🌎 Rotas
 
-#### <img src="https://img.shields.io/badge/-GET-green"/>&ensp;<sup>`/car` - Retorna todos carros</sup>
-Query Params:
-```jsonc
-{
-  modelo: "string"
-  cor: "string",
-  ano: "string",
-  acessorios: "array",
-  quantidadePassageiros: "number",
-  limit: "number",
-  offset: "number"
-}
+É possível testar a aplicação REST com o [Swagger](https://swagger.io/) e [Postman](https://www.postman.com/)
 
-```
+<a name="rotas/swagger"></a>
 
-Repostas:
-<details>
-  <summary>200 - OK</summary>
+- ### Swagger
 
+  Existe um arquivo [swagger.json](https://github.com/diogo-alexandre/compass-desafio-final/blob/main/swagger.json) na raiz do projeto. É possível utilizala para visualizar a interface swagger.
+
+  A aplicação também tem um caminho para visualizar esse arquivo localmente. <br>
+  Basta acessar o caminho `/api/v1/api-docs`.<br>
+
+  Ou se preferir, você pode acessar [Swagger Editor](https://editor.swagger.io/) e importar o arquivo [swagger.json](https://github.com/diogo-alexandre/compass-desafio-final/blob/main/swagger.json)
+
+<a name="rotas/postman"></a>
+
+- ### Postman
+
+  Também é possível importar as rotas diretamente no [Postman](https://www.postman.com/)
+  Na raiz do projeto existe um arquivo [desafio-final.postman.json](https://github.com/diogo-alexandre/compass-desafio-final/blob/main/desafio-final.postman.json) <br>
+  Basta importar este arquivo no postman e testar todas rotas.
+
+<a name="rotas/docs"></a>
+
+- ### Documentação
+
+  Você pode rodar estas rotas com [Swagger]() ou [Postman]() como citado a cima. <br>
+  Porém, aqui estão todas rotas da aplicação:
+
+  - [Car](#rotas/docs/car)
+  - [Rental](#rotas/docs/rental)
+  - [People](#rotas/docs/people)
+  - [Authenticate](#rotas/docs/authenticate)
+
+  <br>
+
+  Todas rotas tem como base a rota `/api/v1`. <br>
+  Exemplo de endereço: `http://localhost:3000/api/v1/car`
+
+  <a name="rotas/docs/car"></a>
+
+  ### Car
+  <sup>Todas rotas relacionadas a entidade `car`</sup>
+
+  #### <img src="https://img.shields.io/badge/-GET-green"/>&ensp;<sup>`/car`</sup> <br> Retorna todos carros
+
+  Query Params:
   ```jsonc
   {
-    "veiculos": [
-      {
-        "_id": "123",
-        "modelo": "GM S10 2.8",
-        "cor": "branco",
-        "ano": "2021",
-        "acessorios": [
-          { "descricao": "Ar-condicionado" },
-          { "descricao": "Dir. Hidráulica" },
-          { "descricao": "Cabine Dupla" },
-          { "descricao": "Tração 4x4" },
-          { "descricao": "4 portas" },
-          { "descricao": "Diesel" },
-          { "descricao": "Air bag" },
-          { "descricao": "ABS" }
-          ],
-        "quantidadePassageiros": 5
-      },
-      ...
-    ],
-    "total": 3464,
-    "limit": 100,
-    "offset": 1,
-    "offsets": 35
+    modelo: "string"
+    cor: "string",
+    ano: "string",
+    acessorios: "array",
+    quantidadePassageiros: "number",
+    limit: "number",
+    offset: "number"
   }
+
   ```
-</details>
 
-<details>
-  <summary>400 - Bad Request</summary>
+  Repostas:
+  <details>
+    <summary>200 - OK</summary>
 
-  ```jsonc
-  {
-    "name": "Bad Request",
-    "details": [
-      {
-        "message": "..."
-      },
-      ...
-    ]
-  }
+    ```jsonc
+    {
+      "veiculos": [
+        {
+          "_id": "123",
+          "modelo": "GM S10 2.8",
+          "cor": "branco",
+          "ano": "2021",
+          "acessorios": [
+            { "descricao": "Ar-condicionado" },
+            { "descricao": "Dir. Hidráulica" },
+            { "descricao": "Cabine Dupla" },
+            { "descricao": "Tração 4x4" },
+            { "descricao": "4 portas" },
+            { "descricao": "Diesel" },
+            { "descricao": "Air bag" },
+            { "descricao": "ABS" }
+            ],
+          "quantidadePassageiros": 5
+        },
+        ...
+      ],
+      "total": 3464,
+      "limit": 100,
+      "offset": 1,
+      "offsets": 35
+    }
+    ```
+  </details>
+
+  <details>
+    <summary>400 - Bad Request</summary>
+
+    ```jsonc
+    {
+      "name": "Bad Request",
+      "details": [
+        {
+          "message": "..."
+        },
+        ...
+      ]
+    }
+    ```
+  </details>
+  <br>
+
+  #### <img src="https://img.shields.io/badge/-GET-green"/>&ensp;<sup>`/car/{id}` - Encontra um carro pelo `id`</sup>
+  Query Params:
+  ```js
+  id: "string"
   ```
-</details>
-<br>
 
-#### <img src="https://img.shields.io/badge/-GET-green"/>&ensp;<sup>`/car/{id}` - Encontra um carro pelo `id`</sup>
-Query Params:
-```js
-id: "string"
-```
+  Respostas:
+  <details>
+    <summary>200 - OK</summary>
 
-Respostas:
-<details>
-  <summary>200 - OK</summary>
+    ```jsonc
+    {
+      "_id": "123",
+      "modelo": "GM S10 2.8",
+      "cor": "branco",
+      "ano": "2021",
+      "acessorios": [
+        { "descricao": "Ar-condicionado" },
+        { "descricao": "Dir. Hidráulica" },
+        { "descricao": "Cabine Dupla" },
+        { "descricao": "Tração 4x4" },
+        { "descricao": "4 portas" },
+        { "descricao": "Diesel" },
+        { "descricao": "Air bag" },
+        { "descricao": "ABS" }
+      ],
+      "quantidadePassageiros": 5
+    }
+    ```
+  </details>
 
+  <details>
+    <summary>400 - Bad Request</summary>
+
+    ```jsonc
+    {
+      "name": "Bad Request",
+      "details": [
+        {
+          "message": "..."
+        },
+        ...
+      ]
+    }
+    ```
+  </details>
+
+  <details>
+    <summary>404 - Bad Request</summary>
+
+    ```jsonc
+    {
+      "name": "Bad Request",
+      "details": [{
+        "message": "Cannot find car with id = ${id}"
+      }]
+    }
+    ```
+  </details>
+  <br>
+
+  #### <img src="https://img.shields.io/badge/-POST-yellow"/>&ensp;<sup>`/car` - Cria um carro</sup>
+  Body Request:
   ```jsonc
+  // Todos os campos são obrigatórios
   {
-    "_id": "123",
     "modelo": "GM S10 2.8",
     "cor": "branco",
     "ano": "2021",
@@ -264,67 +449,72 @@ Respostas:
     "quantidadePassageiros": 5
   }
   ```
-</details>
 
-<details>
-  <summary>400 - Bad Request</summary>
+  Respostas:
+  <details>
+    <summary>201 - Created</summary>
 
-  ```jsonc
-  {
-    "name": "Bad Request",
-    "details": [
-      {
-        "message": "..."
-      },
-      ...
-    ]
-  }
+    ```jsonc
+    {
+      "_id": "123",
+      "modelo": "GM S10 2.8",
+      "cor": "branco",
+      "ano": "2021",
+      "acessorios": [
+        { "descricao": "Ar-condicionado" },
+        { "descricao": "Dir. Hidráulica" },
+        { "descricao": "Cabine Dupla" },
+        { "descricao": "Tração 4x4" },
+        { "descricao": "4 portas" },
+        { "descricao": "Diesel" },
+        { "descricao": "Air bag" },
+        { "descricao": "ABS" }
+      ],
+      "quantidadePassageiros": 5
+    }
+    ```
+  </details>
+
+  <details>
+    <summary>400 - Bad Request</summary>
+
+    ```jsonc
+    {
+      "name": "Bad Request",
+      "details": [
+        {
+          "message": "..."
+        },
+        ...
+      ]
+    }
+    ```
+  </details>
+
+  <details>
+    <summary>404 - Not Found</summary>
+
+    ```jsonc
+    {
+      "name": "Not Found",
+      "details": [{
+        "message": "Cannot find car with id = ${id}"
+      }]
+    }
+    ```
+  </details>
+  <br>
+
+  #### <img src="https://img.shields.io/badge/-PUT-blue"/>&ensp;<sup>`/car/{id}` - Atualiza um carro</sup>
+  Query Params:
+  ```js
+  id: "string"
   ```
-</details>
 
-<details>
-  <summary>404 - Bad Request</summary>
-
+  Body Request:
   ```jsonc
+  // Todos os campos são obrigatórios
   {
-    "name": "Bad Request",
-    "details": [{
-      "message": "Cannot find car with id = ${id}"
-    }]
-  }
-  ```
-</details>
-<br>
-
-#### <img src="https://img.shields.io/badge/-POST-yellow"/>&ensp;<sup>`/car` - Cria um carro</sup>
-Body Request:
-```jsonc
-// Todos os campos são obrigatórios
-{
-  "modelo": "GM S10 2.8",
-  "cor": "branco",
-  "ano": "2021",
-  "acessorios": [
-    { "descricao": "Ar-condicionado" },
-    { "descricao": "Dir. Hidráulica" },
-    { "descricao": "Cabine Dupla" },
-    { "descricao": "Tração 4x4" },
-    { "descricao": "4 portas" },
-    { "descricao": "Diesel" },
-    { "descricao": "Air bag" },
-    { "descricao": "ABS" }
-  ],
-  "quantidadePassageiros": 5
-}
-```
-
-Respostas:
-<details>
-  <summary>201 - Created</summary>
-
-  ```jsonc
-  {
-    "_id": "123",
     "modelo": "GM S10 2.8",
     "cor": "branco",
     "ano": "2021",
@@ -341,281 +531,641 @@ Respostas:
     "quantidadePassageiros": 5
   }
   ```
-</details>
 
-<details>
-  <summary>400 - Bad Request</summary>
+  Respostas:
+  <details>
+    <summary>204 - No Content</summary>
 
+    ```jsonc
+    /*
+    * Sucessfully updated car
+    * No body expected
+    */
+    ```
+  </details>
+
+  <details>
+    <summary>400 - Bad Request</summary>
+
+    ```jsonc
+    {
+      "name": "Bad Request",
+      "details": [
+        {
+          "message": "..."
+        },
+        ...
+      ]
+    }
+    ```
+  </details>
+
+  <details>
+    <summary>404 - Not Found</summary>
+
+    ```jsonc
+    {
+      "name": "Not Found",
+      "details": [{
+        "message": "Cannot find car with id = ${id}"
+      }]
+    }
+    ```
+  </details>
+  <br>
+
+  #### <img src="https://img.shields.io/badge/-DELETE-red"/>&ensp;<sup>`/car/{id}` - Delete um carro</sup>
+  Query Params:
+  ```js
+  id: "string"
+  ```
+
+  Respostas:
+  <details>
+    <summary>204 - No Content</summary>
+
+    ```jsonc
+    /*
+    * Sucessfully deleted car
+    * No body expected
+    */
+    ```
+  </details>
+
+  <details>
+    <summary>400 - Bad Request</summary>
+
+    ```jsonc
+    {
+      "name": "Bad Request",
+      "details": [
+        {
+          "message": "Id field is not valid"
+        }
+      ]
+    }
+    ```
+  </details>
+
+  <details>
+    <summary>404 - Not Found</summary>
+
+    ```jsonc
+    {
+      "name": "Not Found",
+      "details": [{
+        "message": "Cannot find car with id = ${id}"
+      }]
+    }
+    ```
+  </details>
+  <br>
+
+  #### <img src="https://img.shields.io/badge/-PATCH-gray"/>&ensp;<sup>`/car/:carId/acessorios/:acessorioId` - Atualiza um acessório de um carro</sup>
+  Params
   ```jsonc
   {
-    "name": "Bad Request",
-    "details": [
-      {
-        "message": "..."
-      },
-      ...
-    ]
+    "carId": "string",
+    "acessorioId": "string"
   }
   ```
-</details>
 
-<details>
-  <summary>404 - Not Found</summary>
+  Body Request:
+  ```jsonc
+  // Todos os campos são obrigatórios
+  {
+    "descricao": "string"
+  }
+  ```
 
+  Respostas:
+  <details>
+    <summary>204 - No Content</summary>
+
+    ```jsonc
+    /*
+    * Sucessfully updated Car.acessorio
+    * No body expected
+    */
+    ```
+  </details>
+
+  <details>
+    <summary>400 - Bad Request</summary>
+
+    ```jsonc
+    {
+      "name": "Bad Request",
+      "details": [
+        {
+          "message": "..."
+        },
+        ...
+      ]
+    }
+    ```
+  </details>
+
+  <details>
+    <summary>404 - Not Found</summary>
+
+    ```jsonc
+    {
+      "name": "Not Found",
+      "details": [{
+        "message": "Cannot find car with id = ${id}"
+      }]
+    }
+    ```
+  </details>
+  <br>
+
+  ___
+
+  <a name="rotas/docs/rental"></a>
+
+  ### Rental
+  <sup>Todas rotas relacionadas a entidade `rental`</sup>
+
+  #### <img src="https://img.shields.io/badge/-GET-green"/>&ensp;<sup>`/rental` - Lista todas locadoras</sup>
+  Query Params:
   ```jsonc
   {
-    "name": "Not Found",
-    "details": [{
-      "message": "Cannot find car with id = ${id}"
-    }]
+    nome: "string"
+    cnpj: "string",
+    atividades: "string",
+    cep: "string",
+    longradouro: "string",
+    bairro: "string",
+    uf: "string",
+    localdiade: "string",
+    number: "string",
+    isFilial: "boolean",
+    limit: "number",
+    offset: "number"
   }
   ```
-</details>
-<br>
 
-#### <img src="https://img.shields.io/badge/-PUT-blue"/>&ensp;<sup>`/car/{id}` - Atualiza um carro</sup>
-Query Params:
-```js
-id: "string"
-```
+  Repostas:
+  <details>
+    <summary>200 - OK</summary>
 
-Body Request:
-```jsonc
-// Todos os campos são obrigatórios
-{
-  "modelo": "GM S10 2.8",
-  "cor": "branco",
-  "ano": "2021",
-  "acessorios": [
-    { "descricao": "Ar-condicionado" },
-    { "descricao": "Dir. Hidráulica" },
-    { "descricao": "Cabine Dupla" },
-    { "descricao": "Tração 4x4" },
-    { "descricao": "4 portas" },
-    { "descricao": "Diesel" },
-    { "descricao": "Air bag" },
-    { "descricao": "ABS" }
-  ],
-  "quantidadePassageiros": 5
-}
-```
+    ```jsonc
+    {
+      "locadoras": [
+        {
+          "id": "123",
+          "nome": "Localiza Rent a Car",
+          "cnpj": "16.670.085/0001-55",
+          "atividades": "Aluguel de Carros E Gestão de Frotas",
+          "endereco": [
+            {
+              "cep": "96200-200",
+              "logradouro": "Rua General Canabarro",
+              "complemento": "",
+              "bairro": "Centro",
+              "number":"1234",
+              "localidade": "Rio Grande",
+              "uf": "RS"
+            },
+            ...
+          ]
+        },
+        ...
+      ],
+      "total": 1,
+      "limit": 10,
+      "offset": 1,
+      "offsets": 1
+    }
+    ```
+  </details>
 
-Respostas:
-<details>
-  <summary>204 - No Content</summary>
+  <details>
+    <summary>400 - Bad Request</summary>
 
+    ```jsonc
+    {
+      "name": "Bad Request",
+      "details": [
+        {
+          "message": "..."
+        },
+        ...
+      ]
+    }
+    ```
+  </details>
+
+  <br>
+
+  #### <img src="https://img.shields.io/badge/-GET-green"/>&ensp;<sup>`/rental/:id` - Encontra uma locadora</sup>
+  Query Params:
+  ```js
+  id: "string"
+  ```
+
+  Respostas:
+  <details>
+    <summary>200 - OK</summary>
+
+    ```jsonc
+    {
+      "id": "123",
+      "nome": "Localiza Rent a Car",
+      "cnpj": "16.670.085/0001-55",
+      "atividades": "Aluguel de Carros E Gestão de Frotas",
+      "endereco": [
+        {
+          "cep": "96200-200",
+          "logradouro": "Rua General Canabarro",
+          "complemento": "",
+          "bairro": "Centro",
+          "number":"1234",
+          "localidade": "Rio Grande",
+          "uf": "RS"
+        }
+      ]
+    }
+    ```
+  </details>
+
+  <details>
+    <summary>400 - Bad Request</summary>
+
+    ```jsonc
+    {
+      "name": "Bad Request",
+      "details": [
+        {
+          "message": "..."
+        },
+        ...
+      ]
+    }
+    ```
+  </details>
+
+  <details>
+    <summary>404 - Bad Request</summary>
+
+    ```jsonc
+    {
+      "name": "Bad Request",
+      "details": [{
+        "message": "Cannot find car with id = ${id}"
+      }]
+    }
+    ```
+  </details>
+  <br>
+
+  #### <img src="https://img.shields.io/badge/-POST-yellow"/>&ensp;<sup>`/rental` - Cria uma locadora</sup>
+  Body Request:
   ```jsonc
   /*
-  * Sucessfully updated car
-  * No body expected
+  * Todos campos são obrigatórios, com exceção de: endereco[i].complemento
+  * Apenas pode existir 1 (um) endereco[i].isFilial = false
   */
-  ```
-</details>
-
-<details>
-  <summary>400 - Bad Request</summary>
-
-  ```jsonc
   {
-    "name": "Bad Request",
-    "details": [
+    "nome": "Localiza Rent a Car",
+    "cnpj": "16.670.085/0001-55",
+    "atividades": "Aluguel de Carros E Gestão de Frotas",
+    "endereco": [
       {
-        "message": "..."
+        "cep": "96200-200",
+        "number":"1234",
+        "isFilial": false
       },
-      ...
-    ]
-  }
-  ```
-</details>
-
-<details>
-  <summary>404 - Not Found</summary>
-
-  ```jsonc
-  {
-    "name": "Not Found",
-    "details": [{
-      "message": "Cannot find car with id = ${id}"
-    }]
-  }
-  ```
-</details>
-<br>
-
-#### <img src="https://img.shields.io/badge/-DELETE-red"/>&ensp;<sup>`/car/{id}` - Delete um carro</sup>
-Query Params:
-```js
-id: "string"
-```
-
-Respostas:
-<details>
-  <summary>204 - No Content</summary>
-
-  ```jsonc
-  /*
-  * Sucessfully deleted car
-  * No body expected
-  */
-  ```
-</details>
-
-<details>
-  <summary>400 - Bad Request</summary>
-
-  ```jsonc
-  {
-    "name": "Bad Request",
-    "details": [
       {
-        "message": "Id field is not valid"
+        "cep": "96200-500",
+        "number":"5678",
+        "complemento": "Muro A",
+        "isFilial": true
       }
     ]
   }
   ```
-</details>
 
-<details>
-  <summary>404 - Not Found</summary>
+  Respostas:
+  <details>
+    <summary>201 - Created</summary>
 
-  ```jsonc
-  {
-    "name": "Not Found",
-    "details": [{
-      "message": "Cannot find car with id = ${id}"
-    }]
-  }
+    ```jsonc
+    {
+      "_id": "620a5f7113e5684a5d7e2f00",
+      "nome": "Localiza Rent a Car",
+      "cnpj": "16.670.085/0001-55",
+      "atividades": "Aluguel de Carros E Gestão de Frotas",
+      "endereco": [
+        {
+          "cep": "96200-200",
+          "logradouro": "Rua General Canabarro",
+          "bairro": "Centro",
+          "uf": "RS",
+          "localidade": "Rio Grande",
+          "number": "1234",
+          "isFilial": false
+        },
+        {
+          "cep": "96200-500",
+          "logradouro": "Rua General Gurjão",
+          "bairro": "Centro",
+          "uf": "RS",
+          "localidade": "Rio Grande",
+          "number": "5678",
+          "complemento": "Muro A",
+          "isFilial": true
+        }
+      ]
+    }
+    ```
+  </details>
+
+  <details>
+    <summary>400 - Bad Request</summary>
+
+    ```jsonc
+    {
+      "name": "Bad Request",
+      "details": [
+        {
+          "message": "..."
+        },
+        ...
+      ]
+    }
+    ```
+  </details>
+
+  <details>
+    <summary>404 - Not Found</summary>
+
+    ```jsonc
+    {
+      "name": "Not Found",
+      "details": [{
+        "message": "Cannot find car with id = ${id}"
+      }]
+    }
+    ```
+  </details>
+  <br>
+
+  #### <img src="https://img.shields.io/badge/-PUT-blue"/>&ensp;<sup>`/rental/:id` - Atualiza uma locadora</sup>
+  Query Params:
+  ```js
+  id: "string"
   ```
-</details>
-<br>
 
-___
-<a name="routes/people"></a>
-
-### People
-#### <img src="https://img.shields.io/badge/-POST-yellow"/>&ensp;<sup>`/people` - Cria um usuário</sup>
-Body Request:
-```jsonc
-// Todos os campos são obrigatórios
-{
-  "nome": "joaozinho fulano",
-  "cpf": "12345678900",
-  "data_nascimento": "23/02/2000",
-  "email": "fulano@mail.com",
-  "senha": "12345678",
-  "habilitado": "sim" | "nao",
-}
-```
-
-Respostas:
-<details>
-  <summary>201 - Created</summary>
-
+  Body Request:
   ```jsonc
   /*
-  * Sucessfully created People
-  * No body expected
+  * Todos campos são obrigatórios, com exceção de: endereco[i].complemento
+  * Apenas pode existir 1 (um) endereco[i].isFilial = false
   */
-  ```
-</details>
-
-<details>
-  <summary>400 - Bad Request</summary>
-
-  ```jsonc
   {
-    "name": "Bad Request",
-    "details": [
+    "nome": "Localiza Rent a Car",
+    "cnpj": "16.670.085/0001-55",
+    "atividades": "Aluguel de Carros E Gestão de Frotas",
+    "endereco": [
       {
-        "message": "..."
+        "cep": "96200-200",
+        "number":"1234",
+        "isFilial": false
       },
-      ...
+      {
+        "cep": "96200-500",
+        "number":"5678",
+        "complemento": "Muro A",
+        "isFilial": true
+      }
     ]
   }
   ```
-</details>
 
-<details>
-  <summary>409 - Conflict</summary>
+  Respostas:
+  <details>
+    <summary>204 - No Content</summary>
 
+    ```jsonc
+    /*
+    * Sucessfully updated car
+    * No body expected
+    */
+    ```
+  </details>
+
+  <details>
+    <summary>400 - Bad Request</summary>
+
+    ```jsonc
+    {
+      "name": "Bad Request",
+      "details": [
+        {
+          "message": "..."
+        },
+        ...
+      ]
+    }
+    ```
+  </details>
+
+  <details>
+    <summary>404 - Not Found</summary>
+
+    ```jsonc
+    {
+      "name": "Not Found",
+      "details": [{
+        "message": "Cannot find car with id = ${id}"
+      }]
+    }
+    ```
+  </details>
+  <br>
+
+  #### <img src="https://img.shields.io/badge/-DELETE-red"/>&ensp;<sup>`/rental/:id` - Delete uma locadora</sup>
+  Query Params:
+  ```js
+  id: "string"
+  ```
+
+  Respostas:
+  <details>
+    <summary>204 - No Content</summary>
+
+    ```jsonc
+    /*
+    * Sucessfully deleted car
+    * No body expected
+    */
+    ```
+  </details>
+
+  <details>
+    <summary>400 - Bad Request</summary>
+
+    ```jsonc
+    {
+      "name": "Bad Request",
+      "details": [
+        {
+          "message": "Id field is not valid"
+        }
+      ]
+    }
+    ```
+  </details>
+
+  <details>
+    <summary>404 - Not Found</summary>
+
+    ```jsonc
+    {
+      "name": "Not Found",
+      "details": [{
+        "message": "Cannot find car with id = ${id}"
+      }]
+    }
+    ```
+  </details>
+
+  <br>
+
+  ___
+
+  <a name="rotas/docs/people"></a>
+
+  ### People
+  <sup>Todas rotas relacionadas a entidade `People`</sup>
+
+  #### <img src="https://img.shields.io/badge/-POST-yellow"/>&ensp;<sup>`/people` - Cria um usuário</sup>
+  Body Request:
   ```jsonc
+  // Todos os campos são obrigatórios
   {
-    "name": "Conflict",
-    "details": [{
-      "message": "Already exists People with same value of ${key}"
-    }]
+    "nome": "joaozinho fulano",
+    "cpf": "12345678900",
+    "data_nascimento": "23/02/2000",
+    "email": "fulano@mail.com",
+    "senha": "12345678",
+    "habilitado": "sim" | "nao",
   }
   ```
-</details>
-<br>
 
-___
-<a name="routes/authenticate"></a>
+  Respostas:
+  <details>
+    <summary>201 - Created</summary>
 
-### Authenticate
-#### <img src="https://img.shields.io/badge/-POST-yellow"/>&ensp;<sup>`/authenticate` - Cria um Token</sup>
-Body Request:
-```jsonc
-// Todos os campos são obrigatórios
-{
-  "email": "fulano@mail.com",
-  "senha": "12345678"
-}
-```
+    ```jsonc
+    /*
+    * Sucessfully created People
+    * No body expected
+    */
+    ```
+  </details>
 
-Respostas:
-<details>
-  <summary>200 - OK</summary>
+  <details>
+    <summary>400 - Bad Request</summary>
 
+    ```jsonc
+    {
+      "name": "Bad Request",
+      "details": [
+        {
+          "message": "..."
+        },
+        ...
+      ]
+    }
+    ```
+  </details>
+
+  <details>
+    <summary>409 - Conflict</summary>
+
+    ```jsonc
+    {
+      "name": "Conflict",
+      "details": [{
+        "message": "Already exists People with same value of ${key}"
+      }]
+    }
+    ```
+  </details>
+  <br>
+
+  ___
+  <a name="rotas/docs/authenticate"></a>
+
+  ### Authenticate
+  <sup>Todas rotas relacionadas a autenticação de usuário</sup>
+
+  #### <img src="https://img.shields.io/badge/-POST-yellow"/>&ensp;<sup>`/authenticate` - Cria um Token</sup>
+  Body Request:
   ```jsonc
+  // Todos os campos são obrigatórios
   {
-    "acess_token": "...",
-    "type": "bearer"
+    "email": "fulano@mail.com",
+    "senha": "12345678"
   }
   ```
-</details>
 
-<details>
-  <summary>400 - Bad Request</summary>
+  Respostas:
+  <details>
+    <summary>200 - OK</summary>
 
-  ```jsonc
-  {
-    "name": "Bad Request",
-    "details": [
-      {
-        "message": "..."
-      },
-      ...
-    ]
-  }
-  ```
-</details>
+    ```jsonc
+    {
+      "acess_token": "...",
+      "type": "bearer"
+    }
+    ```
+  </details>
 
-<details>
-  <summary>401 - Unauthorized</summary>
+  <details>
+    <summary>400 - Bad Request</summary>
 
-  ```jsonc
-  {
-    "name": "Unauthorized",
-    "details": [{
-      "message": "Passwords are not the same"
-    }]
-  }
-  ```
-</details>
+    ```jsonc
+    {
+      "name": "Bad Request",
+      "details": [
+        {
+          "message": "..."
+        },
+        ...
+      ]
+    }
+    ```
+  </details>
 
-<details>
-  <summary>404 - Not Found</summary>
+  <details>
+    <summary>401 - Unauthorized</summary>
 
-  ```jsonc
-  {
-    "name": "Not Found",
-    "details": [{
-      "message": "Cannot find user with email = ${email}"
-    }]
-  }
-  ```
-</details>
-<br>
+    ```jsonc
+    {
+      "name": "Unauthorized",
+      "details": [{
+        "message": "Passwords are not the same"
+      }]
+    }
+    ```
+  </details>
 
-___
+  <details>
+    <summary>404 - Not Found</summary>
+
+    ```jsonc
+    {
+      "name": "Not Found",
+      "details": [{
+        "message": "Cannot find user with email = ${email}"
+      }]
+    }
+    ```
+  </details>
+  <br>
+
+  ___

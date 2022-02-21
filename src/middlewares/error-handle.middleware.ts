@@ -1,23 +1,46 @@
-import { ErrorRequestHandler } from 'express'
+import { ErrorRequestHandler } from 'express';
 
-import { Log } from '../helpers/log.helper'
-import { HttpError } from '../errors/http/http.error'
-import { HttpCode } from '../constants/http-code.contant'
+import DuplicatedEntry from '../errors/duplicated-entry.error';
+import EntityNotFound from '../errors/entity-not-found.error';
+import BadRequest from '../errors/http/bad-request.error';
+import Conflict from '../errors/http/conflict.error';
+import HttpError from '../errors/http/http.error';
+import InternalServerError from '../errors/http/internal-server.error';
+import NotFound from '../errors/http/not-found-error';
+import Unauthorized from '../errors/http/unauthorized.error';
+import InvalidCEP from '../errors/invalid-cep.error';
+import InvalidCNPJ from '../errors/invalid-cnpj.error';
+import InvalidCPF from '../errors/invalid-cpf.error';
+import InvalidPasswordError from '../errors/invalid-password.error';
+import Log from '../utils/log.helper';
 
-export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
-  let result: HttpError = {
-    name: 'Internal Server Error',
-    message: 'Unexpected Internal Error',
-    statusCode: HttpCode.INTERNAL_SERVER_ERROR,
-    details: []
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+  let responseError: HttpError;
+
+  if (err instanceof HttpError) {
+    responseError = err;
+  } else if (err instanceof EntityNotFound) {
+    responseError = new NotFound(err.message);
+  } else if (err instanceof InvalidPasswordError) {
+    responseError = new Unauthorized(err.message);
+  } else if (err instanceof DuplicatedEntry) {
+    responseError = new Conflict(err.message);
+  } else if (
+    err instanceof InvalidCEP
+    || err instanceof InvalidCPF
+    || err instanceof InvalidCNPJ
+  ) {
+    responseError = new BadRequest(err.message);
+  } else {
+    Log.error(err);
+    responseError = new InternalServerError('Unexpect internal error occurred');
   }
 
-  if (err instanceof HttpError) result = err
+  return res
+    .status(responseError.statusCode)
+    .json(responseError.details)
+    .end();
+};
 
-  if (result.statusCode === HttpCode.INTERNAL_SERVER_ERROR) Log.error(err)
-
-  return res.status(result.statusCode).json({
-    name: result.name,
-    details: result.details
-  }).end()
-}
+export default errorHandler;

@@ -1,4 +1,7 @@
+import Habilitado from '../../../constants/people.constant';
+
 export interface IPeople {
+  _id: string
   nome: string
   cpf: string
   data_nascimento: Date
@@ -8,6 +11,6 @@ export interface IPeople {
 }
 
 export interface IPeopleDTO extends Omit<IPeople, 'data_nascimento' | 'habilitado'> {
-  data_nascimento: string
-  habilitado: string
+  data_nascimento: Date
+  habilitado: Habilitado
 }

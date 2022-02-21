@@ -1,10 +1,12 @@
-import { HttpCode } from '../../constants/http-code.contant'
-import { HttpError } from './http.error'
+import HttpCode from '../../constants/http-code.constant';
+import HttpError from './http.error';
 
-export class Unauthorized extends HttpError {
-  constructor (msg: string) {
-    super(HttpCode.UNAUTHORIZED, msg)
+import { IMessage } from '../../helpers/interfaces/message.interface';
 
-    this.name = 'Unauthorized Error'
+class Unauthorized extends HttpError {
+  constructor(msg: string | IMessage[]) {
+    super(HttpCode.UNAUTHORIZED, msg, 'Unauthorized');
   }
 }
+
+export default Unauthorized;

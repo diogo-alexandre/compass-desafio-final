@@ -1,10 +1,12 @@
-import { HttpCode } from '../../constants/http-code.contant'
-import { HttpError } from './http.error'
+import HttpCode from '../../constants/http-code.constant';
+import HttpError from './http.error';
 
-export class Conflict extends HttpError {
-  constructor (msg: string) {
-    super(HttpCode.CONFLICT, msg)
+import { IMessage } from '../../helpers/interfaces/message.interface';
 
-    this.name = 'Conflict'
+class Conflict extends HttpError {
+  constructor(msg: string | IMessage[]) {
+    super(HttpCode.CONFLICT, msg, 'Conflict');
   }
 }
+
+export default Conflict;

@@ -1,6 +1,7 @@
-import { TokenType } from '../../constants/auth.constant'
+import TokenType from '../../constants/auth.constant';
 
 export interface IAuthResponse {
-  acess_token: string
+  access_token: string
   type: TokenType
+  expires_in: number
 }

@@ -1,0 +1,433 @@
+{
+	"info": {
+		"_postman_id": "b955e2af-b152-4dec-91e3-04d3687b31e0",
+		"name": "Desafio Final",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Car",
+			"item": [
+				{
+					"name": "Acessorio",
+					"item": [
+						{
+							"name": "Delete Acessorio",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpb2dvQG1haWwuY29tIiwiaGFiaWxpdGFkbyI6InNpbSIsImlhdCI6MTY0NTA3MDMyMCwiZXhwIjoxNjQ1MTU2NzIwfQ.Wm2-0ySe7NpTq31tXzCgnn97JGmGhR0i7A1quXghnPw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"descricao\": \"4 Portas\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/car/6205d7836f15786941b7ea55/acessorios/6205d7836f15786941b7ea56",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"car",
+										"6205d7836f15786941b7ea55",
+										"acessorios",
+										"6205d7836f15786941b7ea56"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Find All",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer <eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpb2dvQG1haWwuY29tIiwiaGFiaWxpdGFkbyI6InNpbSIsImlhdCI6MTY0NDg5NTE1NH0.Rx1U1htB-AcVFRGUwAKczUxKBG58NFDEdaIOAiQPZR4>",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/car",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"car"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"modelo\": \"Fiat Touro\",\r\n    \"cor\": \"vinho\",\r\n    \"ano\": \"2021\",\r\n    \"acessorios\": [\r\n        {\r\n            \"descricao\": \"Ar-condicionado\"\r\n        }\r\n    ],\r\n    \"quantidadePassageiros\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/car",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"car"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"modelo\": \"Corola\",\r\n    \"cor\": \"preto\",\r\n    \"ano\": \"2015\",\r\n    \"quantidadePassageiros\": \"5\",\r\n    \"acessorios\": [\r\n        {\r\n            \"descricao\": \"Quatro Portas\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/car/asa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"car",
+								"asa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find One",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/car/6205d7836f15786941b7ea55",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"car",
+								"6205d7836f15786941b7ea55"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/car/620263b1ddca5ec9252e9366",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"car",
+								"620263b1ddca5ec9252e9366"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpb2dvQG1haWwuY29tIiwiaGFiaWxpdGFkbyI6InNpbSIsImlhdCI6MTY0NTI4MDk0NCwiZXhwIjoxNjQ1MzY3MzQ0fQ.HhckNC1A78t0mpUMKkOYn62fAZT_Njl0wp2b0d1Wm0Y",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "People",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"diogo\",\r\n    \"cpf\": \"12345678909\",\r\n    \"data_nascimento\": \"23/02/2002\",\r\n    \"email\": \"diogo@mail.com\",\r\n    \"senha\": \"123456\",\r\n    \"habilitado\": \"sim\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/people",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"people"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"diogo@mail.com\",\r\n    \"senha\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/authenticate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rental",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Localiza Rent a Car\",\r\n    \"cnpj\": \"16.670.085/0001-55\",\r\n    \"atividades\": \"Aluguel de Carros E Gestão de Frotas\",\r\n    \"endereco\": [\r\n        {\r\n            \"cep\": \"96200200\",\r\n            \"number\": \"1234\",\r\n            \"isFilial\": false\r\n        },\r\n        {\r\n            \"cep\": \"96200500\",\r\n            \"number\": \"5678\",\r\n            \"complemento\": \"Muro A\",\r\n            \"isFilial\": true\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/rental",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"rental"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/rental",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"rental"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/rental/620a5f7113e5684a5d7e2f00",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"rental",
+								"620a5f7113e5684a5d7e2f00"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Localiza Rent a Car\",\r\n    \"cnpj\": \"16.670.085/0001-55\",\r\n    \"atividades\": \"Aluguel de Carros E Gestão de Frotas\",\r\n    \"endereco\": [\r\n        {\r\n            \"cep\": \"52021-000\",\r\n            \"number\": \"1234\",\r\n            \"isFilial\": false\r\n        },\r\n        {\r\n            \"cep\": \"96200-500\",\r\n            \"number\": \"5678\",\r\n            \"complemento\": \"Muro A\",\r\n            \"isFilial\": true\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/rental/620a5f7113e5684a5d7e2f00",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"rental",
+								"620a5f7113e5684a5d7e2f00"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/rental/620dd05e6b2b090b8aa1b1d0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"rental",
+								"620dd05e6b2b090b8aa1b1d0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
