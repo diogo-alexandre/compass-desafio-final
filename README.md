@@ -229,7 +229,7 @@ ___
 A aplicação utiliza de testes de `feature` para testar a integridade da aplicação. <br>
 A cobertura atual é de `90%`.
 
-<img src="https://i.imgur.com/w2B3XFU.jpeg"/>
+<img src="https://i.imgur.com/hFEENBP.jpg"/>
 
 Você pode testar a aplicação com o comando:
 ```bash
