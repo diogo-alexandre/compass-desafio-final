@@ -10,7 +10,7 @@
 <h1 align="center">Compass: Desafio Final</h1>
 <p align="center">
   Este projeto faz parte do programa de bolsa de estudo da <a href="https://compass.uol/">Compass UOL</a> <br>
-  O desafio consiste em fazer uma API REST com os consteúdos aprendidos ao longo da bolsa.
+  O desafio consiste em fazer uma API REST com os consteúdos aprendidos ao longo da bolsa. <br>
 </p>
 
 <p align="center">
@@ -23,24 +23,99 @@
 </p>
 
 ## 📖 Indíce
-
-- [Clonando repositório](#clonando-repositorio)
-- [Configurando variáveis de ambiente](#configurando-variaveis-de-ambiente)
-- [Iniciando o servidor](#iniciando-o-servidor)
-  - [Desenvolvimento](#iniciando-o-servidor/desenvolvimento)
-  - [Produção](#iniciando-o-servidor/producao)
-- [Utilizando Docker](#utilizando-docker)
-- [Executando Testes](#executando-testes)
-- [Rotas](#routes)
-  - [Swagger](#routes/swagger)
-  - [Postman](#routes/postman)
-  - [Documentação](#routes/docs)
-    - [Car](#routes/docs/car)
-    - [Rental](#routes/docs/rental)
-    - [People](#routes/docs/people)
-    - [Autheticante](#routes/docs/authenticate)
+  <ul>
+    <li>
+      <a src="#run">Run</a> <br>
+      <sup>Teste a aplicação na nuvem.</sup>
+    </li>
+    <li>
+      <a src="#clonando-repositorio">Clonando repositório</a> <br>
+      <sup>Fazendo uma cópia do projeto.</sup>
+    </li>
+    <li>
+      <a src="#configurando-variaveis-de-ambiente">Configurando variáveis de ambiente</a> <br>
+      <sup>Configurando a aplicação.</sup>
+    </li>
+    <li>
+      <a src="#configurando-variaveis-de-ambiente">Iniciando o servidor</a> <br>
+      <sup>Iniciando a aplicação REST.</sup>
+    </li>
+    <ul>
+      <li>
+        <a src="#iniciando-o-servidor/desenvolvimento">Desenvolvimento</a> <br>
+        <sup>Iniciando em modo Desenvolvimento.</sup>
+      </li>
+      <li>
+        <a src="#iniciando-o-servidor/producao">Produção</a> <br>
+        <sup>Iniciando em modo produção.</sup>
+      </li>
+    </ul>
+    <li>
+      <a src="#utilizando-docker">Utilizando Docker</a> <br>
+      <sup>Rodando a aplicação com Docker.</sup>
+    </li>
+    <li>
+      <a src="#executando-testes">Executando Testes</a> <br>
+      <sup>Executando testes de feature.</sup>
+    </li>
+    <li>
+      <a src="#rotas">Rotas</a> <br>
+      <sup>Documentação das rotas da aplicação.</sup>
+    </li>
+    <ul>
+      <li>
+        <a src="#rotas/swagger">Swagger</a> <br>
+        <sup>Documentação com Swagger e rodando rotas.</sup>
+      </li>
+      <li>
+        <a src="#rotas/postman">Postman</a> <br>
+        <sup>Rodando rotas com postman</sup>
+      </li>
+      <li>
+        <a src="#rotas/docs">Documentação</a> <br>
+        <sup>Iniciando em modo produção.</sup>
+      </li>
+      <ul>
+      <li>
+        <a src="#rotas/docs/car">Car</a> <br>
+      </li>
+      <li>
+        <a src="#rotas/docs/rental">Rental</a> <br>
+      </li>
+      <li>
+        <a src="#rotas/docs/people">People</a> <br>
+      </li>
+      <li>
+        <a src="#rotas/docs/authenticate">Authenticate</a> <br>
+      </li>
+    </ul>
+    </ul>
+  </ul>
 
 <br>
+
+___
+
+<a name="run"></a>
+
+## ▶️ Run
+
+É possível testar a aplicação sem clonar o repositório. <br>
+
+Basta utilizar o endpoint: <br>
+[https://compass-desafio-final.herokuapp.com](https://compass-desafio-final.herokuapp.com)
+
+Atente-se que é possível testar as rotas com o [Swagger UI](https://compass-desafio-final.herokuapp.com/api/v1/api-docs). <br>
+Verifique a seção [Swagger](#rotas/swagger)
+
+É possível também baixar a coleção de rotas e importa-las diretamente no [Postman](https://www.postman.com/). <br>
+Para isso, verifique a seção [Postman](#rotas/postman)
+
+No mais, é preciso colocar as rotas na ferramentas de sua preferência e testar. <br>
+Você pode verificar as rotas na seção de [Documentação](#rotas/docs)
+
+Se preferir clonar o repositório, segue as seções abaixo.
+___
 
 <a name="clonando-repositorio"></a>
 
@@ -178,13 +253,13 @@ docker exec <id-do-container> npm run test:e2e
 > O teste utiliza banco em memória, não sendo necessário a env DB_URI para executalo.
 ___
 
-<a name="routes"></a>
+<a name="rotas"></a>
 
 ## 🌎 Rotas
 
 É possível testar a aplicação REST com o [Swagger](https://swagger.io/) e [Postman](https://www.postman.com/)
 
-<a name="routes/swagger"></a>
+<a name="rotas/swagger"></a>
 
 - ### Swagger
 
@@ -195,7 +270,7 @@ ___
 
   Ou se preferir, você pode acessar [Swagger Editor](https://editor.swagger.io/) e importar o arquivo [swagger.json](https://github.com/diogo-alexandre/compass-desafio-final/blob/main/swagger.json)
 
-<a name="routes/postman"></a>
+<a name="rotas/postman"></a>
 
 - ### Postman
 
@@ -203,24 +278,24 @@ ___
   Na raiz do projeto existe um arquivo [desafio-final.postman.json](https://github.com/diogo-alexandre/compass-desafio-final/blob/main/desafio-final.postman.json) <br>
   Basta importar este arquivo no postman e testar todas rotas.
 
-<a name="routes/docs"></a>
+<a name="rotas/docs"></a>
 
 - ### Documentação
 
   Você pode rodar estas rotas com [Swagger]() ou [Postman]() como citado a cima. <br>
   Porém, aqui estão todas rotas da aplicação:
 
-  - [Car](#routes/docs/car)
-  - [Rental](#routes/docs/rental)
-  - [People](#routes/docs/people)
-  - [Authenticate](#routes/docs/authenticate)
+  - [Car](#rotas/docs/car)
+  - [Rental](#rotas/docs/rental)
+  - [People](#rotas/docs/people)
+  - [Authenticate](#rotas/docs/authenticate)
 
   <br>
 
   Todas rotas tem como base a rota `/api/v1`. <br>
   Exemplo de endereço: `http://localhost:3000/api/v1/car`
 
-  <a name="routes/docs/car"></a>
+  <a name="rotas/docs/car"></a>
 
   ### Car
   <sup>Todas rotas relacionadas a entidade `car`</sup>
@@ -607,7 +682,7 @@ ___
 
   ___
 
-  <a name="routes/docs/rental"></a>
+  <a name="rotas/docs/rental"></a>
 
   ### Rental
   <sup>Todas rotas relacionadas a entidade `rental`</sup>
@@ -961,7 +1036,7 @@ ___
 
   ___
 
-  <a name="routes/docs/people"></a>
+  <a name="rotas/docs/people"></a>
 
   ### People
   <sup>Todas rotas relacionadas a entidade `People`</sup>
@@ -1023,7 +1098,7 @@ ___
   <br>
 
   ___
-  <a name="routes/docs/authenticate"></a>
+  <a name="rotas/docs/authenticate"></a>
 
   ### Authenticate
   <sup>Todas rotas relacionadas a autenticação de usuário</sup>
