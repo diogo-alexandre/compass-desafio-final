@@ -3,6 +3,7 @@ import { Schema } from 'mongoose';
 
 import Model from '../helpers/model.helper';
 import { IPeople } from '../helpers/interfaces/entities/people.interface';
+import { CPF } from '../utils/cpf-cnpj.util';
 
 const PeopleSchema = new Schema({
   nome: {
@@ -13,6 +14,7 @@ const PeopleSchema = new Schema({
     type: String,
     unique: true,
     required: true,
+    set: (value: string) => CPF(value).toStringWithDots(),
   },
   data_nascimento: {
     type: Date,

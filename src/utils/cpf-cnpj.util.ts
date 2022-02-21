@@ -28,7 +28,7 @@ export const CPF: ICPF = (cpf: string) => {
 
   return {
     toStringPlain: () => numbers + digits,
-    toStringWithDots: () => `${numbers.split(/[0-9]{3}/).filter((e) => e !== '').join('.')}-${digits}`,
+    toStringWithDots: () => `${numbers.replace(/([0-9]{3})([0-9]{3})([0-9]{3})/, '$1.$2.$3')}-${digits}`,
     isValid: () => {
       // Check if CPF only contains repeated values, exemplae: 11111111111
       if (/^(\d)\1+$/.test(numbers + digits)) {
