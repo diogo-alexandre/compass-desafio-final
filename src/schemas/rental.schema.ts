@@ -1,8 +1,9 @@
-import { model, Schema } from 'mongoose';
+import { Schema } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
+import Model from '../helpers/model.helper';
+
 import { IRental } from '../helpers/interfaces/entities/rental.interface';
-import { IPaginateModel } from '../helpers/interfaces/paginate.interface';
 import { CNPJ } from '../utils/cpf-cnpj.util';
 
 const RentalSchema = new Schema({
@@ -62,6 +63,6 @@ const RentalSchema = new Schema({
 
 RentalSchema.plugin(mongoosePaginate);
 
-const Rental = model<IRental>('Rental', RentalSchema) as IPaginateModel<IRental>;
+const Rental = Model<IRental>('Rental', RentalSchema);
 
 export default Rental;

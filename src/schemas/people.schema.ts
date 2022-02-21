@@ -1,9 +1,8 @@
 import moment from 'moment';
-import { Schema, model } from 'mongoose';
-import DuplicatedEntry from '../errors/duplicated-entry.error';
+import { Schema } from 'mongoose';
 
+import Model from '../helpers/model.helper';
 import { IPeople } from '../helpers/interfaces/entities/people.interface';
-import { IPaginateModel } from '../helpers/interfaces/paginate.interface';
 
 const PeopleSchema = new Schema({
   nome: {
@@ -46,16 +45,6 @@ const PeopleSchema = new Schema({
   toObject: { getters: true },
 });
 
-PeopleSchema.post('save', (err: any, doc: IPeople, next: Function) => {
-  if (err.name === 'MongoServerError' && err.code === 11000) {
-    const key = Object.keys(err.keyPattern)[0];
-
-    next(new DuplicatedEntry(`Already exists People with same value of ${key}`));
-  }
-
-  next();
-});
-
-const People = model<IPeople>('People', PeopleSchema) as IPaginateModel<IPeople>;
+const People = Model<IPeople>('People', PeopleSchema);
 
 export default People;

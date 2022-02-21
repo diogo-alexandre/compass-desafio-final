@@ -1,8 +1,7 @@
-import { model, Schema } from 'mongoose';
-import mongoosePagination from 'mongoose-paginate-v2';
+import { Schema } from 'mongoose';
 
+import Model from '../helpers/model.helper';
 import { ICar } from '../helpers/interfaces/entities/car.interface';
-import { IPaginateModel } from '../helpers/interfaces/paginate.interface';
 
 const CarSchema = new Schema({
   modelo: {
@@ -35,8 +34,6 @@ const CarSchema = new Schema({
   toObject: { getters: true },
 });
 
-CarSchema.plugin(mongoosePagination);
-
-const Car = model<ICar>('Car', CarSchema) as IPaginateModel<ICar>;
+const Car = Model<ICar>('Car', CarSchema);
 
 export default Car;
