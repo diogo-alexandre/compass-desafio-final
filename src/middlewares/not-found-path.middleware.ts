@@ -3,7 +3,7 @@ import NotFound from '../errors/http/not-found-error';
 import { Response } from '../helpers/interfaces/response.interface';
 
 function notFoundPath(req: Request, res: Response): void {
-  const { statusCode, details } = new NotFound(`Cannot get ${req.originalUrl}`);
+  const { statusCode, details } = new NotFound(`Cannot ${req.method} ${req.originalUrl}`);
 
   return res
     .status(statusCode)
