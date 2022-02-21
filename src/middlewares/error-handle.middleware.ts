@@ -33,8 +33,8 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   ) {
     responseError = new BadRequest(err.message);
   } else {
+    Log.error(err);
     responseError = new InternalServerError('Unexpect internal error occurred');
-    Log.error(responseError);
   }
 
   return res
