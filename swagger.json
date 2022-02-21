@@ -11,6 +11,10 @@
   },
   "servers": [
     {
+      "url": "https://compass-desafio-final.herokuapp.com/api/v1",
+      "description": "Cloud Server"
+    },
+    {
       "url": "http://localhost:3000/api/v1",
       "description": "Local host"
     }
