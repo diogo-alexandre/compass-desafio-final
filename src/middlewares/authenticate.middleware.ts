@@ -3,10 +3,9 @@ import { Middleware } from '@decorators/express';
 import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 
 import JWT from '../utils/jwt.util';
-
-import Forbidden from '../errors/http/forbidden.error';
 import BadRequest from '../errors/http/bad-request.error';
 import Unauthorized from '../errors/http/unauthorized.error';
+
 import { Response } from '../helpers/interfaces/response.interface';
 
 class Authenticate implements Middleware {
@@ -15,7 +14,8 @@ class Authenticate implements Middleware {
       const auth = req.headers.authorization;
 
       if (auth === undefined) {
-        throw new Forbidden('Bearer Token is necessary to access this route');
+        res.setHeader('WWW-Authenticate', 'Bearer');
+        throw new Unauthorized('Bearer Token is necessary to access this route');
       }
 
       const [type, token] = auth.split(' ');
