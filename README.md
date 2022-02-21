@@ -22,7 +22,7 @@
   <a href="https://www.postman.com/"><img src="https://img.shields.io/badge/Postman-2496ED?style=for-the-badge&logo=postman&logoColor=orange&color=yellow"></a>
 </p>
 
-## 📖 Indíce
+## 📖 Índice
   <ul>
     <li>
       <a href="#run">Run</a> <br>
@@ -73,7 +73,7 @@
       </li>
       <li>
         <a href="#rotas/docs">Documentação</a> <br>
-        <sup>Iniciando em modo produção.</sup>
+        <sup>Documentando todas rotas.</sup>
       </li>
       <ul>
       <li>
