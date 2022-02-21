@@ -5,10 +5,10 @@
   "engines": {
     "node": "16.14.0"
   },
-  "main": "dist/server.js",
+  "main": "dist/src/server.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/server.js",
+    "start": "node dist/src/server.js",
     "start:dev": "ts-node-dev --poll --respawn --transpile-only src/server.ts",
     "docker:up:dev": "docker-compose -f ./docker-compose.dev.yml up",
     "docker:down:dev": "docker-compose -f ./docker-compose.dev.yml down",
