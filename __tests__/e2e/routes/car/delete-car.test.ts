@@ -30,7 +30,7 @@ describe('DELETE - delete a car', () => {
     const res = await supertest(dependecies.app)
       .delete(`${path}/${_id.toString()}`);
 
-    expect(res.statusCode).toBe(403);
+    expect(res.statusCode).toBe(401);
 
     expect(res.body.name).toBe('Unauthorized');
     expect(res.body).toHaveProperty('description');

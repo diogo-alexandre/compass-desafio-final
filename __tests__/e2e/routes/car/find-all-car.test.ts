@@ -27,7 +27,7 @@ describe('GET - find all cars', () => {
     const res = await supertest(dependecies.app)
       .get(path);
 
-    expect(res.statusCode).toBe(403);
+    expect(res.statusCode).toBe(401);
 
     expect(res.body.name).toBe('unauthorized');
     expect(res.body).toHaveProperty('description');
