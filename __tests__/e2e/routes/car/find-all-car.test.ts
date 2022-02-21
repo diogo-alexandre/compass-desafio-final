@@ -29,7 +29,7 @@ describe('GET - find all cars', () => {
 
     expect(res.statusCode).toBe(401);
 
-    expect(res.body.name).toBe('unauthorized');
+    expect(res.body.name).toBe('Unauthorized');
     expect(res.body).toHaveProperty('description');
   });
 
