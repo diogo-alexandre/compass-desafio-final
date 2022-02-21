@@ -23,13 +23,13 @@ describe('GET - find car by id', () => {
     await dependecies.end();
   });
 
-  it('should throw forbidden when request without token', async () => {
+  it('should throw unauthorized when request without token', async () => {
     const res = await supertest(dependecies.app)
       .get(`${path}/${dependecies.entities.car[0]._id}`);
 
-    expect(res.statusCode).toBe(403);
+    expect(res.statusCode).toBe(401);
 
-    expect(res.body.name).toBe('Forbidden');
+    expect(res.body.name).toBe('Unauthorized');
     expect(res.body).toHaveProperty('description');
   });
 

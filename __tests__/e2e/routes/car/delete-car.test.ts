@@ -24,7 +24,7 @@ describe('DELETE - delete a car', () => {
     await dependecies.end();
   });
 
-  it('should throw forbidden when request without token', async () => {
+  it('should throw unauthorized when request without token', async () => {
     const { _id } = dependecies.entities.car.find((car) => car.modelo === 'TO DELETE ENTITY') as ICar;
 
     const res = await supertest(dependecies.app)
@@ -32,7 +32,7 @@ describe('DELETE - delete a car', () => {
 
     expect(res.statusCode).toBe(403);
 
-    expect(res.body.name).toBe('Forbidden');
+    expect(res.body.name).toBe('Unauthorized');
     expect(res.body).toHaveProperty('description');
   });
 

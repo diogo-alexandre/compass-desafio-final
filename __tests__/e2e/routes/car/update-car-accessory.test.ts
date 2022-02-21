@@ -23,14 +23,14 @@ describe('PATCH - update a car accessory', () => {
     await dependecies.end();
   });
 
-  it('should throw forbidden when request without token', async () => {
+  it('should throw unauthorized when request without token', async () => {
     const res = await supertest(dependecies.app)
       .patch(`${path}/${dependecies.entities.car[0]._id}/acessorios/${dependecies.entities.car[0].acessorios[0]._id}`)
       .send({ descricao: 'Valid description' });
 
-    expect(res.statusCode).toBe(403);
+    expect(res.statusCode).toBe(401);
 
-    expect(res.body.name).toBe('Forbidden');
+    expect(res.body.name).toBe('Unauthorized');
     expect(res.body).toHaveProperty('description');
   });
 
