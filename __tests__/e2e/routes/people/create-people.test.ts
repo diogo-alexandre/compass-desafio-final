@@ -54,12 +54,8 @@ describe('POST - create a user', () => {
 
     expect(res.statusCode).toBe(400);
 
-    expect(Array.isArray(res.body)).toBe(true);
-
-    for (let i = 0; i < res.body.length; i += 1) {
-      expect(res.body[i].name).toBe('cpf');
-      expect(res.body[i]).toHaveProperty('description');
-    }
+    expect(res.body.name).toBe('cpf');
+    expect(res.body).toHaveProperty('description');
   });
 
   it('should throw "bad request" when request with invalid "data_nascimento" field', async () => {
