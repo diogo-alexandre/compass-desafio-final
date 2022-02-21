@@ -1,9 +1,12 @@
 import express, { Express } from 'express';
+
 import Database from './database';
-import { IAppOptions } from './helpers/interfaces/app-options.interface';
-import errorHandler from './middlewares/error-handle.middleware';
 import Routes from './routes';
 import Env from './utils/env.util';
+import errorHandler from './middlewares/error-handle.middleware';
+import notFoundPath from './middlewares/not-found-path.middleware';
+
+import { IAppOptions } from './helpers/interfaces/app-options.interface';
 
 class App {
   readonly express: Express;
@@ -44,6 +47,7 @@ class App {
 
   requestErrorHandler(): void {
     this.express.use(errorHandler);
+    this.express.use('*', notFoundPath);
   }
 }
 
