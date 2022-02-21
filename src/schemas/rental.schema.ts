@@ -5,6 +5,7 @@ import Model from '../helpers/model.helper';
 
 import { IRental } from '../helpers/interfaces/entities/rental.interface';
 import { CNPJ } from '../utils/cpf-cnpj.util';
+import CEP from '../utils/cep.util';
 
 const RentalSchema = new Schema({
   nome: {
@@ -25,6 +26,7 @@ const RentalSchema = new Schema({
     cep: {
       type: String,
       required: true,
+      set: (value: string) => CEP(value).toStringWithDots(),
     },
     logradouro: {
       type: String,
