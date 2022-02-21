@@ -20,8 +20,6 @@ export class PeopleCreateValidation implements Middleware {
 
         cpf: Joi.string()
           .trim()
-          .min(11)
-          .max(11)
           .custom((value: string, helper) => {
             const message = helper.message({ custom: '"CPF" must be valid' });
             try { return CPF(value).isValid() ? value : message; } catch { return message; }

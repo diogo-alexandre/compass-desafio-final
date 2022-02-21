@@ -5,6 +5,7 @@ import { Request, Response, NextFunction } from 'express';
 import { CNPJ } from '../../utils/cpf-cnpj.util';
 import { IRentalDTO } from '../../helpers/interfaces/entities/rental.interface';
 import BadRequest from '../../errors/http/bad-request.error';
+import CEP from '../../utils/cep.util';
 
 class CreateRentalValidation implements Middleware {
   use(req: Request, res: Response, next: NextFunction): void {
@@ -30,11 +31,11 @@ class CreateRentalValidation implements Middleware {
           .items(Joi.object({
             cep: Joi.string()
               .trim()
-              .regex(/[0-9]{5}[-]?[0-9]{2}/)
-              .required()
-              .messages({
-                'string.pattern.base': '$label with value $value must be on formart: 12345-000 or 12345000',
-              }),
+              .custom((value, helper) => {
+                const message = helper.message({ custom: '"CNPJ" must be valid' });
+                try { return (CEP(value)) ? value : message; } catch { return message; }
+              })
+              .required(),
 
             number: Joi.string()
               .trim()
