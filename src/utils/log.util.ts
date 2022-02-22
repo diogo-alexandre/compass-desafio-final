@@ -6,18 +6,21 @@ enum Color {
 
   RED = '\x1b[31m',
   CYAN = '\x1b[36m',
-  BLACK = '\x1b[30m'
+  BLACK = '\x1b[30m',
+
+  RED_BRIGHT = '\x1b[31m\x1b[1m',
+
 }
 
 class Log {
-  private static base(msg: string, type?: string, color?: Color | Color[]) {
+  private static base(msg: string, type: string = '', color: Color = Color.RESET) {
     if (Env.get<boolean>('APP_LOG') === true) {
       const [now] = new Date().toTimeString().split(' ');
       const time = `${Color.BRIGHT}${Color.BLACK}${now}${Color.RESET}`;
 
-      if (type === undefined) console.log(msg);
+      if (type === '') console.log(msg);
       else {
-        type = `[${((Array.isArray(color) ? color.join('') : color)) ?? ''}${type.toLocaleUpperCase() ?? ''}${Color.RESET}]`;
+        type = `[${color}}${type.toLocaleUpperCase()}${Color.RESET}]`;
         console.log(`${type} ${time} ${msg}`);
       }
     }
@@ -28,7 +31,7 @@ class Log {
   }
 
   public static error(err: Error) {
-    this.base(`${err.name}: ${err.message}`, 'error', [Color.RED, Color.BRIGHT]);
+    this.base(`${err.name}: ${err.message}`, 'error', Color.RED_BRIGHT);
 
     if (err.stack !== undefined) {
       const stack = err.stack.split('\n');
