@@ -122,7 +122,7 @@ describe('POST - login', () => {
     const payload: any = JWT.verify(res.body.access_token);
 
     expect(payload.email).toBe('other-valid-email@mail.com');
-    expect(payload.habilitado).toBe('nao');
+    expect(payload.habilitado).toBe('sim');
 
     expect(res.body).toHaveProperty('type');
     expect(res.body.type).toBe('bearer');
