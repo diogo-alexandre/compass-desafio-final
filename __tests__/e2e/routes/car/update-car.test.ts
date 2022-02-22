@@ -282,6 +282,24 @@ describe('PUT - update a car', () => {
     expect(res.body).toHaveProperty('description');
   });
 
+  it('should throw "bad request" when request with repeated "acessorios" field', async () => {
+    const res = await supertest(dependecies.app)
+      .post(path)
+      .send({
+        modelo: 'GM S10 2.8',
+        cor: 'branco',
+        ano: '2021',
+        acessorios: [{ descricao: 'Ar-condicionado' }, { descricao: 'Ar-condicionado' }],
+        quantidadePassageiros: 5,
+      })
+      .set('Authorization', `${jwt.type} ${jwt.access_token}`);
+
+    expect(res.statusCode).toBe(400);
+
+    expect(res.body.name).toBe('acessorios,1');
+    expect(res.body).toHaveProperty('description');
+  });
+
   it('should throw "bad request" when request with invalid "quantidadePassageiros" field', async () => {
     const res = await supertest(dependecies.app)
       .put(`${path}/${dependecies.entities.car[0]._id.toString()}`)
