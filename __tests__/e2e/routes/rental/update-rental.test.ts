@@ -151,15 +151,31 @@ describe('PUT - update a rental', () => {
     expect(res.body).toHaveProperty('description');
   });
 
-  it('should throw "bad request" when request with invalid "endereco.cep" field', async () => {
+  it('should throw "bad request" when request with "endereco" field without child', async () => {
     const res = await supertest(dependecies.app)
-      .put(`${path}/${dependecies.entities.rental[0]._id.toString()}`)
+      .post(path)
+      .send({
+        nome: 'Localiza Rent a Car',
+        cnpj: '99.809.007/0001-16',
+        atividades: 'Aluguel de Carros E Gestão de Frotas',
+        endereco: [],
+      });
+
+    expect(res.statusCode).toBe(400);
+
+    expect(res.body.name).toBe('endereco');
+    expect(res.body).toHaveProperty('description');
+  });
+
+  it('should throw "bad request" when request with invalid format "endereco.cep" field', async () => {
+    const res = await supertest(dependecies.app)
+      .post(path)
       .send({
         nome: 'Localiza Rent a Car',
         cnpj: '99.809.007/0001-16',
         atividades: 'Aluguel de Carros E Gestão de Frotas',
         endereco: [{
-          cep: 'invalid cep',
+          cep: 'invalid format',
           number: '1234',
           isFilial: false,
         }],
@@ -167,7 +183,7 @@ describe('PUT - update a rental', () => {
 
     expect(res.statusCode).toBe(400);
 
-    expect(res.body.name).toBe('endereco,0,cep');
+    expect(res.body.name).toBe('Bad Request');
     expect(res.body).toHaveProperty('description');
   });
 

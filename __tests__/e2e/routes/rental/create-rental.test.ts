@@ -49,12 +49,32 @@ describe('POST - create a rental', () => {
     expect(res.body).toHaveProperty('description');
   });
 
-  it('should throw "bad request" when request with invalid cnpj field', async () => {
+  it('should throw "bad request" when request with invalid format cnpj field', async () => {
     const res = await supertest(dependecies.app)
       .post(path)
       .send({
         nome: 'Localiza Rent a Car',
         cnpj: 'invalid-cnpj',
+        atividades: 'Aluguel de Carros E Gestão de Frotas',
+        endereco: [{
+          cep: '96200-200',
+          number: '1234',
+          isFilial: false,
+        }],
+      });
+
+    expect(res.statusCode).toBe(400);
+
+    expect(res.body.name).toBe('cnpj');
+    expect(res.body).toHaveProperty('description');
+  });
+
+  it('should throw "bad request" when request with invalid cnpj field', async () => {
+    const res = await supertest(dependecies.app)
+      .post(path)
+      .send({
+        nome: 'Localiza Rent a Car',
+        cnpj: '10011678000100',
         atividades: 'Aluguel de Carros E Gestão de Frotas',
         endereco: [{
           cep: '96200-200',
@@ -113,7 +133,7 @@ describe('POST - create a rental', () => {
         cnpj: '99.809.007/0001-16',
         atividades: 'Aluguel de Carros E Gestão de Frotas',
         endereco: [{
-          cep: 'invalid cep',
+          cep: 'invalid format',
           number: '1234',
           isFilial: false,
         }],
@@ -121,7 +141,27 @@ describe('POST - create a rental', () => {
 
     expect(res.statusCode).toBe(400);
 
-    expect(res.body.name).toBe('endereco,0,cep');
+    expect(res.body.name).toBe('Bad Request');
+    expect(res.body).toHaveProperty('description');
+  });
+
+  it('should throw "bad request" when request with invalid "endereco.cep" field', async () => {
+    const res = await supertest(dependecies.app)
+      .post(path)
+      .send({
+        nome: 'Localiza Rent a Car',
+        cnpj: '99.809.007/0001-16',
+        atividades: 'Aluguel de Carros E Gestão de Frotas',
+        endereco: [{
+          cep: '00000-000',
+          number: '1234',
+          isFilial: false,
+        }],
+      });
+
+    expect(res.statusCode).toBe(400);
+
+    expect(res.body.name).toBe('Bad Request');
     expect(res.body).toHaveProperty('description');
   });
 

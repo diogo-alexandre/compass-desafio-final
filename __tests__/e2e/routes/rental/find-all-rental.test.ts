@@ -224,11 +224,24 @@ describe('GET - find all rentals', () => {
     expect(res.body).toHaveProperty('description');
   });
 
-  it('should throw "bad request" when request with invalid "cnpj" field', async () => {
+  it('should throw "bad request" when request with invalid format "cnpj" field', async () => {
     const res = await supertest(dependecies.app)
       .get(path)
       .query({
         cnpj: 'invalid-field',
+      });
+
+    expect(res.statusCode).toBe(400);
+
+    expect(res.body.name).toBe('cnpj');
+    expect(res.body).toHaveProperty('description');
+  });
+
+  it('should throw "bad request" when request with invalid "cnpj" field', async () => {
+    const res = await supertest(dependecies.app)
+      .get(path)
+      .query({
+        cnpj: '10011678000100',
       });
 
     expect(res.statusCode).toBe(400);
