@@ -15,6 +15,11 @@ describe('POST - create a user', () => {
     await dependecies.end();
   });
 
+  it('saved entity should return "sim" | "nao" on "habilitado" field', async () => {
+    expect(dependecies.entities.people[0].habilitado).toBe('sim');
+    expect(dependecies.entities.people[1].habilitado).toBe('nao');
+  });
+
   it('should throw "bad request" when request without body request', async () => {
     const res = await supertest(dependecies.app).post(path).send({});
 
