@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { Schema } from 'mongoose';
 
 import Model from '../helpers/model.helper';
@@ -19,7 +18,6 @@ const PeopleSchema = new Schema({
   data_nascimento: {
     type: Date,
     required: true,
-    get: (value: Date) => moment(value).format('DD/MM/YYYY'),
   },
   email: {
     type: String,
