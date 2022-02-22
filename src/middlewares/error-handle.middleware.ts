@@ -12,7 +12,7 @@ import InvalidCEP from '../errors/invalid-cep.error';
 import InvalidCNPJ from '../errors/invalid-cnpj.error';
 import InvalidCPF from '../errors/invalid-cpf.error';
 import InvalidPasswordError from '../errors/invalid-password.error';
-import Log from '../utils/log.helper';
+import Log from '../utils/log.util';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {

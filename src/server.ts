@@ -1,6 +1,6 @@
 import App from './App';
 import Env from './utils/env.util';
-import Log from './utils/log.helper';
+import Log from './utils/log.util';
 
 async function main(): Promise<void> {
   const app = await App.init({
