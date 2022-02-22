@@ -42,10 +42,26 @@ describe('POST - create a user', () => {
     expect(res.body).toHaveProperty('description');
   });
 
-  it('should throw "bad request" when request with invalid "cpf" field', async () => {
+  it('should throw "bad request" when request with invalid format "cpf" field', async () => {
     const res = await supertest(dependecies.app).post(path).send({
       nome: 'valid-name',
       cpf: 'invalid-cpf-field',
+      data_nascimento: '23/02/2002',
+      email: 'valid-email@gmail.com',
+      senha: 'valid-password',
+      habilitado: 'sim',
+    });
+
+    expect(res.statusCode).toBe(400);
+
+    expect(res.body.name).toBe('cpf');
+    expect(res.body).toHaveProperty('description');
+  });
+
+  it('should throw "bad request" when request with invalid "cpf" field', async () => {
+    const res = await supertest(dependecies.app).post(path).send({
+      nome: 'valid-name',
+      cpf: '97238913000',
       data_nascimento: '23/02/2002',
       email: 'valid-email@gmail.com',
       senha: 'valid-password',
