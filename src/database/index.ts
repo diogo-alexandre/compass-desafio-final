@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import Env from '../utils/env.util';
-import Log from '../utils/log.helper';
+import Log from '../utils/log.util';
 
 class Database {
   static async init(uri: string = Env.get<string>('DB_URI')): Promise<typeof mongoose> {

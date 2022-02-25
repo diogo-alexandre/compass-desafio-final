@@ -18,12 +18,7 @@ function clearObject <T>(obj: any): T {
             result[key] = r;
           }
         } else if (Array.isArray(obj[key])) {
-          obj[key] = obj[key].map((v: any) => clearObject(v)).filter((v: any) => {
-            if (typeof v === 'object' && Object.keys(v).length > 0) {
-              return true;
-            }
-            return false;
-          });
+          obj[key] = obj[key].map((v: any) => clearObject(v)).filter((v: any) => (typeof v === 'object' && Object.keys(v).length > 0));
 
           if (obj[key].length > 0) {
             result[key] = obj[key];

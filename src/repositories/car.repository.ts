@@ -23,15 +23,20 @@ class CarRepository implements ICarRepository {
     limit: number,
     offset: number,
   ): Promise<IPaginateResult<ICar>> {
-    const filter = {
+    const filter: { $and: Array<any> } = {
       $and: [clearObject<Partial<ICar>>({
         modelo: new RegExp(query.modelo ?? '', 'i'),
         cor: query.cor,
         ano: query.ano,
-        acessorios: { $in: query.acessorios?.map((descricao) => ({ descricao })) },
         quantidadePassageiros: query.quantidadePassageiros,
       })],
     };
+
+    query.acessorios?.forEach((descricao, index) => {
+      filter.$and[index] = {
+        acessorios: { $elemMatch: { descricao } },
+      };
+    });
 
     const options = clearObject<IPaginateOptions>({ limit, offset });
 

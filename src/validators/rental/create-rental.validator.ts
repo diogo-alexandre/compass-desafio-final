@@ -31,9 +31,12 @@ class CreateRentalValidation implements Middleware {
           .items(Joi.object({
             cep: Joi.string()
               .trim()
-              .custom((value, helper) => {
-                const message = helper.message({ custom: '"CNPJ" must be valid' });
-                try { return (CEP(value)) ? value : message; } catch { return message; }
+              .custom(async (value, helper) => {
+                const message = helper.message({ custom: '"CEP" must be valid' });
+                try {
+                  CEP(value);
+                  return value;
+                } catch { return message; }
               })
               .required(),
 

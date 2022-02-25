@@ -77,6 +77,29 @@ describe('GET - find all rentals', () => {
     expect(res.body.total).toBe(1);
   });
 
+  it('should filter by "atividades" field work', async () => {
+    const res = await supertest(dependecies.app)
+      .get(path)
+      .query({ atividades: 'Aluguel de Carros E Gestão de Frotas' });
+
+    expect(res.statusCode).toBe(200);
+
+    for (let i = 0; i < res.body.locadoras.length; i += 1) {
+      const rental = res.body.locadoras[i];
+      const rentalDB = dependecies.entities.rental[i];
+
+      expect(rental._id).toBe(rentalDB._id.toString());
+    }
+
+    expect(res.body).toHaveProperty('locadoras');
+    expect(res.body.locadoras.length).toBe(3);
+
+    expect(res.body.locadoras[0]._id).toBe(dependecies.entities.rental[0]._id.toString());
+
+    expect(res.body).toHaveProperty('total');
+    expect(res.body.total).toBe(3);
+  });
+
   it('should filter by "endereco.cep" field work', async () => {
     const res = await supertest(dependecies.app)
       .get(path)
@@ -201,11 +224,24 @@ describe('GET - find all rentals', () => {
     expect(res.body).toHaveProperty('description');
   });
 
-  it('should throw "bad request" when request with invalid "cnpj" field', async () => {
+  it('should throw "bad request" when request with invalid format "cnpj" field', async () => {
     const res = await supertest(dependecies.app)
       .get(path)
       .query({
         cnpj: 'invalid-field',
+      });
+
+    expect(res.statusCode).toBe(400);
+
+    expect(res.body.name).toBe('cnpj');
+    expect(res.body).toHaveProperty('description');
+  });
+
+  it('should throw "bad request" when request with invalid "cnpj" field', async () => {
+    const res = await supertest(dependecies.app)
+      .get(path)
+      .query({
+        cnpj: '10011678000100',
       });
 
     expect(res.statusCode).toBe(400);

@@ -15,11 +15,9 @@ function Model <T>(name: string, schema: Schema): IPaginateModel<T> {
 
         return next(new DuplicatedEntry(`Already exists ${name} with ${key} = "${value}" `));
       }
-
-      return next(err);
     }
 
-    return next();
+    return next(err);
   });
 
   return model<T>(name, schema) as IPaginateModel<T>;

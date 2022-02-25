@@ -1,9 +1,11 @@
 import App from './App';
 import Env from './utils/env.util';
-import Log from './utils/log.helper';
+import Log from './utils/log.util';
 
 async function main(): Promise<void> {
-  const app = await App.init();
+  const app = await App.init({
+    log: true,
+  });
   const port = Env.get<string>('PORT') ?? 3000;
 
   app.listen(port, () => {

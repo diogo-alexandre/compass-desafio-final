@@ -227,13 +227,13 @@ ___
 ## 🧪 Executando Testes
 
 A aplicação utiliza de testes de `feature` para testar a integridade da aplicação. <br>
-A cobertura atual é de `90%`.
+A cobertura atual é de `100%`.
 
-<img src="https://i.imgur.com/hFEENBP.jpg"/>
+<img src="https://i.imgur.com/FM6yiQv.jpg"/>
 
 Você pode testar a aplicação com o comando:
 ```bash
-npm run test:e2e
+npm run test
 ```
 
 Caso queira utilizar o Docker para fazer o teste, é necessário iniciá-lo primeiro. <br>
@@ -247,7 +247,7 @@ docker ps
 
 Em seguida, você deve rodar o comando de teste dentro do container:
 ```bash
-docker exec <id-do-container> npm run test:e2e
+docker exec <id-do-container> npm run test
 ```
 
 > O teste utiliza banco em memória, não sendo necessário a env DB_URI para executalo.

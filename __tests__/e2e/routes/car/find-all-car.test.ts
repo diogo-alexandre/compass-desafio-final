@@ -101,6 +101,70 @@ describe('GET - find all cars', () => {
     expect(res.body.offsets).toBe(1);
   });
 
+  it('should sucess when filter "modelo" field', async () => {
+    const res = await supertest(dependecies.app)
+      .get(path)
+      .query({
+        modelo: 'GM S10 2.8',
+      })
+      .set('Authorization', `${jwt.type} ${jwt.access_token}`);
+
+    expect(res.statusCode).toBe(200);
+
+    expect(res.body).toHaveProperty('veiculos');
+    expect(Array.isArray(res.body.veiculos)).toBe(true);
+
+    const veiculo = res.body.veiculos[0];
+    const veiculoDB = dependecies.entities.car[0];
+
+    expect(veiculo._id).toBe(veiculoDB._id.toString());
+
+    expect(res.body).toHaveProperty('total');
+    expect(res.body.total).toBe(1);
+
+    expect(res.body).toHaveProperty('limit');
+    expect(res.body.limit).toBe(10);
+
+    expect(res.body).toHaveProperty('offset');
+    expect(res.body.offset).toBe(1);
+
+    expect(res.body).toHaveProperty('offsets');
+    expect(res.body.offsets).toBe(1);
+  });
+
+  it('should sucess when filter "acessorio" field', async () => {
+    const res = await supertest(dependecies.app)
+      .get(path)
+      .query({
+        'acessorios[]': 'Ar-condicionado',
+      })
+      .set('Authorization', `${jwt.type} ${jwt.access_token}`);
+
+    expect(res.statusCode).toBe(200);
+
+    expect(res.body).toHaveProperty('veiculos');
+    expect(Array.isArray(res.body.veiculos)).toBe(true);
+
+    for (let i = 0; i < res.body.veiculos.length; i += 1) {
+      const veiculo = res.body.veiculos[i];
+      const veiculoDB = dependecies.entities.car[i];
+
+      expect(veiculo._id).toBe(veiculoDB._id.toString());
+    }
+
+    expect(res.body).toHaveProperty('total');
+    expect(res.body.total).toBe(2);
+
+    expect(res.body).toHaveProperty('limit');
+    expect(res.body.limit).toBe(10);
+
+    expect(res.body).toHaveProperty('offset');
+    expect(res.body.offset).toBe(1);
+
+    expect(res.body).toHaveProperty('offsets');
+    expect(res.body.offsets).toBe(1);
+  });
+
   it('should throw "bad request" when request with invalid "ano" field', async () => {
     const res = await supertest(dependecies.app)
       .get(path).query({

@@ -19,13 +19,8 @@ class App {
     this.requestErrorHandler();
   }
 
-  static async init(options: IAppOptions = {}): Promise<Express> {
+  static async init(options: IAppOptions): Promise<Express> {
     const app = new App();
-
-    options = {
-      log: true,
-      ...options,
-    };
 
     Object.keys(options).forEach((key) => {
       Env.set(key.includes('_') ? key : `app_${key}`, options[key as keyof IAppOptions]);

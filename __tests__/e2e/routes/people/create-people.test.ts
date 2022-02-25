@@ -15,6 +15,11 @@ describe('POST - create a user', () => {
     await dependecies.end();
   });
 
+  it('saved entity should return "sim" | "nao" on "habilitado" field', async () => {
+    expect(dependecies.entities.people[0].habilitado).toBe('sim');
+    expect(dependecies.entities.people[1].habilitado).toBe('nao');
+  });
+
   it('should throw "bad request" when request without body request', async () => {
     const res = await supertest(dependecies.app).post(path).send({});
 
@@ -42,7 +47,7 @@ describe('POST - create a user', () => {
     expect(res.body).toHaveProperty('description');
   });
 
-  it('should throw "bad request" when request with invalid "cpf" field', async () => {
+  it('should throw "bad request" when request with invalid format "cpf" field', async () => {
     const res = await supertest(dependecies.app).post(path).send({
       nome: 'valid-name',
       cpf: 'invalid-cpf-field',
@@ -54,12 +59,24 @@ describe('POST - create a user', () => {
 
     expect(res.statusCode).toBe(400);
 
-    expect(Array.isArray(res.body)).toBe(true);
+    expect(res.body.name).toBe('cpf');
+    expect(res.body).toHaveProperty('description');
+  });
 
-    for (let i = 0; i < res.body.length; i += 1) {
-      expect(res.body[i].name).toBe('cpf');
-      expect(res.body[i]).toHaveProperty('description');
-    }
+  it('should throw "bad request" when request with invalid "cpf" field', async () => {
+    const res = await supertest(dependecies.app).post(path).send({
+      nome: 'valid-name',
+      cpf: '97238913000',
+      data_nascimento: '23/02/2002',
+      email: 'valid-email@gmail.com',
+      senha: 'valid-password',
+      habilitado: 'sim',
+    });
+
+    expect(res.statusCode).toBe(400);
+
+    expect(res.body.name).toBe('cpf');
+    expect(res.body).toHaveProperty('description');
   });
 
   it('should throw "bad request" when request with invalid "data_nascimento" field', async () => {
